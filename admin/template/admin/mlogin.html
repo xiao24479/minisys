@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta name="viewport" content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=no;"/>
+<title>登陆系统</title>
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script type="text/javascript" src="/_ext/script/asyncbox/AsyncBox.v1.4.js"></script>
+<script type="text/javascript">
+
+function showMsg(msg){
+　asyncbox.alert(msg);
+}
+function checklogin(){
+   var name = document.getElementById("login_name").value;
+   var password =document.getElementById("login_passwd").value;
+   if(name=="" || password==""){
+      showMsg("用户名或密码不能为空");
+	  return false;
+   }else{
+      return true;
+   }
+}
+
+</script>
+
+
+</head>
+<body>
+<div id="login">
+	<div class="info">
+	    <h1>{$SYS_NAME} {$p1}</h1>
+	</div>
+	<div class="contends">
+	<div class="title">登录账户</div>
+		<div class="clear"></div>
+		<form id="getPwsForm" method="post" action="main.php?m=admin&a=register">
+		<input type="hidden" name="login" value="login"/>
+		</form>
+		<form id="getPwsForm" method="post" action="main.php?m=admin&a=mloginAction&code=al" onsubmit="return checklogin()">
+<input type="hidden" name="from" id="from" value="{$from}" />
+		<span class="span"><label>账户:</label> <input type="text" name="login_name" id="login_name" class="input" maxlength="15" ></span>		<br/>
+		<span class="span"><label>密码:</label><input type="password" name="login_passwd" id="login_passwd"  class="input" maxlength="15" ></span><br/>
+		<span class="span" style="padding-left:155px;">
+		  <input id="imageField2"  class="submit" type="submit" value="登录系统" /> {if $errormsg}<strong>提示</strong>：{$errormsg}{/if} 
+		</span>
+	  </form>
+	  <div class="bor"></div>
+	</div>
+</div>
+</body>
+</html>

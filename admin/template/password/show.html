@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>修改密码</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" media="all" href="/_ext/calendar/calendar-blue.css">
+<script type="text/javascript" src="/_ext/calendar/calendar.js"></script>
+<script type="text/javascript" src="/_ext/calendar/calendar-cn.js"></script>
+<script type="text/javascript" src="/_ext/calendar/calendar-setup.js"></script>
+<link href="/_ext/script/asyncbox/skins/ZCMS/asyncbox.css" type="text/css" rel="stylesheet" />
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script type="text/javascript" src="/_ext/script/asyncbox/AsyncBox.v1.4.js"></script>
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<style type="style/css">
+.table-responsive {
+   padding:10px;
+}
+</style>
+<script language="javascript">
+function pwd_save(id){
+var new_pwd   = document.getElementById("new_pwd").value;
+var new_pwd_a    = document.getElementById("new_pwd_a").value;
+if(new_pwd.trim()==''){
+
+  $.tips('新密码不能为空','error');
+  return ;
+}else if (new_pwd != new_pwd_a){
+  
+  $.tips('两次输入密码不同','error');
+  return ;
+}else{
+		$.ajax({
+		    url:"main.php",
+		    type:"get",
+		    dataType:"json",
+		    data:{m:"rights",a:"pwd_change_action",new_pwd:new_pwd,id:id,j:1,tt:Math.random()},
+		    success:function(resp){
+				if(resp.message=='ok'){
+					$.tips('修改成功');
+				}else{
+					$.tips('修改失败','error');
+				}
+		    }
+		}); 
+}
+}
+
+String.prototype.trim= function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");  
+}
+</script>
+</head>
+<body>
+ <div class="col-md-6">
+  <!--   Kitchen Sink -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            密码修改
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive" style="padding:10px;">
+                 <div class="form-group">
+                    <label>用户名：</label>
+                   <font class="null_text"> {$admin_name}</font>
+                </div>
+				<div class="form-group">
+                    <label>输入新密码</label>&nbsp;密码必须由数字英文组合，且不能少于6位数！
+                    <input class="form-control" name="new_pwd" type="password" id="new_pwd">
+                </div>
+				<div class="form-group">
+                    <label>再次输入密码</label>
+                    <input class="form-control" name="new_pwd_a" type="password" id="new_pwd_a">
+                </div>
+				   <input  onClick="javascript:pwd_save({$admin_id});" type="submit" class="btn btn-default" value="提交">
+            </div>
+        </div>
+    </div>
+	
+     <!-- End  Kitchen Sink -->
+</div>
+</body>
+</html>

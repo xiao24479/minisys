@@ -1,0 +1,28 @@
+<thead>
+    <tr>
+        <th width="40%"><a href="javascript: wechat_action(1, 'name', '{$order_style}');">名字</a></th>
+        <th width="20%"><a href="javascript: wechat_action(1, 'flow_count', '{$order_style}');">流量</a></th>
+        <th width="20%"><a href="javascript: wechat_action(1, 'msg_count', '{$order_style}');">对话</a></th>
+        <th width="20%"><a href="javascript: wechat_action(1, 'order_count', '{$order_style}');">预约</a></th>
+    </tr>
+</thead>
+<tbody >
+	{foreach from=$wechat_stats item=list}
+		<tr>
+			<td>{$list.name}</td>
+			<td>{$list.flow_count}</td>
+			<td>{$list.msg_count}</td>
+			<td>{$list.order_count}</td>
+		</tr>
+	{/foreach}
+	<tr style="text-align: center;">
+		<td colspan="4">
+			{if $wechat_stats}
+				{$page}
+			{else}
+				没有数据
+			{/if}
+		</td>
+	</tr>	
+</tbody>
+

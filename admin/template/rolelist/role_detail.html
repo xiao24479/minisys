@@ -1,0 +1,114 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+
+
+
+function role_detail_save(role_id){
+	var rname   = document.getElementById('r_name').value;
+	var desc    = document.getElementById('desc').value;
+	var project = document.getElementById('project').value;
+	var state   = document.getElementById('state').value;
+	//hidden
+	var pro     = document.getElementById('pro').value;
+	var rolename= document.getElementById('rolename').value;
+    
+	if(rname.trim()==''){
+		alert('角色名称不能为空！');
+		document.getElementById('r_name').focus();
+	}else if(project.trim()==''){
+	    alert('项目名称不能为空！');
+		document.getElementById('project').focus();
+    }else{
+		$.ajax({
+			url:"main.php",
+			type:"get",
+			dataType:"json",
+			data:{m:"roleList",a:"role_detail_save",role_id:role_id,rname:rname,desc:desc,state:state,project:project,rolename:rolename,pro:pro,j:1,tt:Math.random()},
+			success:function(resp){
+				if(resp.message=='ok'){
+					get_role_all();
+					alert('成功保存！');
+				}else if(resp.message=='has'){
+					alert('角色名称匹配项目已经存在');
+					return ;
+				}
+			}
+		});
+	}
+
+}
+String.prototype.trim= function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");  
+}
+</script>
+</head>
+<body>
+
+<!--<DIV class="form" style="width:400px;">
+	<DL>
+		<dt class="form-title"><strong>角色修改</strong></dt>
+
+		<dd>
+		 <div class="div"><strong>角色名称:</strong><input name="r_name" type="text" value="{$role_info.name}" id="r_name" class="input" size="20" maxlength="20"><input type="hidden" name="rolename" id="rolename"  value="{$role_info.name}"/><strong class="red">*</strong></div>
+		 <div class="div"><strong>角色描述:</strong><input name="desc" type="text" id="desc" size="40" maxlength="40" value="{$role_info.comment}"  class="input"></div>
+		 <div class="div"><strong>项目名称:</strong><input type="hidden" name="pro" id="pro"  value="{$role_info.project}"/><input name="project" type="text" id="project" size="20" maxlength="20"  value="{$role_info.project}" class="input"><strong class="red">*</strong></div>
+		 <div class="div"><strong>是否有效:</strong><select name="state" id="state">
+        <option value="1" {if $role_info.available=="1"} selected {/if}>有效</option>
+        <option value="0" {if $role_info.available=="0"} selected {/if}>无效</option>
+      </select></div>
+		 <div class="div_submit"><input onClick="javascript:role_detail_save({$role_info.id});" class="submit"  style=" width:73px; margin-left:85px;"value="确定修改" type="submit"></div>
+		</dd>
+		
+		
+	</DL>
+</DIV>-->
+      <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            角色修改
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                   
+                                        <div class="form-group">
+                                            <label>角色名称</label>
+                                            <input class="form-control" name="r_name" type="text" id="r_name" value="{$role_info.name}">
+											<input type="hidden" name="rolename" id="rolename"  value="{$role_info.name}"/>
+                                        </div>
+										<div class="form-group">
+                                            <label>角色描述</label>
+                                            <input class="form-control" name="desc" type="text" id="desc" value="{$role_info.comment}">
+                                        </div>
+										<div class="form-group">
+                                            <label>项目名称</label>
+                                            <input class="form-control" name="project" type="text" id="project" value="{$role_info.project}">
+											<input type="hidden" name="pro" id="pro"  value="{$role_info.project}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>是否有效</label>
+                                            <select class="form-control" name="state" id="state">
+                                                <option value="1" {if $role_info.available=="1"} selected {/if}>有效</option>
+                                                <option value="0" {if $role_info.available=="0"} selected {/if}>无效</option>
+                                            </select>
+                                        </div>
+                                       
+                                        <input  onClick="javascript:role_detail_save({$role_info.id});" type="submit" class="btn btn-default" value="确认修改">
+                                   
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+</body>
+</html>

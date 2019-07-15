@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>发布新消息</title>
+		<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+        <script language="JavaScript" src="/_ext/script/jquery.js"></script>
+        <script language="JavaScript" src="/_ext/script/ext_common.js"></script>
+        <script type="text/javascript">
+        function sendMessCheck() {
+			var title = $("#title").val();
+			var content = $("#content").val();
+			if(title.trim()=="") {
+				alert("标题不能为空.");
+				return false;
+			}
+			if(content.trim()=="") {
+				alert("内容不能为空.");
+				return false;
+			}
+		}
+        </script>
+	</head>
+	<body>
+		<form action="main.php?m=admin&a=sendMess" method="post" onSubmit="return sendMessCheck();">
+			<input type="hidden" name="dopost" value="send" />
+			<div class="form">
+				<dl>
+					<dt>
+					<div class="form-title"><strong>消息栏</strong></div>
+					</dt>
+					<dd class="contends" style="padding:10px;">
+						<div>
+							<div class="form" style="width:400px;">
+								<dl>
+									<dt class="form-title"><strong>发布新消息</strong></dt>
+									<dd>
+										<div class="div"><strong>角色:</strong>
+											<select name="role_id" class="input" id="role_id">
+												{foreach from=$roleData item=r}
+												<option value="{$r.id}">{$r.name}</option>
+												{/foreach}
+											</select>
+											<strong class="red">*</strong>
+										</div>
+										<div class="div"><strong>标题:</strong>
+											<input name="title" type="text" id="title" size="20" class="input" />
+											<strong class="red">*</strong>
+										</div>
+										<div class="div">
+											<strong>内容:</strong>
+											<textarea class="input" style="width:300px; height:50px;" id="content" name="content"></textarea>
+											<strong class="red">*</strong>
+										</div>
+									</dd>
+								</dl>
+							</div>
+						</div>
+
+						<div align="left">
+							<input name="tijiao" type="submit" class="input" id="tijiao" value=" 提交 "/>
+							<input name="fan" type="button" class="input" id="fan" value=" 返回 "  onClick="window.location='main.php?m=admin&a=myinfo'"/>
+						</div>
+					</dd>
+				</dl>
+			</div>
+		</form>
+	</body>
+</html>

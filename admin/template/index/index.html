@@ -1,0 +1,135 @@
+ <div id="page-inner">
+
+                <div class="row">
+				
+                    <div class="col-md-4 col-sm-12 col-xs-12  " >
+                        <div class=" panel-primary text-center  bg-color-green  panel no-boder"  style="margin-bottom: 0px;">
+                            <div class="panel-left pull-left green">
+                                <i class="fa fa fa-comments  fa-5x"></i>
+                                	
+                            </div>
+                            <div class="panel-right"  > 
+							<h3>本月流量&nbsp;</h3>
+                               <h4 style="font-size:25px;">{if $month_data.liuliang}{$month_data.liuliang}{else}0{/if}</h4>
+                            </div>
+                        </div> 
+                    
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12 " >
+                        <div class=" panel-primary text-center  bg-color-blue panel no-boder"  style="margin-bottom: 0px;">
+                              <div class="panel-left pull-left blue">
+                                <i class="glyphicon glyphicon-phone-alt fa-5x"></i>
+								</div>
+                                 
+                            <div class="panel-right " >
+								<h3>本月对话&nbsp; </h3>
+								<h4 style="font-size:25px;"><a href="javascript:request_url('/chat/main.php?m=smallprogram&a=message',1);">{if $month_data.duihua}{$month_data.duihua}{else}0{/if}</a></h4>
+
+                            </div>
+                        </div>
+                         
+                       
+				
+                    </div>
+                       <div class="col-md-4 col-sm-12 col-xs-12 " >
+                        <div class=" panel-primary text-center  bg-color-blue panel no-boder"  style="margin-bottom: 0px;">
+                              <div class="panel-left pull-left red">
+                                <i class="glyphicon glyphicon-list-alt fa-5x"></i>
+								</div>
+                                 
+                            <div class="panel-right " >
+								<h3>留言预约&nbsp; </h3>
+								<h4 style="font-size:25px;"><a href="javascript:request_url('/chat/main.php?m=order&a=order_list',1);">{if $month_data.yuyue}{$month_data.yuyue}{else}0{/if}</a></h4>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                        
+				 </div>
+	
+				<div class="row" style="margin-top:10px;">
+		
+					<div class="col-md-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+						本月走势图
+							</div>
+							<div class="panel-body">
+								<div id="morris-line-chart"></div>
+							</div>
+						</div>  
+					</div>
+				</div> 
+				<div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                           	本月数据统计
+                            </div> 
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="wechat_data">
+                                    	
+                                    	
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				
+<script src="/admin/assets/js/g2.min.js"></script>
+<script src="/admin/assets/js/data-set.min.js"></script>
+<script>
+	var data = [{$dayt_data2}];
+	var chart = new G2.Chart({
+	  container: 'morris-line-chart',
+	  forceFit: true,
+	  height:500
+	});
+	chart.source(data, {
+	  year: {
+	    type: 'linear',
+	    tickInterval: 1
+	  }
+	});
+	chart.tooltip({
+	  crosshairs: {
+	    type: 'line'
+	  }
+	});
+	chart.areaStack().position('year*value').color('country');
+	chart.lineStack().position('year*value').color('country').size(2);
+	chart.render();
+	
+	function wechat_action(p, column, style) {
+		$.ajax({
+			type:"get",
+			url:"main.php",
+			dataType: 'json',
+			data: {
+				m: 'index',
+				a: 'wechat_action',
+				p:p,
+				column:column,
+				style:style,
+		    	j:1,
+		    	tt:Math.random()
+			},
+			success: function(res) {
+				$('#wechat_data').html(res.content);
+			}
+		});
+	}
+	wechat_action(1);
+</script>
+				
+				
+			
+			
+		
+		
+
+
+			  

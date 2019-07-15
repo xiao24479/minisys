@@ -1,0 +1,227 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script language="JavaScript" src="/_ext/dialog/dialog.js"></script>
+<script language="JavaScript" src="/admin/assets/daterangepicker/daterangepicker.js"></script>
+<script language="JavaScript" src="/admin/assets/daterangepicker/moment.js"></script> 
+
+<link href="/_ext/dialog/dialog.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/admin/assets/daterangepicker/daterangepicker.css" media="all">
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+
+
+function index(p){
+	var date = $('#start_date').val(),
+		region = $('#region').val(),
+		city = $('#city').val(),
+		level = $('#level').val();
+
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{
+	    	m:"vistor",
+	    	a:"index",
+	    	p:p,
+	    	date:date,
+	    	region:region,
+	    	city:city,
+	    	level:level,
+	    	j:1,
+	    	tt:Math.random()
+	    },
+	    success:function(resp){
+	      $("#page-wrapper").html(resp.content);
+	    }
+	});
+}
+
+
+function set_date(start_time){
+	var day  = new Date();
+	var days =day.getDate();
+	days = days - 1;
+
+	$('#'+start_time).daterangepicker({
+	    ranges: {
+	        '本月': [moment().subtract(+days,'days'), moment()],
+	        '今天': [moment(), moment()],
+	        '昨天': [moment().subtract(+1, 'days'), moment().subtract(+1, 'days')],
+	        '过去一周': [moment().subtract(+6, 'days'),moment()],
+	        '过去一月': [moment().subtract(+30, 'days'),moment()],
+	        '过去一年': [moment().subtract(+365, 'days'),moment()]
+	    }
+	    
+	},function(start, end,label) {
+	    	//label:通过它来知道用户选择的是什么，传给后台进行相应的展示
+	 		console.log(label)
+		    if(label=='本月'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }else if(label=='今天'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD'));
+		    }else if(label=='昨天'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }else if(label=='过去一周'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }else if(label=='过去一月'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }else if(label=='过去一年'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }
+	});
+}
+
+
+function check_vistor(id){ 
+	$.ajax({ 
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+		data:{m:"vistor",a:"check_vistor",j:1,id:id,tt:Math.random()},
+	    success:function(resp){
+	    	dialog('查看对话信息',resp.content,700,600);  
+		 }
+	});
+}
+
+
+function setCity(value){
+	$.ajax({ 
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+		data:{m:"vistor",a:"select_city",j:1,region:value,tt:Math.random()},
+	    success:function(resp){
+	    	$('#city').html(resp.content);
+		 }
+	});
+}
+
+
+function edit_vistor(id){
+	$.ajax({ 
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+		data:{m:"vistor",a:"edit_vistor",j:1,id:id,tt:Math.random()},
+	    success:function(resp){
+	    	dialog('备注访客信息',resp.content,400,300);  
+		}
+	});
+}
+
+
+</script>
+<style type="text/css">
+	.spanzz{
+		float:left;margin:20px 5px 15px 15px;
+	}
+	.inputzz{
+		width:180px;float:left;margin:15px 0;
+	}
+	#modify-msg {
+		margin-left: 5px;
+	}
+</style>
+</head>
+<body>
+    <div class="col-md-12">
+      <!--   Kitchen Sink -->
+        <div class="panel panel-default">
+        	<div class="panel-heading">
+        		
+                <div >对话统计</div>
+				<span class="spanzz" style="margin-left:0px;">选择时间:</span>
+				<input type="text" class="form-control inputzz" id="start_date" name="start_date" value="{$add_time} - {$end_time}" style="width:210px;" onfocus="set_date('start_date');"/>
+				
+				<span class="spanzz">省份:</span>
+				<select class="form-control inputzz" id="region" onchange="javascript:setCity(this.value);">
+				   <option value="">选择</option>
+				   {foreach from=$region_list item=list}
+				 	{if $list.region}
+					      <option value="{$list.region}" {if $list.region == $region}selected="selected"{/if}>{$list.region}</option>
+					{/if}      
+				   {/foreach}
+				</select>
+				
+				<span class="spanzz">地市:</span>
+				<select class="form-control inputzz" id="city">
+				   <option value="">选择</option>
+				   {foreach from=$city_list item=list}
+				      <option value="{$list.city}" {if $list.city == $city}selected="selected"{/if}>{$list.city}</option>
+				   {/foreach}
+				</select>
+				
+				<span class="spanzz">对话级别:</span>
+				<select class="form-control inputzz" id="level">
+				   <option value="">选择</option>
+				   <option value="1" {if $level == 1}selected="selected"{/if}>一般对话</option>
+				   <option value="2" {if $level == 2}selected="selected"{/if}>普通对话</option>
+				   <option value="3" {if $level == 3}selected="selected"{/if}>极佳对话</option>
+				</select>
+				
+				<input  onClick="javascript:index(1);" type="submit" style="margin:15px;" class="btn btn-default" value="查询数据">
+				
+			</div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+							    <th class="thh" width="4%"><strong>访客ID</strong></th>
+							    <th class="thh" width="10%"><strong>访客名称</strong></th>
+							    <th class="thh" width="8%"><strong>分类</strong></th>
+							    <th class="thh" width="5%"><strong>接待客服</strong></th>
+								<th class="thh" width="10%"><strong>第一次访问时间</strong></th>
+								<th class="thh" width="10%"><strong>最后一次访问时间</strong></th>
+								<th class="thh" width="5%"><strong>地域</strong></th>
+								<th class="thh" width="5%"><strong>渠道</strong></th>
+								<th class="thh" width="15%"><strong>关键词</strong></th>
+								<th class="thh" width="4%"><strong>访问次数</strong></th>
+								<th class="thh" width="4%"><strong>访客消息数</strong></th>
+								<th class="thh" width="4%"><strong>总对话数</strong></th>
+								<th class="thh" width="5%"><strong>操作</strong></th>
+							</tr>
+                        </thead>
+                        <tbody id="alluser">
+							{foreach from=$data item=list}
+								  <tr>
+								    <td class="bgr">{$list.id}</td>
+								    <td class="bgr"><a href="javascript:check_vistor({$list.id});" style="color:blue;text-decoration:underline">{if $list.guest}{$list.guest}{else}{$list.region}{$list.city}访客{$list.id}</a>{/if}</td>
+								    <td class="bgr">{$list.type_name}</td>
+								    <td class="bgr">{$list.admin_name}</td>
+									<td class="bgr">{if $list.visitTime}{$list.visitTime|date:'Y-m-d H'}:{$list.visitTime|date:'i'}:{$list.visitTime|date:'s'}{else}{/if}</td>
+									<td class="bgr">{if $list.lastTime}{$list.lastTime|date:'Y-m-d H'}:{$list.lastTime|date:'i'}:{$list.lastTime|date:'s'}{else}{/if}</td>
+									<td class="bgr">{$list.region}-{$list.city}</td>
+									<td class="bgr">{if $list.mold==1}小程序{/if}{if $list.mold==2}公众号{/if}{if $list.mold==3}PC网站{/if}{if $list.mold==4}APP{/if}{if $list.mold==5}移动网站{/if}{if $list.mold==6}两性微课{/if}</td>
+									<td class="bgr">{$list.keyword}</td>
+									<td class="bgr">{$list.visits}</td>
+									<td class="bgr">{$list.v_count}</td>
+									<td class="bgr"><a href="javascript:check_vistor({$list.id});" style="color:blue;text-decoration:underline">{$list.num}</a></td>
+									<td class="bgr"><a href="javascript:edit_vistor({$list.id});">修改</a></td>
+								  </tr>
+							 {/foreach} 
+								<tr>
+									<td colspan="13" style="background: white;">
+										{if $data}
+											{$page}
+										{else}
+											没有数据
+										{/if}
+									</td>
+								</tr>                             
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+         <!-- End  Kitchen Sink -->
+    </div>
+</body>
+</html>

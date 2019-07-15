@@ -1,0 +1,106 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+
+function selectUserName(){
+	var userNameid;
+	userNameid = $("#userName").val();
+
+	$.ajax({
+		url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"access",a:"selectUserName",userName:userNameid,j:1,tt:Math.random()},
+	    success:function(resp){
+		    $("#alluser").html(resp.content);
+	    }
+		
+	
+	});
+
+}
+
+
+function get_user_detail(user_id, user_name, el){
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{
+	    	m:"access",
+	    	a:"user_detail",
+	    	user_id:user_id,
+	    	user_name:user_name,
+	    	j:1,
+	    	tt:Math.random()
+	    },
+	    success:function(resp){
+	      $("#contents").html(resp.content);
+	      $(el).parents('tr').addClass('cur-user').siblings().removeClass('cur-user');
+	    }
+	});
+}
+
+function get_user_all(page){
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{
+	    	m:"access",
+	    	a:"user_all",
+	    	p:page,
+	    	j:1,
+	    	tt:Math.random()
+	    },
+	    success:function(resp){
+	      $("#alluser").html(resp.content);
+	    }
+	});
+}
+
+</script>
+<style type="text/css">
+	.cur-user {
+		background: #ccc !important;
+	}
+</style>
+</head>
+<body>
+    <div class="col-md-6">
+                  <!--   Kitchen Sink -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            机器人分配
+                        </div>
+						
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+									<thead>
+                                        <tr>
+                                            <th>帐户</th>
+                                            <th>登录名称</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="alluser">
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+					
+                     <!-- End  Kitchen Sink -->
+                </div>
+				<div id="contents"></div>
+</body>
+<script>get_user_all(1);</script>
+</html>

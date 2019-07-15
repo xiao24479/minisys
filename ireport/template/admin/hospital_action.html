@@ -1,0 +1,31 @@
+{foreach from=$all item=a}
+  <tr>
+    <td>{$a.name}</td>
+    <td class="bgr">{$a.account}</td>
+    <td class="bgr">{$a.password}</td>
+    <td class="bgr">{$a.appId}</td>
+    <td class="bgr">{$a.token}</td>
+    <td class="bgr">{$a.ToUserName}</td>
+    <td class="bgr">
+	{if $a.type==0}微信小程序{/if}
+	{if $a.type==1}微信公众号{/if}
+	{if $a.type==2}新浪微博{/if}
+	{if $a.type==3}两性微课{/if}
+	
+	</td>
+	  <td class="bgr">
+	  
+	  <a onclick="javascript:interface_modify({$a.id});">修改</a>&nbsp;&nbsp;  
+	  <a onclick="javascript:interface_delete({$a.id});">删除</a>&nbsp;&nbsp;  
+	  </td>
+  </tr>
+  {/foreach} 
+	<tr>
+	    <td colspan="8">
+	    {if $page}
+		{$page}
+		{else}
+		没有记录
+		{/if}
+		</td>
+	</tr>

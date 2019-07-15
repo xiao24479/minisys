@@ -1,0 +1,239 @@
+
+ <script>
+	$(function(){
+
+		    $("#admin_name_set").dblclick(function(){
+
+			     var inval = $(this).html();		//取得内容
+				
+			     var edit_client_id=$("#client_id_val").val();
+			     
+			     var vistor_id = $("#vistor_id_val").val();  //取得访客id
+
+			     $(this).html("<input  size='20' class='input' id='edit_guest' value='"+inval+"' onfocus='this.select()' > "); //将html修改为input
+			 	
+
+			     $("#edit_guest").focus().on("blur",function(){ //当离开焦点时执行异步更新
+
+				    var editval = $(this).val();			//取得输入的值
+				
+					if(editval!='' && editval!=inval){
+					    
+						$.ajax({  //执行命令
+
+							url:"/chat/main.php",
+
+							type:"get",
+
+							dataType:"json",
+
+							data:{m:"smallprogram",a:"updata_vistor",j:1,vistor_id:vistor_id,guest:editval,tt:Math.random()},
+
+							success:function(resp){
+								
+								if(resp.content==200){
+		                            
+									if(edit_client_id!='' && edit_client_id!=null){
+									  ws.send('{"type":"edit","edit_client_id":"'+edit_client_id+'","edit_client_name":"'+editval+'"}'); 
+									}
+									
+									$("#admin_name_set").html(editval); 
+									$('li[vistor_id="'+vistor_id+'"]').attr('vistor_name',editval);
+									
+									$('li[vistor_id="'+vistor_id+'"]').find('span').text(editval);
+									layer.msg('修改成功', {time: 3000, icon:6});
+									//得到当前用户的当天的消息
+									check_vistor(vistor_id);
+									$("#color_"+vistor_id).text(editval);
+
+								}else{ 
+									
+									layer.msg('修改失败', {time: 3000, icon:5});
+									
+								}
+
+							}
+
+						});	
+
+					}else{
+						$("#admin_name_set").html(inval);
+					}
+
+				});	
+
+			});
+
+		});
+		
+		
+	function get_type(el) {
+		var type_id = $(el).val();
+	
+		$.ajax({
+	
+		    url:"/chat/main.php",
+	
+		    type:"get",
+	
+		    dataType:"json", 
+	
+		    data:{m:"smallprogram", a:"get_type", type_id:type_id, j:1, tt:Math.random()},
+	
+		    success:function(resp){ 
+			  $('#type-child').html(resp.content);
+		    }
+	
+		});
+	
+	}
+
+	function set_type(id) {
+		var father_id = $('#type-list').val();
+		var child_id = $('#type-child').val();
+		var type_name;
+		
+		if(!child_id && father_id){
+			type_name = $('#type-list option:selected').text();
+		}else if(child_id){
+			type_name = $('#type-child option:selected').text();
+		}else{
+			type_name = '';
+		}
+	
+		$.ajax({
+	
+		    url:"/chat/main.php",
+	
+		    type:"get",
+	
+		    dataType:"json", 
+	
+		    data:{m:"smallprogram", a:"set_type", id:id, type_name:type_name, j:1, tt:Math.random()},
+	
+		    success:function(resp){ 
+			  $('.type-select').hide();
+			  $('#msg').text(resp.message);
+			  
+			  if(type_name == ''){
+			  	type_name = '无分类';
+			  }
+			  
+			  $('.type-show span').text(type_name);
+			  $('#color_'+id+' span').text(type_name);
+			  
+		    }
+	
+		});
+	
+	}
+	
+	function show_select() {
+		$('.type-select').toggle();
+	}
+ </script>
+ <style>
+  	#type-list,#type-child{
+		height: 23px;
+ 	} 	
+ 	
+ 	.current-select{
+ 		background: #aaa;
+ 	}
+ 	#msg {
+ 		margin-left: 5px;
+ 		color: red;
+ 	}
+ 	#set_type {
+ 		background: #24c2ce;
+ 		border: 1px solid #24c2ce;
+ 		color: white;
+ 		height: 23px;
+ 		width: 50px;
+ 		text-align: center;
+ 		border-radius: 5px;
+ 		margin-right: 5px;
+ 		cursor: pointer;
+ 	}
+ 	.type-select {
+ 		display: none;
+ 	}
+ 	.type-show {
+ 		margin-right: 10px;
+ 	}
+ 	.type-modify {
+ 		border: none !important;
+ 		padding: 0 3px !important;
+ 		margin-right: 10px;
+ 	}
+ 	.content-top{
+ 		display: flex;
+ 	}
+ 	.info-header {
+ 		line-height: 23px;
+ 	}
+ </style>
+ <input type="hidden" value="{$row.client_id}" id="client_id_val"/>
+ <input type="hidden" value="{$row.id}" id="vistor_id_val"/>
+<input type="hidden" value="{$user.name}" id="admin_name"/><!-- 后台用户信息 用户名称-->
+<input type="hidden" value="{$user.autograph}" id="admin_autograph"/><!-- 后台用户信息 客服备注-->
+<input type="hidden" value="{$user.path}" id="admin_path"/><!-- 后台用户信息 用户头像路径-->
+   			<div class="content-top">
+   			
+   				<div class="info-header">
+	                 <span class="user-avr"><img src="/chat/style/chatroom/images/vistor-img.png" alt=""><font id="admin_name_set">{$row.guest}</font><font style="margin-left:10px;" id="hint">(双击修改)</font> </span><span id="house" style="margin-right: 10px;"></span>
+	                 <span class="type-show">分类: <span>{if $row.type_name}{$row.type_name}{else}无分类{/if}</span></span>
+	                 <a class="type-modify" onclick="show_select();">修改</a>
+	                 <span id="msg"></span>  
+                 </div>
+                 
+                 <div class="type-select">
+	              	<select name="" id="type-list" onchange="get_type(this);">
+		             	<option value="">选择父类</option>
+		             	{foreach from=$types item=t}
+		             	<option value="{$t.id}">{$t.type_name}</option>
+		             	{/foreach}
+		            </select>
+	             	<select name="" id="type-child" >
+	             		<!--options-->
+		            </select>
+		            <input type="submit" value="确定" id="set_type" onclick="set_type({$row.id});">
+                 </div>
+                 
+             </div>
+            <div class="content-info">
+                    <span id="channel_val">渠道：
+						{if $row.mold==1}小程序{/if}
+						{if $row.mold==2}公众号{/if}
+						{if $row.mold==3}web{/if}
+						{if $row.mold==4}app{/if}
+						{if $row.mold==5}移动端{/if}
+						{if $row.mold==6}两性微课{/if}
+					</span>
+                    <span id="keyword_val" style=" width: 50%;float:right;">关键词：{$row.keyword}</span>
+                    
+            </div>
+             <div class="chat-content">
+     
+             </div>
+             <div class="content-bottom">
+                <div class="function">
+                    <div class="font-fun">
+                        <span><img src="/chat/style/chatroom/images/icon-font.png" alt=""></span>
+                        <span><img src="/chat/style/chatroom/images/icon-face.png" alt=""></span>
+                        <span><img src="/chat/style/chatroom/images/icon-wx.png" alt=""></span>
+                        <span><img src="/chat/style/chatroom/images/icon-img.png" alt=""></span>
+                        <span><img src="/chat/style/chatroom/images/icon-file.png" alt=""></span>
+                        <span><img src="/chat/style/chatroom/images/icon-write.png" alt=""></span>
+                       
+                    </div>
+                    <div class="record" onclick="javascript:check_vistor3();">
+                        <img src="/chat/style/chatroom/images/icon-record.png" alt="" >消息记录
+                    </div>
+                </div>
+                <textarea placeholder="请在此输入文本或者粘贴截图" id="sendmsg"></textarea>
+                <div class="btn">
+                    <input class="chat-close" type="button" value="关    闭" >
+                    <div class="send"><input type="button" onclick="javascript:SendBtn();" value="发    送" id="SendBtn">| <img src="/chat/style/chatroom/images/icon-send.png" alt=""></div>
+                </div>
+             </div>

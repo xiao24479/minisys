@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+	<meta charset="utf-8">
+	<title>仁爱产品运营系统</title>
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="assets/css/style.css" media="all" />
+	<script language="JavaScript" src="/_ext/script/jquery-3.3.1.js"></script>
+	<script>
+		
+	function showMsg(){
+	　	var ts = $("#ts").val();
+		if(ts!=''){
+			alert(ts);
+		}
+	}
+	
+	function checklogin(){
+	   var name = document.getElementById("login_name").value;
+	   var password =document.getElementById("login_passwd").value;
+	   
+	   if(name=="" || password==""){
+	      alert("用户名或密码不能为空");
+		  return false;
+	   }else{
+	      return true;
+	   }
+	   
+	}
+	
+	</script>
+</head>
+<body class="login">
+	<section style="">
+		<h1 style="font-size: 30px;"><strong>仁爱产品运营系统</strong></h1>
+		<form method="post" action="main.php?m=admin&a=loginAction&code=al" onsubmit="return checklogin()">
+			<input type="text" value="" name="login_name" id="login_name" placeholder="请输入账号" autocomplete="off" />
+			<input value="" type="password" name="login_passwd" id="login_passwd" placeholder="请输入密码" autocomplete="off"/>
+			<button class="blue">登录</button>
+			<input value="{$errormsg}" type="hidden" id="ts"/>
+		</form>
+	</section>
+</body>
+</html>

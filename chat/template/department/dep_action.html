@@ -1,0 +1,70 @@
+{foreach from=$all item=a}
+<tr {if $a.top_id==0}style="background: #eee;font-weight: bold;"{/if}>
+	<td class="bgr" style="position: relative;">{if $a.top_id==0}<span style="position: absolute;left: 2px;top: 0px;">(父级)</span>{/if}{$a.name}</td>
+	<td class="bgr">-</td>
+	<td class="bgr">-</td>
+	<!-- <td class="bgr">{$a.add_time}</td> -->
+	<td class="bgr">
+		<a onclick="javascript:dep_modify({$a.id});">修改</a>&nbsp;
+		<a onclick="javascript:dep_delete({$a.id});">删除</a>
+	</td>
+</tr>
+{if $a.childs}
+	{foreach from=$a.childs item=i}
+		<tr>
+			<td class="bgr">{$i.name}</td>
+			<td class="bgr">{$i.dep_order}</td>
+			<td class="bgr set_hot" dep="{$i.id}" hot="{$i.is_hot}" style="cursor: pointer;">
+				{if $i.is_hot==1}<span style="color: #1AE61A;">热门</span>{/if}
+				{if $i.is_hot==0}<span>非热门</span>{/if}
+			</td>
+			<!-- <td class="bgr">{$i.add_time}</td> -->
+			<td class="bgr">
+				<a onclick="javascript:dep_modify({$i.id});">修改</a>&nbsp;
+				<a onclick="javascript:dep_delete({$i.id});">删除</a>
+			</td>
+		</tr>
+	{/foreach}
+{/if}
+{/foreach} 
+
+<tr>
+    <td colspan="4">
+    {if $all}
+		{$page}
+	{else}
+		没有记录
+	{/if}
+	</td>
+</tr>
+
+<script type="text/javascript">
+	$(".set_hot").on('click', function(){
+		if(confirm('确定修改?')){
+			var _this = this;
+			var dep = $(_this).attr('dep');
+			var hot = $(_this).attr('hot');
+
+			$.ajax({
+				url:"/chat/main.php",
+				type:"get",
+				dataType: 'json',
+				data: {
+			    	m: "department",
+			    	a: "change_hot",
+			    	id: dep,
+			    	hot: hot,
+			    	j: 1,
+			    	tt: Math.random()
+				},
+				success: function(res){
+					alert(res.message);
+					if(res.content==1){
+						var p = $("#alluser span[class='current']").text() || 0;
+						dep_action(p);
+					}
+				}
+			})
+		}
+	})
+</script>

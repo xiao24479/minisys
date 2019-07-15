@@ -1,0 +1,169 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script language="JavaScript" src="/_ext/dialog/dialog.js"></script>
+<script language="JavaScript" src="/admin/assets/daterangepicker/daterangepicker.js"></script>
+<script language="JavaScript" src="/admin/assets/daterangepicker/moment.js"></script> 
+
+<link href="/_ext/dialog/dialog.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/admin/assets/daterangepicker/daterangepicker.css" media="all">
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+
+
+function order_list(p){
+	var date = $('#start_date').val();
+	
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"order",a:"order_list",p:p,date:date,j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#page-wrapper").html(resp.content);
+	    }
+	});
+}
+
+function huifang(id){
+		$.ajax({ 
+			url:"/chat/main.php",
+			type:"get",
+			dataType:"json",
+			data:{m:"order",a:"huifang",j:1,id:id,tt:Math.random()},
+			success:function(resp){
+				dialog('备注回访信息', resp.content, 400, 200);
+			 }
+		});
+	
+}
+function huifang_action(id){
+	var p = $("#alluser span[class='current']").text();
+	var remarks = $("#remarks").val();
+	
+	$.ajax({ 
+		url:"/chat/main.php",
+		type:"get",
+		dataType:"json",
+		data:{m:"order",a:"huifang_action",j:1,id:id,remarks:remarks,tt:Math.random()},
+		success:function(resp){
+			if(resp.message == 1){
+				alert("回访完成");
+				order_list(p);
+				$('#dialog').remove();
+			}else{
+				alert("回访失败");
+			}
+		 }
+	});
+}
+
+function set_date(start_time){
+	var day  = new Date();
+	var days =day.getDate();
+	days = days - 1;
+
+	$('#'+start_time).daterangepicker({
+	    ranges: {
+	        '本月': [moment().subtract(+days,'days'), moment()],
+	        '今天': [moment(), moment()],
+	        '昨天': [moment().subtract(+1, 'days'), moment().subtract(+1, 'days')],
+	        '过去一周': [moment().subtract(+6, 'days'),moment()],
+	        '过去一月': [moment().subtract(+30, 'days'),moment()],
+	        '过去一年': [moment().subtract(+365, 'days'),moment()]
+	    }
+	    
+	},function(start, end,label) {
+	    	//label:通过它来知道用户选择的是什么，传给后台进行相应的展示
+	 		console.log(label)
+		    if(label=='本月'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }else if(label=='今天'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD'));
+		    }else if(label=='昨天'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }else if(label=='过去一周'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }else if(label=='过去一月'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }else if(label=='过去一年'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }
+	});
+}
+
+
+</script>
+<style type="text/css">
+	.spanzz{
+		float:left;margin:20px 5px 15px 15px;
+	}
+	.inputzz{
+		width:180px;float:left;margin:15px 0;
+	}
+</style>
+</head>
+<body>
+    <div class="col-md-12">
+      <!--   Kitchen Sink -->
+        <div class="panel panel-default">
+        	<div class="panel-heading">
+                <div >预约列表</div>
+				<span class="spanzz" style="margin-left:0px;">选择时间:</span>
+				<input type="text" class="form-control inputzz" id="start_date" name="start_date" value="{$add_time} - {$end_time}" style="width:210px;" onfocus="set_date('start_date');"/>
+				<input  onClick="javascript:order_list(1);" type="submit" style="margin:15px;" class="btn btn-default" value="查询数据">
+			</div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+						<thead>
+                            <tr>
+							    <th class="thh" width="8%"><strong>访客</strong></th>
+								<th class="thh" width="9%"><strong>手机</strong></th>
+								<th class="thh" width="20%"><strong>描述</strong></th>
+								<th class="thh" width="20%"><strong>来源</strong></th>
+								<th class="thh" width="20%"><strong>备注</strong></th>
+								<th class="thh" width="10%"><strong>时间</strong></th>
+								<th class="thh" width="10%"><strong>状态</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody id="alluser">
+							{foreach from=$data item=list}
+								  <tr>
+								    <td class="bgr">{$list.vistor_name}</td>
+								    <td class="bgr">{$list.phone}</td>
+									<td class="bgr">{$list.account}</td>
+									<td class="bgr">{$list.source}</td>
+									<td class="bgr">{$list.remarks}</td>
+									<td class="bgr">{if $list.createTime}{$list.createTime|date:'Y-m-d H'}:{$list.createTime|date:'i'}:{$list.createTime|date:'s'}{else}{/if}</td>
+									<td class="bgr">
+										{if $list.status==0}
+											<a href="javascript:huifang({$list.id});">未回访</a>
+										{else}
+											<a href="javascript:huifang({$list.id});">已回访</a>
+										{/if}
+									</td>
+								 </tr>
+							{/foreach} 
+								<tr>
+									<td colspan="7" >
+										{if $data}
+											{$page}
+										{else}
+											没有数据
+										{/if}
+									</td>
+								</tr>                             
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+         <!-- End  Kitchen Sink -->
+    </div>
+</body>
+</html>

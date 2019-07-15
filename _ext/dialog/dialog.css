@@ -1,0 +1,59 @@
+
+	body {
+		position: relative;
+	}
+	#dialog {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		/*display: none;*/
+		background: white;
+		overflow: hidden;
+	}
+	.dialog-top {
+		background: #24c2cd;
+		height: 4rem;
+		display: flex;
+		justify-content: space-between;
+	}
+	.dialog-top .dialog-title {
+		font-size: 20px;
+		font-weight: bold;
+		text-align: center;
+		border-left: 0.5rem solid #24c2cd;
+		border-right: 0.5rem solid #24c2cd;
+		color: white;
+		padding: 0.5rem;
+	}
+	.dialog-top .close-icon {
+		color: white;
+		font-size: 20px;
+		margin-right: 0.2rem;
+		cursor: pointer;
+		padding: 0.5rem;
+	}
+	.dialog-content {
+		max-height: 600px;
+		width: 700px;
+		overflow-y: auto;
+		padding: 1rem 2rem 2rem;
+		border: 0.5rem solid #24c2cd;
+		border-top: none;
+	}
+	.dialog-content textarea {
+		resize: none;
+		height: 10rem;
+		overflow-y: scroll;
+	}
+	.dialog-content .address input {
+		width: 30%;
+	}
+	.dialog-content .address {
+		display: flex;
+	}
+	.dialog-content .address span {
+		display: flex;
+		align-items: center;
+		margin: 0 0.5rem;
+	}
+	

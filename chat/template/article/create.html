@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>UMEDITOR 完整demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="/admin/assets/js/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+	<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+    
+    <script type="text/javascript" src="/admin/assets/js/third-party/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/admin/assets/js/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/admin/assets/js/umeditor.min.js"></script>
+    <script type="text/javascript" src="/admin/assets/js/lang/zh-cn/zh-cn.js"></script>
+    <style>
+    	.row {
+    		display: flex;
+    		justify-content: center;
+    		margin-top:20px;
+    		padding: 10px;
+    	}
+    	.row span {
+    		margin-right: 10px;
+    	}
+    	.row .btn {
+    		width: 100px;
+    	}
+		.top_0 {
+			font-weight: bold;
+			background: #ddd;
+		}
+    </style>
+</head>
+<body>
+    <div class="col-md-12">
+      <!--   Kitchen Sink -->
+        <div class="panel panel-default">
+        	<div class="panel-heading">
+        		<div>{if $article}修改文章{else}添加文章{/if}</div>
+        		<div class="row">
+	        		<span>标题:</span>	
+	        		<input type="text" class="form-control" style="width:1000px;" id="title" value="{$article.title}"/>
+        		</div>
+        		<div class="row">
+	        		<span>来源:</span>	
+        			<input type="text" class="form-control" style="width:1000px;" id="from" value="{$article.from}"/>
+        		</div>
+        		<div class="row">
+	        		<span>标签:</span>	
+					<select name="" class="form-control" style="width:1000px;" id="tag" >
+						<option value="">请选择</option>
+						{$types}
+					</select>
+        		</div>
+        		<div class="row">
+	        		<span>内容:</span>	
+					<script type="text/plain" id="myEditor" style="width:1000px;height:240px;">{$article.content}</script>
+        		</div>
+        		<div class="row">
+					<input class="btn btn-default" type="button" value="提交" id="{if $article}edit-article{else}add-article{/if}" data-id="{$article.id}"/>
+        		</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	    //实例化编辑器
+	    var um = UM.getEditor('myEditor');
+	    
+	    $('#add-article').click(function() {
+	    	var content = um.getContent(),
+	    		title = $('#title').val(),
+	    		from = $('#from').val(),
+	    		tag = $("#tag option:selected[value!='']").text();
+
+	    	$.ajax({
+	    		url: '/chat/main.php',
+	    		type: 'POST',
+	    		dataType: 'json',
+	    		data: {
+	    			m: 'article',
+	    			a: 'save',
+	    			content: content,
+	    			title: title,
+	    			from: from,
+	    			tag: tag,
+	    			j:1,
+	    			tt:Math.random()
+	    		},
+	    		success: function(res) {
+	    			if(res.content){
+	    				um.setContent('');
+	    				$('#title').val('');
+	    				$('#from').val('');
+	    				$("#tag option[value='']").prop('selected', true);
+	    			}
+	    			alert(res.message);
+	    		}
+	    	})
+	    })
+	    
+	   	$('#edit-article').click(function() {
+	    	var content = um.getContent(),
+	    		title = $('#title').val(),
+	    		from = $('#from').val(),
+	    		tag = $("#tag option:selected[value!='']").text(),
+	    		id = $(this).attr('data-id');
+	    		
+	    	$.ajax({
+	    		url: '/chat/main.php',
+	    		type: 'POST',
+	    		dataType: 'json',
+	    		data: {
+	    			m: 'article',
+	    			a: 'update',
+	    			id: id,
+	    			content: content,
+	    			title: title,
+	    			from: from,
+	    			tag: tag,
+	    			j:1,
+	    			tt:Math.random()
+	    		},
+	    		success: function(res) {
+	    			if(res.content){
+	    				um.setContent('');
+	    				$('#title').val('');
+	    				$('#from').val('');
+	    				$("#tag option[value='']").prop('selected', true);
+	    			}
+	    			alert(res.message);
+	    		}
+	    	})
+	    })
+	</script>
+</body>
+</html>

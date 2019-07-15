@@ -1,0 +1,55 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+	
+String.prototype.trim= function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");  
+}
+
+</script>
+</head>
+<body>
+    <div class="form-group">
+        <label>类型</label>
+		<select id="type" class="form-control">
+			<option value="0" {if $row.type == 0}selected="selected"{/if}>微信小程序</option>
+			<option value="1" {if $row.type == 1}selected="selected"{/if}>微信公众号</option>
+			<option value="2" {if $row.type == 2}selected="selected"{/if}>新浪微博</option>
+			<option value="3" {if $row.type == 3}selected="selected"{/if}>两性微课</option>
+		</select>
+    </div>
+	<div class="form-group">
+        <label>名称</label>
+        <input class="form-control" name="name" type="text" id="name" value="{$row.name}">
+    </div>
+	 <div class="form-group">
+        <label>帐户</label>
+        <input class="form-control" name="account" type="text" id="account" value="{$row.account}">
+    </div>
+	<div class="form-group">
+        <label>密码</label>
+        <input class="form-control" name="password" type="text" id="password" value="{$row.password}">
+    </div>
+	<div class="form-group">
+        <label>APPID</label>
+        <input class="form-control" name="appId" type="text" id="appid" value="{$row.appId}">
+    </div>
+	<div class="form-group">
+        <label>TOKEN</label>
+        <input class="form-control" name="token" type="text" id="token" value="{$row.token}">
+    </div>
+	<div class="form-group">
+        <label>原始ID</label>
+        <input class="form-control" name="ToUserName" type="text" id="ToUserName" value="{$row.ToUserName}">
+    </div>
+    <div>
+   		<input onClick="javascript:interface_modify_action({$row.id});" type="submit" class="btn btn-default" value="提交">
+    </div>
+ 
+</body>
+</html>

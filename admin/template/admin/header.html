@@ -1,0 +1,106 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<style type="text/css">
+*{
+padding:0px; margin:0px;
+}
+.header{
+ height:30PX; line-height:30PX; color:#333; font-size:14px; background:url(/_ext/img/header_bg.jpg);
+}
+.header strong,.header a,.header img{
+float:left; color:#FCFCFC;
+}
+.header a{
+margin-left:10px; text-decoration:none;
+}
+.header a:hover{
+color:#FF0000; 
+}
+</style>
+
+<body>
+
+<script type="text/javascript">
+function set_hospital(){
+	hid=$("#hospital").val();
+
+	$.ajax({
+		url:"/admin/main.php",
+	    type:"get",  
+	    dataType:"json",
+	    data:{m:"admin",a:"set_hospital",hid:hid,j:1,tt:Math.random()},
+	    success:function(resp){
+	    	window.parent.frames.mainFrame.location.reload(); 
+	    	 $("#access").html(resp.content);
+	    }
+	});
+	
+}
+
+
+function set_access(){
+	
+	hid=$("#hospital").val();
+	
+	aid=$("#access").val();
+
+	$.ajax({
+
+		url:"/admin/main.php",
+
+	    type:"get",  
+
+	    dataType:"json",
+
+	    data:{m:"admin",a:"set_access",hid:hid,aid:aid,j:1,tt:Math.random()},
+
+	    success:function(resp){
+	    	window.parent.frames.mainFrame.location.reload(); 
+	    }
+
+	});
+
+}
+
+</script>
+
+<DIV class="header">
+<img src="/_ext/img/logo.jpg" /><strong style="font-family:'楷体_GB2312'">{$SYS_NAME}</strong><img  src="/_ext/img/default.png" width="20" height="20" style="margin:3px;"/><strong  style="font-size:14px">欢迎您:</strong><strong style=" color:#FF6633;font-size:14px"><a href="/admin/main.php?m=admin&a=myinfo&j=1" style="color:red;" target="mainFrame">{$adminname}</a></strong>
+<a  style=" font-size:14px; " href="main.php?m=rights&a=password_change&j=1" target="mainFrame">修改密码</a><a href="main.php?m=admin&a=logout" target="_parent">安全退出</a>
+	<strong>&nbsp;&nbsp;|</strong>
+	
+	<strong>&nbsp;&nbsp;选择项目:</strong>
+		<select id="hospital" onchange="javascript:set_hospital();"  style="float:left;margin-top:5px;">
+		<option value="0">选择项目</option>
+	{foreach from=$hospital_list item=list}
+
+        <option value="{$list.id_hospital}" {if $hid ==$list.id_hospital}  selected="selected" {/if}>{$list.hospital_name}</option>
+		{foreach from=$list.chird item=chird}
+	
+		<option value="{$chird.id_hospital}" {if $hid ==$chird.id_hospital}  selected="selected" {/if}>&nbsp;&nbsp;&nbsp;└&nbsp;{$chird.hospital_name}</option>
+	
+		{/foreach}
+     {/foreach}
+		</select> 
+		
+		<strong>&nbsp;&nbsp;选择客服类型:</strong>
+		
+		<select id="access" onChange="javascript:set_access();" style="float:left;margin-top:5px;">
+    
+		<option value="0">选择客服类型</option>
+		{foreach from=$access_list item=list}
+		   
+		   <option value="{$list.id}" {if $aid ==$list.id} selected="selected" {/if}>{$list.fame}</option>
+		
+		{/foreach}
+	    </select>
+
+
+&nbsp;&nbsp;<a href="/admin/main.php?m=admin&a=myinfo&j=1" target="mainFrame" style=" color:#FF6633;font-size:14px">客服简报</a>
+</DIV>
+</body>
+
+
+
+
+

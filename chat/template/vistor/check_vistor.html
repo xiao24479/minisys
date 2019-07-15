@@ -1,0 +1,18 @@
+{foreach from=$data item=list}
+	{if $list.type eq '1'}
+		<div style="margin-top:10px;margin-left:10px;">
+		<p><strong><font color="green">{if $list.guest}{$list.guest}{else}{$list.region}{$list.city}访客{$list.id}{/if}&nbsp;&nbsp;{if $list.createTime}{$list.createTime|date:'Y-m-d H'}:{$list.createTime|date:'i'}:{$list.createTime|date:'s'}{else}{/if}</font></strong></p>
+		<p style="text-indent:1rem;">{$list.content}</p>
+		</div>
+	{elseif $list.type eq '2'} 
+		<div style="margin-top:10px;margin-left:10px;">
+		<p><strong><font color="#FF6633">在线机器人&nbsp;&nbsp;{if $list.createTime}{$list.createTime|date:'Y-m-d H'}:{$list.createTime|date:'i'}:{$list.createTime|date:'s'}{else}{/if}</font></strong></p>
+		<p style="text-indent:1rem;">{$list.content}</p>
+		</div>
+	{elseif $list.type eq '3'} 
+		<div style="margin-top:10px;margin-left:10px;">
+		<p><strong><font color="#FF6633">{$list.name}&nbsp;&nbsp;{if $list.createTime}{$list.createTime|date:'Y-m-d H'}:{$list.createTime|date:'i'}:{$list.createTime|date:'s'}{else}{/if}</font></strong></p>
+		<p style="text-indent:1rem;">{$list.content}</p>
+		</div>
+	{/if}
+{/foreach} 

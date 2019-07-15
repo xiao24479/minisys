@@ -1,0 +1,131 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+String.prototype.trim= function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");  
+}
+function user_add(){
+	var uname = document.getElementById('u_name').value;
+	var uemail = document.getElementById('u_email').value;
+	var ulogin= document.getElementById('u_login').value;
+	var upwd = document.getElementById('u_pwd').value;
+	var upwd2 = document.getElementById('u_pwd2').value;
+	var user_ip = document.getElementById('ip').value;
+	
+	if(uname.trim()==''){
+		alert('用户名称不能为空！');
+		document.getElementById('u_name').focus();
+	}
+	else if(ulogin.trim()==''){
+		alert('登录名不能为空！');
+		document.getElementById('u_login').focus();
+	}
+	else if(upwd.trim()==''){
+		alert('密码不能为空！');
+		document.getElementById('u_pwd').focus();
+	}
+	else if(upwd.trim()!=upwd2.trim()){
+		alert('先后输入的两个密码不一致，请确认！');
+		document.getElementById('u_pwd2').focus();
+	}else{
+	$.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"userRole",a:"user_add_action",user_name:uname,pwd:upwd,login_name:ulogin,user_email:uemail,user_ip:user_ip,j:1,tt:Math.random()},
+	    success:function(resp){
+			if(resp.message=='0'){
+				alert('该登录名称已经存在，不能重复！');
+				return;
+			}else{
+				alert('成功保存！');
+				get_user_all(1);
+		//		get_user_detail(resp.message);
+			}
+	    }
+		});
+	
+	}
+	
+}
+</script>
+<style>
+#user_add2{
+float:left; width:600px; border:2px solid  #B9DFF7; margin:2px; background:#FFFFFF; padding-bottom:20px; 
+}
+#user_add2 .title{
+height:20px; line-height:20px; background:url(image/u_2.gif); display:block; text-indent:10px;
+}
+#user_add2 span{
+height:30px; line-height:30px; display:block; 
+}
+#user_add2 span strong{
+width:100px; float:left; text-align:right; line-height:30px; 
+}
+#user_add2 span input{
+float:left; margin-top:5px;
+}
+.btadd{
+width:58px; background:url(image/Adm_btn04.gif); height:22px; float:left; 
+}
+</style>
+</head>
+<body>
+
+  <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            添加新用户
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+										
+										 <div class="form-group">
+                                            <label>登录名称 <span style="color:#FF0000;">*</span></label>
+                                            <input class="form-control" name="u_login" type="text" id="u_login">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>用户名称 <span style="color:#FF0000;">*</span></label>
+                                            <input class="form-control" name="u_name" type="text" id="u_name">
+                                        </div>
+										<div class="form-group">
+                                            <label>登录密码 <span style="color:#FF0000;">*</span></label>
+                                            <input class="form-control" name="u_pwd" type="password" id="u_pwd">
+                                        </div>
+										<div class="form-group">
+                                            <label>确认密码 <span style="color:#FF0000;">*</span></label>
+                                            <input class="form-control" name="u_pwd2" type="password" id="u_pwd2">
+                                        </div>
+										<div class="form-group">
+                                            <label>email</label>
+                                            <input class="form-control" name="u_email" type="text" id="u_email">
+                                        </div>
+										<div class="form-group">
+                                            <label>登录IP限制</label>
+                                            <input class="form-control" name="ip" type="text" id="ip" value="*">
+                                        </div>
+										<div class="form-group">
+											<label>当前IP：</label>
+											<font color="#FF0000"> {$currentip}</font>
+										</div>
+                                       <div class="form-group"><font color="#FF0000">＊</font>：不受限制；内容为空：帐号无法登录；多个ＩＰ用空格隔开</div>
+                                        <input  onClick="javascript:user_add();" type="submit" class="btn btn-default" value="提交">
+                                   
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>角色管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+
+function showMsg(msg){
+　alert(msg);
+}
+
+function delete_role(role_id){
+
+	$.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"roleList",a:"role_delete",role_id:role_id,j:1,tt:Math.random()},
+	    success:function(resp){
+		  var mess=resp.message;
+	      if(mess=='ok'){
+		  	showMsg('角色已经删除！');
+			get_role_all();
+		  }else if(mess=='0'){
+		    showMsg('该角色有用户，不能删除！');
+			get_role_all();
+		  }
+		  
+	    }
+	});
+}
+function get_role_detail(role_id){
+	$.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"roleList",a:"role_detail",role_id:role_id,j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#contents").html(resp.content);
+	    }
+	});
+}
+get_role_all();
+function get_role_all(){
+	$.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"roleList",a:"role_all",j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#allrole").html(resp.content);
+	    }
+	});
+}
+
+function roleadd(){
+$.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"roleList",a:"role_add",j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#contents").html(resp.content);
+	    }
+	});
+
+}
+
+function delete_confirm(id)
+{	
+	if(confirm("确定要删除该角色以及它下面所有功能吗？")){
+		delete_role(id);
+	}
+}
+
+
+
+</script>
+
+</head>
+<body>
+     <div class="col-md-6">
+                  <!--   Kitchen Sink -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            角色管理
+							<a  href="javascript:roleadd();" style="padding-right: 10px;float: right;color: #32C2Cd;">添加角色</a>
+                        </div>
+						
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+									<thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>角色名称</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="allrole">
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+					
+                     <!-- End  Kitchen Sink -->
+                </div>
+				<div id="contents"></div>
+</body>
+</html>

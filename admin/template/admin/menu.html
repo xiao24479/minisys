@@ -1,0 +1,108 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>后台管理菜单</title>
+<script>
+function show(c_Str){
+var num=document.getElementById('count_menu').value;//没有直接document.getElementsByClassName('maindiv');,这个在ie下部兼容。只好采用这个办法。
+/*
+for(var i=1;i<=num;i++){
+	  if(document.all("a"+c_Str).style.display=='none' && i==c_Str){
+		 document.all("a"+c_Str).style.display='block';
+		 document.getElementById("maindiv"+i).style.backgroundImage="url(image/Adm_title02_1.gif)";
+	  }else{
+	     document.all("a"+i).style.display='none';
+	     document.getElementById("maindiv"+i).style.backgroundImage="url(image/Adm_title02_2.gif)";
+	  }
+}
+*/
+//
+for(var i=1;i<=num;i++){
+	  if(document.getElementById("a"+c_Str).style.display=='none' && i==c_Str){
+		 document.getElementById("a"+c_Str).style.display='block';
+		 document.getElementById("maindiv"+i).style.backgroundImage="url(/_ext/img/Adm_title02_1.gif)";
+	  }else{
+	     document.getElementById("a"+i).style.display='none';
+	     document.getElementById("maindiv"+i).style.backgroundImage="url(/_ext/img/Adm_title02_2.gif)";
+	  }
+}
+}
+</script>
+<style>
+*{
+padding:0; margin:0; text-align:left;
+}
+.maindiv{
+    font-size: 12px;
+	font-weight: bold;
+	color: #FFF;
+	background:url(/_ext/img/Adm_title02_2.gif) right no-repeat;
+	height: 30px;
+	line-height:31px;
+	margin: 0px;
+	width: 169px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	cursor:hand;/*这个是兼容ie的*/
+	cursor:pointer;/*这个是兼容firefox的*/
+	margin-top:1px;
+
+}
+.maindiv strong{
+margin-left:35px; color:#FCFCFC; 
+}
+.maindiv strong a{
+color:#FCFCFC;
+}
+a{
+text-decoration:none;
+}
+.nodediv{
+	font-size: 12px;
+	line-height: 24px;
+	color: #343539;
+	display: block;
+	text-decoration: none;
+	background:url(/_ext/img/Adm_icon02.png) no-repeat left center;
+	list-style-type: none;
+	padding-left:20px;
+	margin-left:20px;
+	width: 128px;
+	cursor:hand;/*这个是兼容ie的*/
+
+}
+.nav{
+padding:0; margin:0; width:169px; 	background:url(/_ext/img/fun.png);
+}
+.nodediv a{
+color:#333333;
+}
+</style>
+</head>
+<body style="border-right:1px solid  #999999;  width:168px;"> 
+<div>
+  <input type="hidden" name="count_menu" value="{$count_menu}" id="count_menu"/>
+  {foreach from=$menuData item=f1}
+            <div onclick=show("{$f1.num}") id="maindiv{$f1.num}" class="maindiv"> 
+               {if $f1.nodeState=="0"}
+               <strong> <a href="{$f1.url}" target="mainFrame">{$f1.name}</a></strong>
+               {else}
+               <strong>{$f1.name}</strong> 
+               {/if}
+            </div>
+            <!--解决了子级中出现背景颜色的宽度溢出问题
+            -->
+            <div  id="a{$f1.num}" style="display:none;" class="nav">
+                {foreach from=$f1.node item=f2}
+                	{if $f2.is_show==1}
+                            <li class="nodediv"><strong><a href="{$f2.url}" target="mainFrame">{$f2.name}</a></strong></li>
+                    {/if}
+                {/foreach}
+                
+            </div>
+    {foreachelse}
+	[没有功能分配,联系管理员]
+	{/foreach}
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户注册</title>
+<link href="style/main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="container">
+  <div id="header01">
+    <div id="pic">
+      <h2>用户注册</h2>
+    </div>
+    <div id="menu01">
+    </div>
+  </div>
+</div>
+
+<form id="registerform"  method="post" action="main.php?m=admin&a=registerAction" onsubmit="reutrn checkregister()">
+<div id="content02">
+  <div class="content04">
+    <div class="content08">
+      <table width="760" border="0" cellpadding="0" cellspacing="0" class="lh28">
+        <tr>
+          <td width="13%" class="c_right">真实姓名：</td>
+          <td width="87%"><input name="realname" type="text"  id="realname" size="20" maxlength="20" /></td>
+        </tr>
+        <tr>
+          <td class="c_right STYLE2"><span class="c_right">登录名：</span></td>
+          <td><input name="username" type="text"  id="username" size="20" maxlength="20" /></td>
+        </tr>
+        <tr>
+          <td class="c_right STYLE2"><span class="c_right">密码：</span></td>
+          <td><input name="password" type="password"  id="password" size="20" maxlength="20" /></td>
+        </tr>
+        <tr>
+          <td class="c_right STYLE2"><span class="c_right">重复密码：</span></td>
+          <td><input name="ctlpassword" type="password"  id="ctlpassword" size="20" maxlength="20" /></td>
+        </tr>
+        <tr>
+          <td class="c_right STYLE2">e-mail：</td>
+          <td><input name="email" type="text"  id="email" size="30" maxlength="50" /></td>
+        </tr>
+        <tr>
+          <td class="c_right STYLE1">联系方式：</td>
+          <td><label>
+            <input name="address" type="text"  id="address" size="30" maxlength="50" />
+          </label></td>
+        </tr>
+      </table>
+      <div class="content09">
+        <input type="image" name="imageField"  id="imageField" src="image/Adm_btn05.gif" />
+      </div>
+    </div>
+  </div>
+  </div>
+ </form> 
+  
+</body>
+</html>

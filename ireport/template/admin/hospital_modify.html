@@ -1,0 +1,83 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+	
+String.prototype.trim= function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");  
+}
+</script>
+</head>
+	<body>
+	<div class="form-group">
+	    <label>选择公司：</label>
+		<select id="id_group" class="form-control" name="id_group">
+			{foreach from=$groups item=r}
+			<option value="{$r.id}" {if $data.id_group == $r.id}selected="selected"{/if}>{$r.name_cn}[{$r.name}]</option>
+			{/foreach}
+		</select>
+	</div>
+	<div class="form-group">
+	    <label>上级医院：</label>
+		<select id="top_id" class="form-control" name="top_id">
+			<option value="0">选择顶级医院</option> 
+			{foreach from=$hosts item=r}
+			<option value="{$r.id}" {if $data.top_id == $r.id}selected="selected"{/if}>{$r.name}</option> 
+			{/foreach} 
+		</select>
+	</div>
+	<div class="form-group">
+	    <label>操作模式：</label>
+		<select id="type" class="form-control"  name="type">
+			<option value="1" {if $data.type == 1}selected="selected"{/if}>商务通模式</option>
+			<option value="2" {if $data.type == 2}selected="selected"{/if}>套电模式</option>
+			<option value="3" {if $data.type == 3}selected="selected"{/if}>新媒体模式</option>
+		</select>
+	</div>
+	<div class="form-group">
+	    <label>医院名称：</label>
+	    <input class="form-control" type="text" id="name" name="name" value="{$data.name}">
+	</div>
+	 <div class="form-group">
+	    <label>推广网址：</label>
+	    <input class="form-control" type="text" id="website" name="website" value="{$data.website}">
+	</div>
+	<div class="form-group">
+	    <label>推广病科：</label>
+	    <input class="form-control" type="text" id="department" name="department" value="{$data.department}">
+	</div>
+	<div class="form-group">
+	    <label>推广区域：</label>
+	    <div class="address">
+	        <input class="form-control" type="text" id="province" name="province" value="{$data.province}"><span>省</span>
+	        <input class="form-control" type="text" id="city" name="city" value="{$data.city}"><span>市</span>
+	    </div>
+	</div>
+	<div class="form-group">
+	    <label>SWT-账户：</label>
+	    <input class="form-control" type="text" id="swt_user" name="swt_user" value="{$data.swt_user}">
+	</div>
+	<div class="form-group">
+	    <label>SWT-密码：</label>
+	    <input class="form-control"  type="text" id="swt_passwd" name="swt_passwd" value="{$r.swt_passwd}">
+	</div>
+	<div class="form-group">
+	    <label>SWT-HOST：</label>
+	    <input class="form-control"  type="text" id="swt_host" name="swt_host" value="{$data.swt_host}">
+	</div>
+	<div class="form-group">
+	    <label>SWT-DBNAME：</label>
+	    <input class="form-control" type="text" id="swt_db" name="swt_db" value="{$data.swt_db}">
+	</div>
+	<div class="form-group">
+	    <label>医院备注：</label>
+	    <textarea class="form-control" name="memo" id="memo">{$data.memo}</textarea>
+	</div>
+	<div>
+		<input onclick="hospital_modify_action({$data.id});" type="submit" class="btn btn-default" value="修改">
+	</div>
+</body>
+</html>

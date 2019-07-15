@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* CSS Document */
+.input_date {
+background: url("img/input.png") repeat-x scroll 0 0 white;
+border: 1px solid #D0D0D0;
+height: 15px;
+line-height: 18px;
+margin: 0 5px 0 0;
+padding: 2px 0 2px 5px;
+}
+.input_date {
+background: url("img/input_date.png") no-repeat scroll right center white;
+padding-right: 18px;
+}

@@ -1,0 +1,375 @@
+<!--
+	切勿随意改动HTML代码, 会影响到JS
+-->
+<div class="menu">
+	<div>
+		<span>-</span>
+		<ul class="first-menu">
+			<li class="first-menu-add">+</li>
+		</ul>
+	</div>
+</div>
+<div class="menu-detail">
+	<div class="form-group">
+	    <label id="menu-name">菜单名字:</label>
+	    <input class="form-control" type="text" id="name" name="name">
+	</div>
+	<div class="content">
+		<div class="form-group">
+		    <label id="menu-type">菜单类型:</label>
+		    <div id="type">
+				<input type="radio" id="type1" data-index="0" value="click" name="type"/><label for="type1">发送消息</label>
+				<input type="radio" id="type2" data-index="1" value="view" name="type"/><label for="type2">跳转网页</label>
+				<input type="radio" id="type3" data-index="2" value="miniprogram" name="type"/><label for="type3">跳转小程序</label>
+		   </div>
+		</div>
+		<div class="type-content">
+			<div>
+				<div class="form-group">
+				    <label>选择消息模板:</label>
+				    <select name="key" id="key" class="form-control">
+				    	<option value="">请选择</option>
+				    </select>
+				</div>	
+			</div>
+			<div>
+				<div class="form-group">
+				    <label>页面地址:</label>
+				    <input class="form-control" type="text" id="url" name="url">
+				</div>	
+			</div>
+			<div>
+				<div class="form-group">
+				    <label>url:</label>
+				    <input class="form-control" type="text" id="domain" name="domain" value="http://mp.weixin.qq.com" disabled="disabled">
+				</div>	
+				<div class="form-group">
+				    <label>小程序appid:</label>
+				    <input class="form-control" type="text" id="appid" name="appid" >
+				</div>
+				<div class="form-group">
+				    <label>小程序页面路径:</label>
+				    <input class="form-control" type="text" id="pagepath" name="pagepath" >
+				</div>	
+			</div>
+		</div>		
+	</div>
+	<div class="" style="display: flex;">
+		<input type="button"  id="del" value="删除此菜单" class="form-control"/>
+		<input type="button" data-id="{$id}" id="save" value="保存" class="form-control"/>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var menu_data = {$menu_data};
+	console.log(menu_data);
+	var menu_json = menu_data.menu.button || [];
+	var current_first = '';
+	var current_second = '';
+	
+	if(menu_data.menu && menu_data.menu.button.length > 0 ){
+		var first_len = menu_data.menu.button.length;
+		var first_button = menu_data.menu.button;
+		
+		if(first_len == 3 ){
+			$('.first-menu-add').hide();
+		}
+		
+		for(var i in first_button){
+			
+			$('.first-menu').prepend("<li class='first-menu-button button'><span>"+first_button[i].name+"</span><ul class='second-menu'></ul></li>");
+			
+			if(first_button[i].sub_button){
+
+//				for(var k in first_button[i].sub_button){
+//					$('.second-menu').eq(i).prepend("<li><span>"+first_button[i].sub_button[k].name+"</span></li>");
+//				}
+				
+				if(first_button[i].sub_button.length < 3){
+					$('.second-menu').append('<li class="second-menu-add">+</li>');
+				}
+				
+			}else{
+				$('.second-menu').append('<li class="second-menu-add">+</li>');
+				
+			}
+		}	
+		
+	}
+
+
+	if(!menu_data.menu || menu_data.menu.button.length == 0 ){
+		$('.first-menu-add').css('border-right', '1px solid #ddd');
+	}
+
+
+	//添加一级菜单
+	$('.menu').on('click', '.first-menu-add', function(e) {
+		var first_menu = {};
+		
+		first_menu.name = '菜单名字';
+		first_menu.type = 'click';
+		first_menu.key  = '';
+		menu_json.push(first_menu);
+		
+		e.stopPropagation();
+		$(this).before("<li class='first-menu-button button'><span>菜单名字</span><ul class='second-menu'><li class='second-menu-add'>+</li></ul></li>");
+		
+		if($('.first-menu-button').length == 3){	//添加后再判断长度
+			$('.first-menu-add').hide();
+		}
+		console.log(menu_json);
+	})
+	
+	
+	//添加二级菜单
+	$('.menu').on('click', '.second-menu-add', function(e) {
+		e.stopPropagation();
+		$(this).before("<li class='second-menu-button button'><span>子菜单</span></li>");
+		
+		var len = $(this).siblings('.second-menu-button').length;
+		var t = $(this).outerHeight() * -len - 7 - $(this).outerHeight();
+		var index = $(this).parents('.first-menu-button').index();
+		var second_menu = {};
+		
+		$(this).parent('ul').css('top', t + 'px');
+		
+		second_menu.name = '子菜单名字';
+		second_menu.type = 'click';
+		second_menu.key = '';
+		
+		if(len == 1){
+			var name = menu_json[index].name;
+			var first_menu = {};
+			
+			first_menu.name = name;
+			first_menu.sub_button = [];
+			menu_json.splice(index, 1, first_menu);
+		}
+		
+		menu_json[index].sub_button.push(second_menu);
+		
+		if(len == 5){
+			$(this).hide();
+			t = $(this).outerHeight() * -len -7;
+			$(this).parent('ul').css('top', t + 'px');
+		}
+		console.log(menu_json);
+	})
+	
+	
+	//显示菜单详情
+	$('.menu').on('click', ".menu .button", function(e) {
+		var index = $(this).index();
+		
+		e.stopPropagation();
+		$('.menu li').removeClass('active');
+		$(this).addClass('active');
+		$('.menu-detail').show();
+		
+		if($(this).hasClass('first-menu-button')){
+			$('#menu-name').text('菜单名字:');
+			$('#menu-type').text('菜单类型:');
+			current_first = index;
+			current_second = '';
+			$('#name').val(menu_json[index].name);
+			
+		}else{
+			var p_index = $(this).parents('.first-menu-button').index();
+			
+			$('#menu-name').text('子菜单名字:');
+			$('#menu-type').text('子菜单类型:');
+			current_second = index;
+			current_first = p_index;
+			$('#name').val(menu_json[p_index].sub_button[index].name);
+		}
+		
+		
+		if(current_second !== ''){	//点击二级菜单时
+			var type = menu_json[current_first].sub_button[current_second].type;
+			
+			if(menu_json[current_first].sub_button[current_second].key != undefined){
+				$('#key').val(menu_json[current_first].sub_button[current_second].key);
+			}
+
+			if(menu_json[current_first].sub_button[current_second].url != undefined){
+				$('#url').val(menu_json[current_first].sub_button[current_second].url);
+			}
+			
+			if(menu_json[current_first].sub_button[current_second].appid != undefined){
+				$('#appid').val(menu_json[current_first].sub_button[current_second].appid);
+			}
+			
+			if(menu_json[current_first].sub_button[current_second].pagepath != undefined){
+				$('#pagepath').val(menu_json[current_first].sub_button[current_second].pagepath);
+			}
+
+		}else{	//点击一级菜单时
+			
+			if(menu_json[current_first].sub_button){	//如果此一级菜单项下有二级菜单时
+				$('.content').hide();
+			}else{
+				var type = menu_json[current_first].type;
+			}
+			
+			if(menu_json[current_first].key != undefined){
+				$('#key').val(menu_json[current_first].key);
+			}
+			
+			if(menu_json[current_first].url != undefined){
+				$('#url').val(menu_json[current_first].url);
+			}
+			
+			if(menu_json[current_first].appid != undefined){
+				$('#appid').val(menu_json[current_first].appid);
+			}
+			
+			if(menu_json[current_first].pagepath != undefined){
+				$('#pagepath').val(menu_json[current_first].pagepath);
+			}
+		}
+		
+		if(type){
+			var type_index = $("#type input[value='"+type+"']").attr('data-index');
+			
+			$("#type input[value='"+type+"']").prop('checked', true);
+			$('.content').show();
+			$('.type-content>div').eq(type_index).show().siblings().hide();
+		}
+		console.log(menu_json);
+	})
+
+
+	$('#type input').click(function(){
+		var i = $(this).attr('data-index');
+		$('.type-content>div').eq(i).show().siblings().hide();
+	})
+
+
+	$('#name').change(function(){
+		var name = $(this).val();
+		
+		if(current_second !== '' ){
+			menu_json[current_first].sub_button[current_second].name = name;
+			$('.first-menu-button').eq(current_first).find('.second-menu-button').eq(current_second).children('span').text(name);
+			
+		}else{
+			menu_json[current_first].name = name;
+			$('.first-menu-button').eq(current_first).children('span').text(name);
+		}
+		
+		console.log(menu_json);
+	})
+
+
+	$('#type input').change(function(){
+		var type = $(this).attr('value');
+		var obj = {};
+		
+		switch(type){
+			case 'click':
+				obj.key = '';
+				break;
+				
+			case 'view':
+				obj.url = '';
+				break;
+				
+			case 'miniprogram':
+				obj.url = 'http://mp.weixin.qq.com';
+				obj.appid = '';
+				obj.pagepath = '';
+				break;
+		}
+		
+		obj.type = type;
+		
+		if(current_second !== ''){
+			var name = menu_json[current_first].sub_button[current_second].name;
+			
+			obj.name = name;
+			menu_json[current_first].sub_button.splice(current_second, 1, obj);
+			
+		}else{
+			var name = menu_json[current_first].name;
+			
+			obj.name = name;
+			menu_json.splice(current_first, 1, obj);
+		}
+		
+		console.log(menu_json);
+	})
+
+
+	$('#key').change(function(){
+		var k = $(this).val();
+		
+		if(current_second !== '' ){
+			menu_json[current_first].sub_button[current_second].key = k;
+			
+		}else{
+			menu_json[current_first].key = k;
+		}
+		console.log(menu_json);
+	})
+
+
+	$('#url').change(function(){
+		var url = $(this).val();
+		
+		if(current_second !== '' ){
+			menu_json[current_first].sub_button[current_second].url = url;
+			
+		}else{
+			menu_json[current_first].url = url;
+		}
+		console.log(menu_json);
+	})
+
+
+	$('#appid').change(function(){
+		var appid = $(this).val();
+		
+		if(current_second !== '' ){
+			menu_json[current_first].sub_button[current_second].appid = appid;
+			
+		}else{
+			menu_json[current_first].appid = appid;
+		}
+		console.log(menu_json);
+	})
+	
+
+	$('#pagepath').change(function(){
+		var path = $(this).val();
+		
+		if(current_second !== '' ){
+			menu_json[current_first].sub_button[current_second].pagepath = path;
+			
+		}else{
+			menu_json[current_first].pagepath = path;
+		}
+		console.log(menu_json);
+	})
+	
+	
+	$('#save').click(function(){
+		$.ajax({
+			url: '/chat/main.php',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				m: 'public_menu',
+				a: 'save_menu',
+				menu: menu_json,
+				id: $(this).attr('data-id'),
+				j: 1,
+				tt: Math.random()
+			},
+			success: function(res) {
+				
+			}
+		})
+	})
+	
+</script>

@@ -1,0 +1,45 @@
+
+<div class="panel-heading">
+   	文章列表{if $type_name}-{$type_name}{else}-全部{/if}
+</div>
+<div class="panel-body list-window">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr>
+				    <th class="thh" width="5%"><strong>ID</strong></th>
+				    <th class="thh" width="30%"><strong>标题</strong></th>
+					<th class="thh" width="15%"><strong>来源</strong></th>
+					<th class="thh" width="10%"><strong>标签</strong></th>
+					<th class="thh" width="20%"><strong>添加时间</strong></th>
+					<th class="thh" width="20%"><strong>操作</strong></th>
+					
+				</tr>
+            </thead>
+            <tbody id="alluser">
+				{foreach from=$data item=list}
+					  <tr>
+					    <td class="bgr">{$list.id}</td>
+					    <td class="bgr">{$list.title}</td>
+					    <td class="bgr">{$list.from}</td>
+					    <td class="bgr">{$list.tag}</td>
+					    <td class="bgr">{$list.add_time}</td>
+					    <td class="bgr">
+					    	<a href="javascript:editArticle({$list.id});">修改/查看</a>&nbsp;&nbsp;
+					    	<a href="javascript:void(0)" onclick="delArticle({$list.id}, this);">删除</a>
+					    </td>
+					  </tr>
+				 {/foreach} 
+					<tr>
+						<td colspan="6" style="background: white;">
+							{if $data}
+								{$page}
+							{else}
+								没有数据
+							{/if}
+						</td>
+					</tr>                             
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>菜单导出</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/_ext/script/time/jscal2.css">
+<link rel="stylesheet" type="text/css" href="/_ext/script/time/border-radius.css">
+<link rel="stylesheet" type="text/css" href="/_ext/script/time/win2k.css">
+<link rel="stylesheet" type="text/css" href="/_ext/script/time/style.css">
+<script type="text/javascript" src="/_ext/script/time/calendar.js"></script>
+<script type="text/javascript" src="/_ext/script/time/lang/cn.js"></script> 
+<link href="/_ext/script/asyncbox/skins/ZCMS/asyncbox.css" type="text/css" rel="stylesheet" />
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script type="text/javascript" src="/_ext/script/asyncbox/AsyncBox.v1.4.js"></script>
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+String.prototype.trim= function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");  
+}
+</script>
+</head>
+<body>
+<div class="index">
+	<dl>
+		<dt class="title"><strong>菜单导出</strong></dt>
+		<dt class="fun">
+				<form method="post" action="main.php?m=rights&a=export_action">
+				<strong>项目名称:</strong><select name="project" id="project">
+    <option value="0">所有项目</option>{foreach from=$projects item=r}<option value="{$r.project}" {if $r.project==$project}selected{/if}>{$r.project}</option>{/foreach} </select>
+				<strong>数据库前缀:</strong><input type="text" name="prex" value="{$prex}" id="prex" class="input"><input name="提交" class="submit" style="margin-left:10px; width:70px;" type="submit" value="确&nbsp;&nbsp;定">
+				</form>
+		</dt>
+		<dd>
+			<div class="form">
+			<dl>
+				<dt class="form-title"><strong>生成SQL语句</strong></dt>
+		<textarea name="textarea" id="textarea" style="width:100%; height:300px;; margin-top:10px;" rows="25">{if $data}insert into {$prex}admin_rights(`name`,`url`,`comment`,`available`,`sort`,`project`,`code`,`father_code`,`is_show`) values{/if}
+{foreach from=$data item=r key=k}
+{if $k>0},{/if}('{$r.name}','{$r.url}','{$r.comment}','{$r.available}','{$r.sort}','{$r.project}','{$r.code}','{$r.father_code}','1')
+{/foreach}</textarea>
+</dl>
+		</div>
+		
+		</dd>
+		
+	</dl>
+</div>
+</body>
+</html>

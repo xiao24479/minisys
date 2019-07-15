@@ -1,0 +1,15 @@
+{foreach from=$all item=list}
+	  <tr>
+	    <td class="bgr">{$list.area}</td>
+	    <td class="bgr">{$list.num}</td>
+					
+ {/foreach}  
+	<tr>
+		<td colspan="2" >
+			{if $all}
+				{$page}
+			{else}
+				没有数据
+			{/if}
+		</td>
+	</tr>

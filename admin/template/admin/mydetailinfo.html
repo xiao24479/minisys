@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>我的消息</title>
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+</head>
+<body>
+<form action="main.php?m=admin&a=sendMess" method="post" onSubmit="return sendMessCheck();">
+			<input type="hidden" name="dopost" value="send" />
+			<div class="form">
+				<dl>
+					<dt>
+					<div class="form-title"><strong>消息栏</strong></div>
+					</dt>
+					<dd class="contends" style="padding:10px;">
+						<div>
+							<div class="form" style="width:400px;">
+								<dl>
+									<dt class="form-title"><strong>查看消息</strong></dt>
+									<dd>
+									  <div class="div">
+                                        <strong>标题:</strong>
+                                        {$data.title}
+									  </div>
+                                      <div class="div">
+                                        <strong>发布时间:</strong>
+                                        {if $data.from_time!=0}{$data.from_time|date:'Y-m-d H.i'}{/if}
+									  </div>
+									  <div class="div">
+                                        <strong>内容:</strong>
+                                        {$data.content}
+									  </div>
+								  </dd>
+								</dl>
+							</div>
+						</div>
+
+						<div align="left">
+							<input name="fan" type="button" class="input" id="fan" value=" 返回 "  onClick="window.location='main.php?m=admin&a=myinfo'"/>
+						</div>
+					</dd>
+				</dl>
+			</div>
+		</form>
+</body>
+</html>

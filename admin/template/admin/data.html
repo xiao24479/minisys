@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>客服简报</title>
+<link rel="stylesheet" type="text/css" media="all" href="/admin/_extends/calendar/calendar-blue.css">
+
+<script type="text/javascript" src="/admin/_extends/calendar/calendar.js"></script>
+
+<script type="text/javascript" src="/admin/_extends/calendar/calendar-cn.js"></script>
+
+<script type="text/javascript" src="/admin/_extends/calendar/calendar-setup.js"></script>
+
+<link href="/_ext/script/asyncbox/skins/ZCMS/asyncbox.css" type="text/css" rel="stylesheet" />
+
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+
+<script type="text/javascript" src="/_ext/script/asyncbox/AsyncBox.v1.4.js"></script>
+
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+
+
+function myinfo_action(){
+	var start_start_day = $("#start_start_day").val();
+	var end_start_day = $("#end_start_day").val(); 
+	
+	$.ajax({
+
+	    url:"/admin/main.php",
+
+	    type:"get",
+
+	    dataType:"json",
+
+	    data:{m:"admin",a:"myinfo_action",j:1,start_start_day:start_start_day,end_start_day:end_start_day,tt:Math.random()},
+
+	    success:function(resp){
+
+	      $("#con_all").html(resp.content);
+
+	    }
+
+	});
+
+}
+//myinfo_action();
+</script>
+</head>
+
+<body>
+
+<div id="con_all">
+
+
+</div>
+
+
+</body>
+</html>

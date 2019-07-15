@@ -1,0 +1,36 @@
+{foreach from=$data item=list}
+	{if $list.type eq '1'}
+	    <div class="left-chat">
+                    <img class="left-headimg" src="/chat/style/chatroom/images/vistor-img.png" alt="">
+                    <div class="talkbox">
+                        <p class="talktime"><span>{if $list.guest}{$list.guest}{else}访客{$list.id}{/if}</span></p>
+                        <p class="talktime"><span>{if $list.createTime}{$list.createTime|date:'Y-m-d H'}:{$list.createTime|date:'i'}:{$list.createTime|date:'s'}{else}{/if}</span></p>
+                        <div class="left-chat-content">
+                            {$list.content}
+                        </div>
+                    </div>
+        </div>
+    {elseif $list.type eq '2'} 
+        <div class="right-chat">
+                    <img class="right-headimg" src="/chat/style/chatroom/images/admin-img.png" alt="">
+                    <div class="talkbox">
+                        <p class="talktime"><span>在线机器人</span></p>
+                        <p class="talktime"><span>{if $list.createTime}{$list.createTime|date:'Y-m-d H'}:{$list.createTime|date:'i'}:{$list.createTime|date:'s'}{else}{/if}</span></p>
+                        <div class="right-chat-content">
+                           {$list.content}
+                        </div>
+                    </div>
+        </div>
+	{elseif $list.type eq '3'} 
+	    <div class="right-chat">
+                    <img class="right-headimg" src="{if $list.path}{$list.path}{else}/chat/style/chatroom/images/admin-img.png{/if}" alt="">
+                    <div class="talkbox">
+                        <p class="talktime"><span>{$list.name}</span></p>
+                        <p class="talktime"><span>{if $list.createTime}{$list.createTime|date:'Y-m-d H'}:{$list.createTime|date:'i'}:{$list.createTime|date:'s'}{else}{/if}</span></p>
+                        <div class="right-chat-content">
+                           {$list.content}
+                        </div>
+                    </div>
+        </div>
+	{/if}
+{/foreach} 

@@ -1,0 +1,29 @@
+{foreach from=$all item=a}
+  <tr>
+    <td class="bgr"><img src="{$a.pic}" width="100"></td>
+    <td class="bgr">{$a.name}</td>
+    <td class="bgr">{$a.job}</td>
+    <td class="bgr" style="text-align: left;">{$a.dep_name}</td>
+    <td class="bgr">{$a.skill}</td>
+    <td class="bgr">{$a.introduce}</td>
+    <td class="bgr">{$a.score}</td>
+    <td class="bgr">{$a.fans}</td>
+    <td class="bgr">{$a.consult_count}</td>
+    <td class="bgr">{$a.current_consult}</td>
+    <td class="bgr">{$a.doc_order}</td>
+    <td class="bgr">{$a.add_time}</td>
+	<td class="bgr">
+		<a onclick="javascript:doctor_modify({$a.id});">修改</a><br/>
+		<a onclick="javascript:doctor_delete({$a.id});">删除</a>
+	</td>
+  </tr>
+  {/foreach} 
+	<tr>
+	    <td colspan="13">
+	    {if $all}
+			{$page}
+		{else}
+			没有记录
+		{/if}
+		</td>
+	</tr>

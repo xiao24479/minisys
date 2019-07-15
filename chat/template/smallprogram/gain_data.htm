@@ -1,0 +1,40 @@
+
+{foreach from=$data item=list}
+	{if $list.mold==1 || $list.mold==2}
+		{if $list.vistor_id==$id}
+		<li class="li" onClick="get_client_id({$list.vistor_id}, this);" id="li_{$list.vistor_id}" style="background:#24c2ce;">
+		{else}
+		<li class="li" onClick="get_client_id({$list.vistor_id}, this);" id="li_{$list.vistor_id}">
+		{/if}
+	
+   {else}
+		{if $list.vistor_id==$id}
+		<li class=" gray li" onClick="get_client_id({$list.vistor_id}, this);" id="li_{$list.vistor_id}" style="background:#24c2ce;">
+		{else}
+		<li class=" gray li" onClick="get_client_id({$list.vistor_id}, this);" id="li_{$list.vistor_id}">
+		{/if}
+   {/if}
+	
+  			<img class="user-avr" src="/chat/style/chatroom/images/vistor-img.png" alt="">
+  			
+   {if $list.vistor_id==$id}
+			<span style="color:red;" class="co" id="color_{$list.vistor_id}">
+			 	{$list.client_name}-<span style="color: white;font-weight: bold;">{$list.type_name}</span>
+			</span>
+   {else}
+			<span style="" class="co" id="color_{$list.vistor_id}">
+			 	{$list.client_name}-<span class="co-span" style="color: #24c2ce;font-weight: bold;">{$list.type_name}</span>
+			</span>
+   {/if}
+  
+   {if $list.collect}
+       		<img class="icon-star" src="/chat/style/chatroom/images/icon-star.png" alt=""/>
+   {/if}
+   
+			<div style="display:inline-block;float:right;background:#51b964;color:#FFFFFF;border-radius:12px;height:24px;width:24px;text-align:center;margin-top:5px; line-height:24px;{if $list.num==0 || $list.vistor_id==$id}display:none;{else}display:block;{/if}" id="num_{$list.vistor_id}">
+				{$list.num}
+			</div>
+			
+		</li>
+{/foreach} 
+        

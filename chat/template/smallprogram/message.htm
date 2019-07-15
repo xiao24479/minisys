@@ -1,0 +1,380 @@
+<html>
+
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="/_ext/style/css.css" rel="stylesheet" type="text/css" />
+		<link href="/chat/style/chatroom/css/chat.css" rel="stylesheet">
+		<link href="/_ext/script/asyncbox/skins/ZCMS/asyncbox.css" type="text/css" rel="stylesheet" />
+
+		<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+		<script language="JavaScript" src="/_ext/My97DatePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="/_ext/script/asyncbox/AsyncBox.v1.4.js"></script>
+
+		<style>
+			.asyncbox_title li,
+			.asyncbox_title_tips strong {
+				background-color: #b38d40;
+			}
+			
+			.li:hover {
+				background: rgba(0, 175, 205, 0.5) !important;
+				color: #FFFFFF !important;
+			}
+			
+			.li:hover .co-span {
+				color: #FFFFFF !important;
+			}
+			
+			.wrapper *{
+				background: white;
+			}
+			
+			.btn input,
+			.btn div ,
+			.type-modify{
+				background: #24c2ce !important;
+			}
+			.page .list ul{
+				height: 90% !important;
+			}
+			.list-title {
+				margin: 0 !important;
+				height: 45px;
+				border-bottom: 1px solid #eee;
+			}
+			.list-title span {
+				line-height: 45px;
+			}
+			.top {
+				padding-left: 20px;
+				font-size: 15px;
+			}
+		</style>
+
+		<script>
+			function AsyncBox_Adapter(title, html, width, height) {
+				asyncbox.open({
+					title: title,
+					　　　html: html,
+					　　　width: width,
+					　　height: height　
+				});
+			}
+	
+			$(window).resize(function(){ 
+				set_h('.page', 70); 
+			});
+			set_h('.page', 70);	
+			
+		</script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="top" style="color:#24c2ce;">对话管理<strong style="color:red">【小程序支持48小时推送，最多连续发五条消息】</strong></div>
+			<div class="page">
+				<div class="list">
+					<!--<input class="search" type="text" placeholder="搜索访客">-->
+					<div class="list-title">
+						<span style="color:#24c2ce;"><img src="/chat/style/chatroom/images/icon-users.png" alt="">客户列表</span>
+					</div>
+					<ul class="user-list" id="message-contents">
+
+					</ul>
+				</div>
+				<div class="content" id="dialogue">
+
+				</div>
+			</div>
+		</div>
+		<div id="newMessageDIV" style="display:none"></div>
+		<script src="/chat/style/chatroom/js/jquery.min.js"></script>
+		<script src="/chat/style/chatroom/vendor/layer/layer.js"></script>
+		<script src="/chat/style/chatroom/js/swfobject.js"></script>
+		<script src="/chat/style/chatroom/js/web_socket.js"></script>
+
+		<script type="text/javascript">
+			
+			function gain_data() {
+				var id = $("#vistor_id_val").val();
+				$.ajax({
+					url: "/chat/main.php",
+					type: "get",
+					dataType: "json",
+					data: {
+						m: "smallprogram",
+						a: "gain_data",
+						id: id,
+						j: 1,
+						tt: Math.random()
+					},
+					success: function(resp) {
+						if(resp.message == 1) {
+							play();
+						}
+						$("#message-contents").html(resp.content);
+//						setTimeout("gain_data()", 20000);
+
+					}
+				});
+			}
+			gain_data();
+			
+			setInterval(function(){
+				gain_data();
+			}, 20000);
+
+			function scrollBottom() {
+				$('.chat-content').scrollTop($('.chat-content')[0].scrollHeight);
+			}
+
+			function newMessage(msg, name, time) {
+
+				var html = '<div class="left-chat">' +
+					'<img class="left-headimg" src="/chat/style/chatroom/images/vistor-img.png" alt="">' +
+					'<div class="talkbox">' +
+					'<p class="talktime"><span>' + name + '</span></p>' +
+					'<p class="talktime"><span>' + time + '</span></p>' +
+					'<div class="left-chat-content">' + msg + '</div>' +
+					'</div>' +
+					'</div>';
+
+				$('.chat-content').append(html);
+				scrollBottom();
+			}
+
+			function say(data) {
+
+				var name = $('#admin_name').val();
+				var path = $('#admin_path').val();
+
+				if(path == '' || path == null) {
+					path = '/chat/style/chatroom/images/admin-img.png';
+				}
+
+				var html = '<div class="right-chat">' +
+					'<img class="right-headimg" src="' + path + '" alt="">' +
+					'<div class="talkbox">' +
+					'<p class="talktime"><span>' + name + '</span></p>' +
+					'<p class="talktime"><span>' + data['time'] + '</span></p>' +
+					'<div class="right-chat-content">' + data['content'] + '</div>' +
+					'</div>'
+				'</div>';
+
+				$('.chat-content').append(html);
+
+				scrollBottom();
+			}
+
+			function SendBtn() {
+
+				var text = $("#sendmsg");
+				var msg = text.val();
+				var vistor_id = $("#vistor_id_val").val();
+				var num = $("#num_" + vistor_id).text();
+
+				if($.trim(msg) == '') {
+					layer.msg('请输入消息内容', {
+						time: 1000,
+						icon: 5
+					})
+					return false;
+				}
+
+				$.ajax({
+					url: "/chat/main.php",
+					type: "get",
+					dataType: "json",
+					data: {
+						m: "smallprogram",
+						a: "push",
+						msg: msg,
+						vistor_id: vistor_id,
+						j: 1,
+						tt: Math.random()
+					},
+					success: function(resp) {
+						if(resp.message == 1) {
+							$("#sendmsg").val("");
+							layer.msg('推送成功', {
+								time: 1000,
+								icon: 6
+							});
+							var data = resp.content;
+							say(data);
+
+							//$("#num_"+vistor_id).html(parseInt(num)+1);
+							$("#num_" + vistor_id).html("0");
+						} else {
+							layer.msg(resp.content, {
+								time: 1000,
+								icon: 5
+							});
+						}
+					},
+				});
+			}
+
+			document.onkeydown = function(event) {
+				var e = event || window.event || arguments.callee.caller.arguments[0];
+				if(e && e.keyCode == 13) { // enter 键
+					var text = $("#sendmsg");
+					var msg = text.val();
+					var vistor_id = $("#vistor_id_val").val();
+					var num = $("#num_" + vistor_id).text();
+
+					if($.trim(msg) == '') {
+						layer.msg('请输入消息内容', {
+							time: 1000,
+							icon: 5
+						})
+						return false;
+					}
+
+					$.ajax({
+						url: "/chat/main.php",
+						type: "get",
+						dataType: "json",
+						data: {
+							m: "smallprogram",
+							a: "push",
+							msg: msg,
+							vistor_id: vistor_id,
+							j: 1,
+							tt: Math.random()
+						},
+						success: function(resp) {
+							if(resp.message == 1) {
+								$("#sendmsg").val("");
+								layer.msg('推送成功', {
+									time: 1000,
+									icon: 6
+								});
+								var data = resp.content;
+								say(data);
+
+								//$("#num_"+vistor_id).html(parseInt(num)+1);
+								$("#num_" + vistor_id).html("0");
+							} else {
+								layer.msg(resp.content, {
+									time: 1000,
+									icon: 5
+								});
+							}
+						},
+					});
+				}
+			};
+			/**
+				  查看对话消息
+				**/
+			var t;
+
+			function check_vistor(id) {
+				$("#num_" + id).css("display", "none");
+
+				clearTimeout(t);
+				$.ajax({
+					url: "/chat/main.php",
+					type: "get",
+					dataType: "json",
+					data: {
+						m: "smallprogram",
+						a: "check_vistor",
+						j: 1,
+						id: id,
+						tt: Math.random()
+					},
+					success: function(resp) {
+
+						$('.chat-content').html(resp.content);
+						scrollBottom();
+						t = setTimeout("check_vistor2()", 0);
+
+					}
+				});
+			}
+
+			function check_vistor2() {
+				var id = $("#vistor_id_val").val();
+				$.ajax({
+					url: "/chat/main.php",
+					type: "get",
+					dataType: "json",
+					data: {
+						m: "smallprogram",
+						a: "check_vistor2",
+						j: 1,
+						id: id,
+						tt: Math.random()
+					},
+					success: function(resp) {
+						if(resp.message == 1) {
+							$('.chat-content').html(resp.content);
+							scrollBottom();
+						}
+						t = setTimeout("check_vistor2()", 5000);
+
+					}
+				});
+			}
+
+			function get_client_id(id, el) {
+				$(el).css({background:'#24c2ce'}).siblings().css({background:'#fff'});
+				
+				$('.li span').css({color:''});
+				$(el).children('span').css({color:'red'});
+				
+				$('.li span>span').css({color:'#24c2ce'});
+				$(el).children('span').children('span').css({color:'#fff'});
+				
+				$.ajax({
+					url: "/chat/main.php",
+					type: "get",
+					dataType: "json",
+					data: {
+						m: "smallprogram",
+						a: "dialogue",
+						id: id,
+						j: 1,
+						tt: Math.random()
+					},
+					success: function(resp) {
+						if(resp.message == 1) {
+							$('#dialogue').html(resp.content);
+							check_vistor(id);
+						}
+					}
+				});
+				//得到当前用户的当天的消息
+			}
+
+			//消息提示
+			function play() {
+				//IE9+,Firefox,Chrome均支持<audio/>   
+				$('#newMessageDIV').html('<audio autoplay="autoplay"><source src="/chat/style/chatroom/mp3/menling.mp3"' +
+					'type="audio/wav"/><source src="/chat/style/chatroom/mp3/menling.mp3" type="audio/mpeg"/></audio>');
+			}
+
+			function check_vistor3() {
+				var id = $("#vistor_id_val").val();
+				$.ajax({
+					url: "/chat/main.php",
+					type: "get",
+					dataType: "json",
+					data: {
+						m: "vistor",
+						a: "check_vistor",
+						j: 1,
+						id: id,
+						tt: Math.random()
+					},
+					success: function(resp) {
+						AsyncBox_Adapter('查看对话信息', resp.content, 800, 600);
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

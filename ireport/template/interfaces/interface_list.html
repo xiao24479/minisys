@@ -1,0 +1,225 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script language="JavaScript" src="/_ext/dialog/dialog.js"></script>
+
+<link href="/_ext/dialog/dialog.css" rel="stylesheet" type="text/css">
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+
+function selectUserName(){
+	var userNameid;
+	userNameid = $("#userName").val();
+
+	$.ajax({
+		url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"userRole",a:"selectUserName",userName:userNameid,j:1,tt:Math.random()},
+	    success:function(resp){
+		    $("#alluser").html(resp.content);
+	    }
+		
+	
+	});
+
+}
+
+function interface_modify(id){
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"interfaces",a:"interface_modify",id:id,j:1,tt:Math.random()},
+	    success:function(resp){
+	    	dialog('修改接口', resp.content, 700, 600);
+	    }
+	});
+}
+
+function interface_modify_action(id){
+	var p = $("#alluser span[class='current']").text();
+	var type = $("#type").val(),
+		name = $("#name").val(),
+		account = $("#account").val(),
+		password = $("#password").val(),
+		appId = $("#appid").val(),
+		token = $("#token").val(),
+		ToUserName = $("#ToUserName").val();
+
+	if(name=='' || account=='' || appId=='' || password=='' || ToUserName==''){
+		alert('请输入必填项！');
+		return;
+	}
+	
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{
+	    	m:"interfaces",
+	    	a:"interface_modify_action",
+	    	type:type,
+	    	name:name,
+	    	account:account,
+	    	password:password,
+	    	appId:appId,
+	    	token:token,
+	    	ToUserName:ToUserName,
+	    	id:id,
+	    	j:1,
+	    	tt:Math.random()
+	    },
+	    success:function(resp){
+	      if(resp.message==1){
+			alert('修改完成');
+			$("#dialog").hide().html("");
+			interface_action(p);
+		  }else{
+			alert(resp.content);
+		  }
+	    }
+	});
+}
+
+
+function interface_action(page){
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"interfaces",a:"interface_action",p:page,j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#alluser").html(resp.content);
+	    }
+	});
+}
+
+
+function interface_add(){
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"interfaces",a:"interface_add",j:1,tt:Math.random()},
+	    success:function(resp){
+	      dialog('添加接口', resp.content, 700, 600);
+	    }
+	});
+}
+
+
+function interface_add_action(){
+	var p = $("#alluser span[class='current']").text();
+	var type = $("#type").val(),
+		name = $("#name").val(),
+		account = $("#account").val(),
+		password = $("#password").val(),
+		appId = $("#appid").val(),
+		token = $("#token").val(),
+		ToUserName = $("#ToUserName").val();
+
+	if(name=='' || account=='' || appId=='' || password=='' || ToUserName==''){
+		alert('请输入必填项！');
+		return;
+	}
+
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{
+	    	m:"interfaces",
+	    	a:"interface_add_action",
+	    	type:type,
+	    	name:name,
+	    	account:account,
+	    	password:password,
+	    	appId:appId,
+	    	token:token,
+	    	ToUserName:ToUserName,
+	    	j:1,
+	    	tt:Math.random()
+	    },
+	    success:function(resp){
+	      if(resp.message==1){
+			alert('添加完成');
+			interface_action(p);
+			$("#dialog").hide().html("");
+		  }else{
+			alert(resp.content);
+		  }
+	    }
+	});
+}
+
+function interface_delete(id) {
+	var p = $("#alluser span[class='current']").text();
+	
+	if(confirm('确定删除?')){
+		$.ajax({
+			type:"get",
+			url:"/ireport/main.php",
+			dataType: 'json',
+		    data:{
+		    	m:"interfaces",
+		    	a:"interface_delete",
+		    	id:id,
+		    	j:1,
+		    	tt:Math.random()
+		    },
+		    success:function(resp){
+		      if(resp.message==1){
+				alert('删除成功');
+				interface_action(p);
+			  }else{
+				alert(resp.content);
+			  }
+		    }
+		});		
+	}
+}
+
+
+</script>
+</head>
+<body>
+    <div class="col-md-12">
+      <!--   Kitchen Sink -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                帐户列表
+				<a  href="javascript:interface_add();" style="padding-right: 10px;float: right;color: #32C2Cd;">添加接口</a>
+            </div>
+			
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+						<thead>
+                            <tr>
+							  	<th><strong>名称</strong></th>
+								<th><strong>账户</strong></th>
+								<th><strong>密码</strong></th>
+								<!--<th><strong>APPID</strong></th>
+								<th><strong>AppSecret</strong></th>
+								<th><strong>原始Id</strong></th>-->
+								<th><strong>类型</strong></th>
+								<th><strong>操作</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody id="alluser">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+         <!-- End  Kitchen Sink -->
+    </div>
+</body>
+<script>interface_action(1);</script>
+</html>

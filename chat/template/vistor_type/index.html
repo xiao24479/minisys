@@ -1,0 +1,210 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script language="JavaScript" src="/admin/assets/daterangepicker/daterangepicker.js"></script>
+<script language="JavaScript" src="/admin/assets/daterangepicker/moment.js"></script> 
+<script language="JavaScript" src="/_ext/dialog/dialog.js"></script>
+
+<link href="/_ext/dialog/dialog.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/admin/assets/daterangepicker/daterangepicker.css" media="all">
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+
+
+function index(p){
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"vistor_type",a:"index",p:p,j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#page-wrapper").html(resp.content);
+	    }
+	});
+}
+
+
+function add() {
+	$.ajax({
+		url: "/chat/main.php",
+		type: 'get',
+		dataType: 'json',
+		data:{m:"vistor_type",a:"add",j:1,tt:Math.random()},
+		success: function(res) {
+			dialog('添加分类', res.content, 400, 300);
+		}
+	})
+}
+
+function add_action(){
+	var type_name = $('#name').val();
+	var top_id = $('#type').val();
+	
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+		data:{m:"vistor_type",a:"add_action",j:1,type_name:type_name, top_id:top_id, tt:Math.random()},
+	    success:function(res){
+	    	if(res.content != ''){
+	    		if(res.top_id > 0){
+	    			$("#alluser tr[data-id='"+res.top_id+"']").after(res.content);
+	    		}else{
+	    			$("#alluser").prepend(res.content);
+	    			$("#type").append("<option value='"+res.id+"'>"+res.type_name+"</option>");
+	    		}
+		    	$('#type_input').val('');
+	    	}
+	    	alert(res.message);
+		}
+	})
+}
+
+function del(id, el) {
+	if(confirm('确定删除?')){
+		$.ajax({
+			
+			url: "/chat/main.php",
+			
+			type: "get",
+			
+			dataType: "json",
+			
+			data: {
+				m: "vistor_type",
+				
+				a: "del",
+				
+				id: id,
+				
+				j:1,
+				
+				tt:Math.random()
+			},
+			
+			success: function(res) {
+				$(el).parents('tr').remove();
+			}
+		})		
+	}
+
+}
+
+
+function get_list(p, id, top_id, type_name,  el) {
+	
+	$.ajax({
+		url: "/chat/main.php",
+		type: 'get',
+		dataType: "json",
+		data: {
+			m: "vistor_type",
+			a: "get_list",
+			type_name:type_name,
+			top_id:top_id,
+			id:id,
+			p:p,
+			j:1,
+			tt:Math.random()			
+		},
+		success: function(res) {
+			$('#list').html(res.content);
+			$(el).parent('tr').addClass('current-tag');
+			$(el).parent('tr').siblings().removeClass('current-tag');
+		}
+	})
+}
+
+
+function check_vistor(id) {
+	
+	$.ajax({
+		url: "/chat/main.php",
+		type: 'get',
+		dataType: "json",
+		data: {
+			m: "vistor_type",
+			a: "msg_detail",
+			id:id,
+			j:1,
+			tt:Math.random()			
+		},
+		success: function(res) {
+			dialog('查看对话', res.content, 700, 600);
+		}
+	})	
+}
+
+function set_height() {
+	$('.type-list').css({maxHeight: $(window).height() - $('.top-navbar').height()});
+}
+set_height();
+
+$(window).resize(function(){
+	set_height();	
+})
+
+
+
+</script>
+<style type="text/css">
+	.top_0 {
+		background: #ddd !important;
+		font-weight: bold;
+	} 
+	.panel {
+		float: left;
+		margin-bottom: 0;
+	}
+	.panel-body {
+		padding: 0;
+	}
+	.tags{
+		cursor: pointer;
+		border-color: #aaa !important;
+	}
+	.current-tag {
+		background: #00C2CE !important;
+		color: white;
+	}
+	.type-list {
+		overflow-y: scroll;
+	}
+
+</style>
+</head>
+<body>
+    <div class="col-md-12">
+    	
+      <!--   Kitchen Sink -->
+        <div class="panel panel-default type-list" style="width: 18%;">
+        	<div class="panel-heading">
+               	访客分类
+                <a href="javascript:add();" style="padding-right: 10px;float: right;color: #32C2Cd;">添加分类</a>
+			</div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tbody id="alluser">
+                        	<tr class="top_0">
+                        		<td  class="tags" onclick="get_list(1, -1, -1, '', this);">全部({$all})</td>
+                        	</tr>
+							{$str}                          
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+         <!-- End  Kitchen Sink -->
+         
+        <div class="panel panel-default" id="list" style="width: 82%;">
+
+        </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link href="/_ext/dialog/dialog.css" rel="stylesheet" type="text/css">
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/_ext/css/amazeui.min.css">
+<link rel="stylesheet" href="/_ext/css/amazeui.cropper.css">
+<link rel="stylesheet" href="/_ext/css/custom_up_img.css">
+
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="JavaScript" src="/_ext/dialog/dialog.js"></script>
+<script src="/_ext/script/amazeui.min.js" charset="utf-8"></script>
+<script src="/_ext/script/cropper.min.js" charset="utf-8"></script>
+
+<script language="javascript">
+function selectUserName(){
+	var userNameid;
+	userNameid = $("#userName").val();
+
+	$.ajax({
+		url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"userRole",a:"selectUserName",userName:userNameid,j:1,tt:Math.random()},
+	    success:function(resp){
+		    $("#alluser").html(resp.content);
+	    }	
+	
+	});
+
+}
+
+function meal_modify(id){
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"meal",a:"meal_modify",id:id,j:1,tt:Math.random()},
+	    success:function(resp){
+	    	dialog('修改医生', resp.content, 700, 600);
+	    }
+	});
+}
+
+function meal_modify_action(id){
+	var jsonData = {};	
+	var title = $("#title").val();
+
+	if(!checkTitle(title, id)){
+		alert('标题已存在');
+		return;
+	}
+
+	var pic_el   = $(".detail-pic");
+	var pic_url  = [];
+	for(var i=0; i<pic_el.length; i++){
+		var base64 = $(pic_el[i]).attr('src');
+		pic_url.push(upload_base64(base64));
+	}
+
+	jsonData.detail			=  pic_url,
+	jsonData.pic            = $("#pic").attr('src'),
+	jsonData.title          = title,
+	jsonData.sell_price     = $("#sell_price").val(),
+	jsonData.original_price = $("#original_price").val(),
+	jsonData.stock          = $("#stock").val(),
+	jsonData.info           = $("#info").val();
+
+	if( 
+		jsonData.pic            =='' || 
+		jsonData.title          =='' || 
+		jsonData.sell_price     =='' || 
+		jsonData.original_price =='' || 
+		jsonData.stock          =='' || 
+		jsonData.info           ==''
+	){
+		alert('请输入必填项！');
+		return;
+	}
+
+	$.ajax({
+	    url: "/chat/main.php",
+	    type: "post",
+	    dataType: "json",
+	    data:{
+	    	m: "meal",
+	    	a: "meal_modify_action",
+	    	id: id,
+	    	json_data: jsonData,
+	    	j: 1,
+	    	tt: Math.random()
+	    },
+	    success:function(resp){
+			alert(resp.message);
+		    if(resp.content==1){
+				var p = $("#alluser span[class='current']").text() || 1;
+				meal_action(p);
+				$("#dialog").hide().html("");
+			}
+	    }
+	});
+}
+
+
+function meal_action(page){
+	var title = $("#filter-title").val();
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"meal",a:"meal_action",title:title,p:page,j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#alluser").html(resp.content);
+	    }
+	});
+}
+
+
+function meal_add(){
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"meal",a:"meal_add",j:1,tt:Math.random()},
+	    success:function(resp){
+	      dialog('添加医生', resp.content, 700, 600);
+	    }
+	});
+}
+
+
+function meal_add_action(){
+	var jsonData       = {};
+	var title = $("#title").val();
+
+	if(!checkTitle(title)){
+		alert('标题已存在');
+		return;
+	}
+
+	var pic_el = $(".detail-pic");
+	var pic_url = [];
+
+	for(var i=0; i<pic_el.length; i++){
+		var base64 = $(pic_el[i]).attr('src');
+		pic_url.push(upload_base64(base64));
+	}
+
+	jsonData.detail			=  pic_url,
+	jsonData.pic            = $("#pic").attr('src'),
+	jsonData.title          = title,
+	jsonData.sell_price     = $("#sell_price").val(),
+	jsonData.original_price = $("#original_price").val(),
+	jsonData.stock          = $("#stock").val(),
+	jsonData.info           = $("#info").val();
+
+	if( 
+		jsonData.pic            =='' || 
+		jsonData.title          =='' || 
+		jsonData.sell_price     =='' || 
+		jsonData.original_price =='' || 
+		jsonData.stock          =='' || 
+		jsonData.info           ==''
+	){
+		alert('请输入必填项！');
+		return;
+	}
+
+	$.ajax({
+	    url: "/chat/main.php",
+	    type: "post",
+	    dataType: "json",
+	    data:{
+	    	m: "meal",
+	    	a: "meal_add_action",
+	    	json_data: jsonData,
+	    	j: 1,
+	    	tt: Math.random()
+	    },
+	    success:function(resp){
+			alert(resp.message);
+		    if(resp.content==1){
+				var p = $("#alluser span[class='current']").text() || 1;
+				meal_action(p);
+				$("#dialog").hide().html("");
+			}
+	    }
+	});
+}
+
+function checkTitle(title, id) {
+	var result;
+	$.ajax({
+	    url: "/chat/main.php",
+	    type: "get",
+	    async: false,
+	    dataType: "json",
+	    data:{
+	    	m: "meal",
+	    	a: "check_title",
+	    	title: title,
+	    	id: id || 0,
+	    	j: 1,
+	    	tt: Math.random()
+	    },
+	    success:function(res){
+	    	result = res.content
+	    }
+	})
+	return result;
+}
+
+function upload_base64(base64) {
+	var url;
+	var rule = /base64/;
+	var domain = '';
+	// var domain = 'https://ai.ra120.com';
+
+	if(!rule.test(base64)){
+		return base64;
+	}
+
+	$.ajax({
+		url: domain + "/chat/main.php?m=file&a=base64_save",
+		type: "POST",
+		async: false,
+		dataType: 'json',
+		data: {
+			image: base64
+		},
+		success: function(res) {
+			url = res.content;
+		}
+	})
+	return url;
+}
+
+
+function meal_delete(id) {
+	if(confirm('确定删除?')){
+		$.ajax({
+			type:"get",
+			url:"/chat/main.php",
+			dataType: 'json',
+		    data:{
+		    	m:"meal",
+		    	a:"meal_delete",
+		    	id:id,
+		    	j:1,
+		    	tt:Math.random()
+		    },
+		    success:function(resp){
+				alert(resp.message);
+		      	if(resp.content==1){
+					var p = $("#alluser span[class='current']").text() || 0;
+					meal_action(p);
+			  	}
+		    }
+		});		
+	}
+}
+
+
+</script>
+<style type="text/css">
+	.filter {
+	    display: flex;
+	    align-items: center;
+	}
+	.filter input {
+		margin: 5px !important;
+	}
+	.filter span {
+		margin-left: 15px !important;
+		font-weight: bold;
+		font-size: 15px;
+	}
+	.detail-wrap{
+		width: 100px;
+		height: 75px;
+	}
+	.detail-wrap img {
+		width: 100%;
+		height: 100%;
+	}
+</style>
+</head>
+<body>
+    <div class="col-md-12">
+      <!--   Kitchen Sink -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                套餐列表
+				<a  href="javascript:meal_add();" style="padding-right: 10px;float: right;color: #32C2Cd;">添加套餐</a>
+            </div>
+			<div class="filter">
+                <span class="spanzz" style="margin-left:0px;">套餐标题:</span>
+				<input type="text" class="form-control" id="filter-title"  style="width:150px;" autocomplete="off">
+
+				<input type="submit" class="btn btn-default" value="查找" onclick="javascript:meal_action(1);">
+			</div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+						<thead>
+                            <tr>
+							  	<th width="10%"><strong>图片</strong></th>
+								<th width="20%"><strong>标题</strong></th>
+								<th width="20%"><strong>介绍</strong></th>
+								<th width="5%"><strong>详情图</strong></th>
+								<th width="5%"><strong>售价</strong></th>
+								<th width="5%"><strong>原价</strong></th>
+								<th width="5%"><strong>库存</strong></th>
+								<th width="8%"><strong>是否优惠</strong></th>
+								<th width="10%"><strong>添加时间</strong></th>
+								<th width="10%"><strong>操作</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody id="alluser">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+         <!-- End  Kitchen Sink -->
+    </div>
+</body>
+<script>meal_action(1);</script>
+</html>

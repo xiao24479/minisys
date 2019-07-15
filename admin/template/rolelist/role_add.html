@@ -1,0 +1,86 @@
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+
+<script language="javascript">
+String.prototype.trim= function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");  
+}
+
+function role_add(){
+	var rname   = document.getElementById('r_name').value;
+	var desc    = document.getElementById('desc').value;
+	var state   = document.getElementById('state').value;
+	var project = document.getElementById('project').value;
+	
+	if(rname.trim()==''){
+		alert('角色名称不能为空！');
+		document.getElementById('r_name').focus();
+	}else if(project.trim()==''){
+	    alert('项目名称不能为空！');
+		document.getElementById('project').focus();
+    }else{
+	$.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"roleList",a:"role_add_action",role_name:rname,desc:desc,j:1,state:state,project:project,tt:Math.random()},
+	    success:function(resp){
+			if(resp.message=='0'){
+				alert('该角色名称已经存在，不能重复！');
+				return;
+			}else{
+				alert('成功保存！');
+				get_role_all();
+				get_role_detail(resp.message);
+			}
+	    }
+		});
+	
+	}
+	
+}
+</script>
+      <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            添加角色
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                   
+                                        <div class="form-group">
+                                            <label>角色名称</label>
+                                            <input class="form-control" name="r_name" type="text" id="r_name">
+                                        </div>
+										<div class="form-group">
+                                            <label>角色描述</label>
+                                            <input class="form-control" name="desc" type="text" id="desc">
+                                        </div>
+										<div class="form-group">
+                                            <label>项目名称</label>
+                                            <input class="form-control" name="project" type="text" id="project">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>是否有效</label>
+                                            <select class="form-control" name="state" id="state">
+                                                <option value="1">有效</option>
+                                                <option value="0">无效</option>
+                                            </select>
+                                        </div>
+                                       
+                                        <input  onClick="javascript:role_add();" type="submit" class="btn btn-default" value="提交">
+                                   
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>

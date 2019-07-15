@@ -1,0 +1,11 @@
+{foreach from=$data item=list}
+	<tr>
+		<td>{$list.id}</td>
+		<td>{$list.name}</td> 
+		<td>
+			<a onclick="get_role_detail({$list.id});">查看/修改</a>
+			|
+			<a onclick="delete_confirm({$list.id});">删除</a>
+		</td> 
+	</tr>
+{/foreach}

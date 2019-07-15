@@ -1,0 +1,59 @@
+{foreach from=$all item=a}
+<tr>
+	<td class="bgr"><img src="{$a.pic}" width="100"></td>
+	<td class="bgr">{$a.title}</td>
+	<td class="bgr">{$a.info}</td>
+	<td class="bgr"><a href="javascript: void(0);">{$a.count}</a></td>
+	<td class="bgr">{$a.sell_price}</td>
+	<td class="bgr">{$a.original_price}</td>
+	<td class="bgr">{$a.stock}</td>
+	<td class="bgr set_discounts" meal_id="{$a.id}" is_dis="{$a.is_discounts}" style="cursor: pointer;">
+		{if $a.is_discounts==1}<span style="color: #1AE61A;">优惠中</span>{/if}
+		{if $a.is_discounts==0}<span>非优惠</span>{/if}
+	</td>
+	<td class="bgr">{$a.add_time}</td>
+	<td class="bgr">
+		<a onclick="javascript:meal_modify({$a.id});">修改</a>&nbsp;
+		<a onclick="javascript:meal_delete({$a.id});">删除</a>
+	</td>
+</tr>
+{/foreach} 
+<tr>
+    <td colspan="10">
+    {if $all}
+		{$page}
+	{else}
+		没有记录
+	{/if}
+	</td>
+</tr>
+<script type="text/javascript">
+	$(".set_discounts").on('click', function(){
+		if(confirm('确定修改?')){
+			var _this = this;
+			var meal_id = $(_this).attr('meal_id');
+			var is_dis = $(_this).attr('is_dis');
+
+			$.ajax({
+				url:"/chat/main.php",
+				type:"get",
+				dataType: 'json',
+				data: {
+			    	m: "meal",
+			    	a: "change_dis",
+			    	id: meal_id,
+			    	is_dis: is_dis,
+			    	j: 1,
+			    	tt: Math.random()
+				},
+				success: function(res){
+					alert(res.message);
+					if(res.content==1){
+						var p = $("#alluser span[class='current']").text() || 0;
+						meal_action(p);
+					}
+				}
+			})
+		}
+	})
+</script>

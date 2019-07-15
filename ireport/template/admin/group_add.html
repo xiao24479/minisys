@@ -1,0 +1,49 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+	
+String.prototype.trim= function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");  
+}
+
+</script>
+</head>
+<body>
+		<div class="form-group">
+            <label>中文名称：<span style="color:red">*</span></label>
+            <input class="form-control" type="text" id="name_cn" name="name_cn">
+        </div>
+		 <div class="form-group">
+            <label>简称(英文形式): <span style="color:red">*</span></label>
+            <input class="form-control" type="text" id="name" name="name">
+        </div>
+		<div class="form-group">
+            <label>网址: <span style="color:red">*</span></label>
+            <input class="form-control" type="text" id="website" name="website">
+        </div>
+		<div class="form-group">
+            <label>电话:</label>
+            <input class="form-control" type="text" id="phone" name="phone">
+        </div>
+		<div class="form-group">
+            <label>联系人:</label>
+            <input class="form-control" type="text" id="contact" name="contact">
+        </div>
+		<div class="form-group">
+            <label>私人电话:</label>
+            <input class="form-control"  type="text" id="self_phone" name="self_phone">
+        </div>
+		<div class="form-group">
+            <label>备注:</label>
+            <textarea class="form-control" name="memo" id="memo" ></textarea>
+        </div>
+        <div>
+       		<input onclick="group_add_action();" type="submit" class="btn btn-default" value="提交">
+        </div>
+
+</body>
+</html>

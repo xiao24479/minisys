@@ -1,0 +1,179 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script language="JavaScript" src="/_ext/dialog/dialog.js"></script>
+
+<link href="/_ext/dialog/dialog.css" rel="stylesheet" type="text/css">
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+
+<script language="javascript">
+
+function selectUserName(){
+	var userNameid;
+	userNameid = $("#userName").val();
+
+	$.ajax({
+		url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"userRole",a:"selectUserName",userName:userNameid,j:1,tt:Math.random()},
+	    success:function(resp){
+		    $("#alluser").html(resp.content);
+	    }
+		
+	
+	});
+
+}
+
+
+function group_action(page){
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"admin",a:"group_action",p:page,j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#alluser").html(resp.content);
+	    }
+	});
+}
+
+function group_add(){
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"admin",a:"group_add",j:1,tt:Math.random()},
+	    success:function(resp){
+	      dialog('添加医院', resp.content, 700, 600);
+	    }
+	});
+
+}
+
+function group_add_action(){
+	var p = $("#alluser span[class='current']").text();
+	
+	var name_cn = $('#name_cn').val(),
+		name = $("#name").val(),
+		website = $('#website').val(),
+		phone = $('#phone').val(),
+		contact = $("#contact").val(),
+		self_phone = $('#self_phone').val(),
+		memo = $('#memo').val();
+		
+
+	if(name_cn=='' || website=='' || name==''){
+		alert('请输入必填项！');
+		return;
+	}
+
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{
+	    	m:"admin",
+	    	a:"group_add_action",
+	    	name:name,
+	    	name_cn:name_cn,
+	    	website:website,
+	    	phone:phone,
+	    	contact:contact,
+	    	self_phone:self_phone,
+	    	memo:memo,
+	    	j:1,
+	    	tt:Math.random()
+	    },
+	    success:function(resp){
+	      if(resp.message==1){
+			alert('添加完成');
+			$("#dialog").remove();
+			$('#page-wrapper').html(resp.content);
+		  }else{
+			alert('添加失败');
+		  }
+	    }
+	});
+}
+
+function group_delete(id) {
+	var p = $("#alluser span[class='current']").text();
+	
+	if(confirm('确定删除?')){
+		$.ajax({
+			type:"get",
+			url:"/ireport/main.php",
+			dataType: 'json',
+		    data:{
+		    	m:"admin",
+		    	a:"group_delete",
+		    	id:id,
+		    	j:1,
+		    	tt:Math.random()
+		    },
+		    success:function(resp){
+		      if(resp.message==1){
+				alert('删除成功');
+				$('#page-wrapper').html(resp.content);
+			  }else{
+				alert(resp.content);
+			  }
+		    }
+		});		
+	}
+}
+
+
+</script>
+</head>
+<body>
+    <div class="col-md-12">
+      <!--   Kitchen Sink -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+            	集团管理
+            	<a href="javascript:group_add();" style="padding-right: 10px;float: right;color: #32C2Cd;">添加</a>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+						<thead>
+							  <tr>
+									<th ><strong>ID</strong></th>
+								    <th ><strong>集团(公司)名称</strong></th>
+								    <th ><strong>联系人</strong></th>	
+									<th ><strong>联系电话</strong></th>
+									<th ><strong>个人电话</strong></th>
+									<th ><strong>网址</strong></th>
+									<th ><strong>说明</strong></th>
+									<th ><strong>操作</strong></th>
+							  </tr>
+                        </thead>
+                        <tbody id="alluser">
+							{foreach from=$data item=p}
+							  <tr>
+							    <td>{$p.id}</td>
+							    <td >{$p.name_cn}&nbsp;【{$p.name}】</td>
+							    <td >{$p.contact}</td>
+								<td >{$p.phone}</td>
+								<td >{$p.self_phone}</td>
+								<td >{$p.website}</td>
+								<td >{$p.memo}</td>
+								<td ><a href="javascript:group_delete({$p.id})">删除</a></td>
+							  </tr>
+							  {/foreach}                                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+         <!-- End  Kitchen Sink -->
+    </div>
+</body>
+</html>

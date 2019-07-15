@@ -1,0 +1,222 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link href="/_ext/dialog/dialog.css" rel="stylesheet" type="text/css">
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/_ext/css/amazeui.min.css">
+<link rel="stylesheet" href="/_ext/css/amazeui.cropper.css">
+<link rel="stylesheet" href="/_ext/css/custom_up_img.css">
+
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="JavaScript" src="/_ext/dialog/dialog.js"></script>
+<script src="/_ext/script/amazeui.min.js" charset="utf-8"></script>
+<script src="/_ext/script/cropper.min.js" charset="utf-8"></script>
+
+<script language="javascript">
+function selectUserName(){
+	var userNameid;
+	userNameid = $("#userName").val();
+
+	$.ajax({
+		url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"userRole",a:"selectUserName",userName:userNameid,j:1,tt:Math.random()},
+	    success:function(resp){
+		    $("#alluser").html(resp.content);
+	    }
+		
+	
+	});
+
+}
+
+function dep_modify(id){
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"department",a:"dep_modify",id:id,j:1,tt:Math.random()},
+	    success:function(resp){
+	    	dialog('修改科室', resp.content, 400, 400);
+	    }
+	});
+}
+
+function dep_modify_action(id){
+	var jsonData       = {};
+	jsonData.name      = $("#name").val();
+	jsonData.top_id    = $("#top_id").val();
+	jsonData.dep_order = $("#dep_order").val();
+
+	if(jsonData.name==''){
+		alert('请输入必填项！');
+		return;
+	}
+
+	$.ajax({
+	    url: "/chat/main.php",
+	    type: "post",
+	    dataType: "json",
+	    data:{
+	    	m: "department",
+	    	a: "dep_modify_action",
+	    	id: id,
+	    	json_data: jsonData,
+	    	j: 1,
+	    	tt: Math.random()
+	    },
+	    success:function(resp){
+			alert(resp.message);
+		    if(resp.content==1){
+				var p = $("#alluser span[class='current']").text() || 1;
+				dep_action(p);
+				$("#dialog").hide().html("");
+			}
+	    }
+	});
+}
+
+
+function dep_action(page){
+	var name = $("#filter-name").val();
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"department",a:"dep_action",name:name,p:page,j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#alluser").html(resp.content);
+	    }
+	});
+}
+
+
+function dep_add(){
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"department",a:"dep_add",j:1,tt:Math.random()},
+	    success:function(resp){
+	      dialog('添加科室', resp.content, 400, 400);
+	    }
+	});
+}
+
+
+function dep_add_action(){
+	var jsonData       = {};
+	jsonData.name      = $("#name").val();
+	jsonData.top_id    = $("#top_id").val();
+	jsonData.dep_order = $("#dep_order").val();
+
+	if(jsonData.name==''){
+		alert('请输入必填项！');
+		return;
+	}
+
+	$.ajax({
+	    url: "/chat/main.php",
+	    type: "post",
+	    dataType: "json",
+	    data:{
+	    	m: "department",
+	    	a: "dep_add_action",
+	    	json_data: jsonData,
+	    	j: 1,
+	    	tt: Math.random()
+	    },
+	    success:function(resp){
+			alert(resp.message);
+		    if(resp.content==1){
+				var p = $("#alluser span[class='current']").text() || 1;
+				dep_action(p);
+				$("#dialog").hide().html("");
+			}
+	    }
+	});
+}
+
+function dep_delete(id) {
+	if(confirm('确定删除?')){
+		$.ajax({
+			type:"get",
+			url:"/chat/main.php",
+			dataType: 'json',
+		    data:{
+		    	m:"department",
+		    	a:"dep_delete",
+		    	id:id,
+		    	j:1,
+		    	tt:Math.random()
+		    },
+		    success:function(resp){
+				alert(resp.message);
+		      	if(resp.content==1){
+					var p = $("#alluser span[class='current']").text() || 0;
+					dep_action(p);
+			  	}
+		    }
+		});		
+	}
+}
+
+
+</script>
+<style type="text/css">
+	.filter {
+	    display: flex;
+	    align-items: center;
+	}
+	.filter input {
+		margin: 5px !important;
+	}
+	.filter span {
+		margin-left: 15px !important;
+		font-weight: bold;
+		font-size: 15px;
+	}
+</style>
+</head>
+<body>
+    <div class="col-md-12">
+      <!--   Kitchen Sink -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                科室列表
+				<a  href="javascript:dep_add();" style="padding-right: 10px;float: right;color: #32C2Cd;">添加科室</a>
+            </div>
+			<div class="filter">
+                <span class="spanzz" style="margin-left:0px;">科室名字:</span>
+				<input type="text" class="form-control" id="filter-name"  style="width:150px;" autocomplete="off">
+
+				<input type="submit" class="btn btn-default" value="查找" onclick="javascript:dep_action(1);">
+			</div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+						<thead>
+                            <tr>
+								<th width="10%"><strong>科室名字</strong></th>
+								<th width="10%"><strong>预约量</strong></th>
+								<th width="10%"><strong>是否热门</strong></th>
+								<!-- <th width="10%"><strong>添加时间</strong></th> -->
+								<th width="10%"><strong>操作</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody id="alluser">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+         <!-- End  Kitchen Sink -->
+    </div>
+</body>
+<script>dep_action(1);</script>
+</html>

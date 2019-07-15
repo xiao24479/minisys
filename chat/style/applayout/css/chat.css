@@ -1,0 +1,43 @@
+*{margin:0;padding:0;font-family:Microsoft YaHei,"微软雅黑";color:#333}
+a{text-decoration:none}
+.page,body,html{height: 100%;margin:0 auto;padding:0;width:100%;max-width:640px;overflow-x:hidden;background-color:#f1f0f6;color:#000;font-size:16px}
+.head{position:fixed;top:0;width:100%;min-width: 320px;max-width: 640px;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;padding-right:10px;height:50px;background-color:#48c8c2}
+.head img{width:25px}
+.head .title{display:flex;align-items:center}
+.head .title a{color:#fff}
+.body{ height: 80%; margin-top:50px;margin-bottom:90px;padding:10px;box-sizing:border-box}
+.body .topbox{width:100%;background-color:#fff;border:1px solid #9e9e9e;box-sizing:border-box;padding:8px 10px;border-radius:5px;font-size:16px}
+.body .topbox .txt .fontred{color:#c00}
+.body .topbox .h-name{font-size:14px;color:#337fe5}
+.body .topbox .time{font-weight:700;color:#c00}
+.body .chatbox{margin:10px 0}
+.chatbox{ display: block; overflow-y: auto; height: 100%;}
+.chatbox .leftchat,.chatbox .rightchat{width:100%;display:flex;margin:10px 0}
+.talkbox{display:flex;flex-direction:column}
+.chatbox .leftchat{align-self:flex-start}
+.chatbox .leftchat .left-headimg,.chatbox .rightchat .right-headimg{width:10%;height:10%}
+.chatbox .leftchat .left-headimg{margin-right:10px}
+.chatbox .rightchat .right-headimg{margin-left:10px}
+.chatbox .talktime{font-size:12px}
+.chatbox .talkcontent{display:flex;flex-direction:column;width:fit-content;max-width:85%;background-color:#fff;border:1px solid #eee;margin:5px 0;padding:10px;box-sizing:border-box;font-size:14px;border-radius:5px}
+.chatbox .talkcontent .fr{color:red}
+.chatbox .talkcontent .fb{color:#00f}
+.chatbox .talkcontent .call{display:flex;justify-content:center;align-items:center;align-self:center;width:80%;font-size:18px;font-weight:700;background-color:#e52926;border-radius:5px}
+.chatbox .talkcontent .call a{color:#fff;display:flex;align-items:center}
+.chatbox .talkcontent .call img{width:20px;margin-right:10px}
+.talktxt{font-size:14px;color:#999;text-align:center}
+.chatbox .rightchat{display:flex;flex-direction:row-reverse}
+.rightchat .talkbox{width:100%;display:flex;flex-direction:column;align-items:flex-end}
+.rightchat .usertalk{width:85%;display:flex;justify-content:flex-end}
+.rightchat .usertalk .isread{width:10%;margin-right:10px;align-self:flex-end;font-size:12px;color:#6d6d6d}
+.rightchat .usertalk .noread{color:#51b964}
+.rightchat .usertalk .content{display:inline-block;width:auto;max-width:83%;padding:5px;color:#fff;font-size:14px;background-color:#51b964;border-radius:5px}
+.bottom{position:fixed;bottom:0;width:100%;min-width: 320px;max-width: 640px;height:55px;box-sizing:border-box;padding:10px 10px;background-color:#fff}
+.bottom .somesend{display:flex;align-items:center;width:100%;height:30px}
+.bottom .somesend img{width:25px;margin-right:10px}
+.bottom .somesend .tel a{color:#83d2f7}
+.bottom .send{margin-top:5px;display:flex;justify-content:space-between}
+.bottom .send span{width:10%}
+.bottom .send img{width:18px}
+.bottom input{width:85%;border:1px solid #a3a3a3;border-right:none;padding:5px}
+.bottom button{width:15%;background-color:#3abcb6;border:none;color:#fff}

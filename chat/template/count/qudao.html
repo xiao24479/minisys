@@ -1,0 +1,108 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script language="JavaScript" src="/_ext/dialog/dialog.js"></script>
+<script language="JavaScript" src="/admin/assets/daterangepicker/daterangepicker.js"></script>
+<script language="JavaScript" src="/admin/assets/daterangepicker/moment.js"></script> 
+
+<link href="/_ext/dialog/dialog.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/admin/assets/daterangepicker/daterangepicker.css" media="all">
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+
+
+function query(p){
+	var date = $('#start_date').val();
+	
+	$.ajax({ 
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+		data:{m:"count",a:"qudao_action",date:date,p:p,j:1,tt:Math.random()},
+	    success:function(resp){
+	    	$('#alluser').html(resp.content);
+		 }
+	});
+}
+query(1);
+
+
+function set_date(start_time){
+	var day  = new Date();
+	var days =day.getDate();
+	days = days - 1;
+
+	$('#'+start_time).daterangepicker({
+	    ranges: {
+	        '本月': [moment().subtract(+days,'days'), moment()],
+	        '今天': [moment(), moment()],
+	        '昨天': [moment().subtract(+1, 'days'), moment().subtract(+1, 'days')],
+	        '过去一周': [moment().subtract(+6, 'days'),moment()],
+	        '过去一月': [moment().subtract(+30, 'days'),moment()],
+	        '过去一年': [moment().subtract(+365, 'days'),moment()]
+	    }
+	    
+	},function(start, end,label) {
+	    	//label:通过它来知道用户选择的是什么，传给后台进行相应的展示
+	 		console.log(label)
+		    if(label=='本月'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }else if(label=='今天'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD'));
+		    }else if(label=='昨天'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }else if(label=='过去一周'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }else if(label=='过去一月'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }else if(label=='过去一年'){
+		        $('#daterange-btn span').html(start.format('YYYY/MM/DD')+'-'+end.format('YYYY/MM/DD'));
+		    }
+	});
+}
+
+
+</script>
+<style type="text/css">
+	.spanzz{
+		float:left;margin:20px 5px 15px 15px;
+	}
+	.inputzz{
+		width:180px;float:left;margin:15px 0;
+	}
+</style>
+</head>
+<body>
+    <div class="col-md-12">
+      <!--   Kitchen Sink -->
+        <div class="panel panel-default">
+        	<div class="panel-heading">
+                <div >来源统计</div>
+				<span class="spanzz" style="margin-left:0px;">选择时间:</span>
+				<input type="text" class="form-control inputzz" id="start_date" name="start_date" value="{$add_time} - {$end_time}" style="width:210px;" onfocus="set_date('start_date');"/>
+				<input  onClick="javascript:query(1);" type="submit" style="margin:15px;" class="btn btn-default" value="查询数据">
+			</div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr >
+							    <th class="thh" width="4%"><strong>来源</strong></th>
+							    <th class="thh" width="5%"><strong>数量</strong></th>
+							</tr>
+                        </thead>
+                        <tbody id="alluser">
+                        	
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+         <!-- End  Kitchen Sink -->
+    </div>
+</body>
+</html>

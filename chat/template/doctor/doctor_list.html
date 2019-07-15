@@ -1,0 +1,286 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/_ext/css/amazeui.min.css">
+<link rel="stylesheet" href="/_ext/css/custom_up_img.css">
+<link rel="stylesheet" href="/_ext/css/amazeui.cropper.css">
+<link href="/_ext/dialog/dialog.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="JavaScript" src="/_ext/dialog/dialog.js"></script>
+<script src="/_ext/script/amazeui.min.js" charset="utf-8"></script>
+<script src="/_ext/script/cropper.min.js" charset="utf-8"></script>
+
+<script language="javascript">
+function selectUserName(){
+	var userNameid;
+	userNameid = $("#userName").val();
+
+	$.ajax({
+		url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"userRole",a:"selectUserName",userName:userNameid,j:1,tt:Math.random()},
+	    success:function(resp){
+		    $("#alluser").html(resp.content);
+	    }
+		
+	
+	});
+
+}
+
+function doctor_modify(id){
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"doctor",a:"doctor_modify",id:id,j:1,tt:Math.random()},
+	    success:function(resp){
+	    	dialog('修改医生', resp.content, 700, 600);
+	    }
+	});
+}
+
+function doctor_modify_action(id){
+	var jsonData       = {};
+	var dep_name       = [];
+	var dep_text = $("#dep_id option:selected");
+
+	for(var i=0; i<dep_text.length; i++){
+		dep_name.push($(dep_text[i]).text());
+	}
+
+	jsonData.pic             = $("#pic").attr('src');
+	jsonData.name            = $("#name").val();
+	jsonData.job             = $("#job").val();
+	jsonData.dep_id          = $("#dep_id").val() || [];
+	jsonData.dep_name        = dep_name,
+	jsonData.skill           = $("#skill").val();
+	jsonData.introduce       = $("#introduce").val();
+	jsonData.score           = $("#score").val();
+	jsonData.fans            = $("#fans").val();
+	jsonData.consult_count   = $("#consult_count").val();
+	jsonData.current_consult = $("#current_consult").val();
+	jsonData.doc_order       = $("#doc_order").val();
+
+	if(
+		jsonData.name=='' || 
+		jsonData.pic==''|| 
+		jsonData.dep_id=='' || 
+		jsonData.job=='' || 
+		jsonData.skill=='' || 
+		jsonData.introduce=='' || 
+		jsonData.score==0 || 
+		jsonData.fans==0 || 
+		jsonData.consult_count==0 || 
+		jsonData.current_consult==0 || 
+		jsonData.doc_order==0
+	){
+		alert('请输入必填项！');
+		return;
+	}
+
+	$.ajax({
+	    url: "/chat/main.php",
+	    type: "post",
+	    dataType: "json",
+	    data:{
+	    	m: "doctor",
+	    	a: "doctor_modify_action",
+	    	id: id,
+	    	json_data: jsonData,
+	    	j: 1,
+	    	tt: Math.random()
+	    },
+	    success:function(resp){
+			alert(resp.message);
+		    if(resp.content==1){
+				var p = $("#alluser span[class='current']").text() || 1;
+				doctor_action(p);
+				$("#dialog").hide().html("");
+			}
+	    }
+	});
+}
+
+
+function doctor_action(page){
+	var name = $("#filter-name").val();
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"doctor",a:"doctor_action",name:name,p:page,j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#alluser").html(resp.content);
+	    }
+	});
+}
+
+
+function doctor_add(){
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"doctor",a:"doctor_add",j:1,tt:Math.random()},
+	    success:function(resp){
+	      dialog('添加医生', resp.content, 700, 600);
+	    }
+	});
+}
+
+
+function doctor_add_action(){
+	var jsonData       = {};
+	var dep_name       = [];
+	var dep_text = $("#dep_id option:selected");
+
+	for(var i=0; i<dep_text.length; i++){
+		dep_name.push($(dep_text[i]).text());
+	}
+
+	jsonData.pic             = $("#pic").attr('src'),
+	jsonData.name            = $("#name").val(),
+	jsonData.job             = $("#job").val(),
+	jsonData.dep_id          = $("#dep_id").val() || [],
+	jsonData.dep_name        = dep_name,
+	jsonData.skill           = $("#skill").val(),
+	jsonData.introduce       = $("#introduce").val();
+	jsonData.score           = $("#score").val();
+	jsonData.fans            = $("#fans").val();
+	jsonData.consult_count   = $("#consult_count").val();
+	jsonData.current_consult = $("#current_consult").val();
+	jsonData.doc_order       = $("#doc_order").val();
+
+	if(
+		jsonData.name=='' || 
+		jsonData.pic==''|| 
+		jsonData.dep_id=='' || 
+		jsonData.job=='' || 
+		jsonData.skill=='' || 
+		jsonData.introduce=='' ||
+		jsonData.score==0 || 
+		jsonData.fans==0 || 
+		jsonData.consult_count==0 || 
+		jsonData.current_consult==0 || 
+		jsonData.doc_order==0
+	){
+		alert('请输入必填项！');
+		return;
+	}
+
+	$.ajax({
+	    url: "/chat/main.php",
+	    type: "post",
+	    dataType: "json",
+	    data:{
+	    	m: "doctor",
+	    	a: "doctor_add_action",
+	    	json_data: jsonData,
+	    	j: 1,
+	    	tt: Math.random()
+	    },
+	    success:function(resp){
+			alert(resp.message);
+		    if(resp.content==1){
+				var p = $("#alluser span[class='current']").text() || 1;
+				doctor_action(p);
+				$("#dialog").hide().html("");
+			}
+	    }
+	});
+}
+
+function doctor_delete(id) {
+	if(confirm('确定删除?')){
+		$.ajax({
+			type:"get",
+			url:"/chat/main.php",
+			dataType: 'json',
+		    data:{
+		    	m:"doctor",
+		    	a:"doctor_delete",
+		    	id:id,
+		    	j:1,
+		    	tt:Math.random()
+		    },
+		    success:function(resp){
+				alert(resp.message);
+		      	if(resp.content==1){
+					var p = $("#alluser span[class='current']").text() || 0;
+					doctor_action(p);
+			  	}
+		    }
+		});		
+	}
+}
+
+
+</script>
+<style type="text/css">
+	.filter {
+	    display: flex;
+	    align-items: center;
+	}
+	.filter input {
+		margin: 5px !important;
+	}
+	.filter span {
+		margin-left: 15px !important;
+		font-weight: bold;
+		font-size: 15px;
+	}
+</style>
+</head>
+<body>
+    <div class="col-md-12">
+      <!--   Kitchen Sink -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                医生列表
+				<a  href="javascript:doctor_add();" style="padding-right: 10px;float: right;color: #32C2Cd;">添加医生</a>
+            </div>
+			<div class="filter">
+                <span class="spanzz" style="margin-left:0px;">医生名字:</span>
+				<input type="text" class="form-control" id="filter-name"  style="width:150px;" autocomplete="off">
+
+				<input type="submit" class="btn btn-default" value="查找" onclick="javascript:doctor_action(1);">
+			</div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+						<thead>
+                            <tr>
+							  	<th width="10%"><strong>照片</strong></th>
+								<th width="5%"><strong>名字</strong></th>
+								<th width="5%"><strong>职位</strong></th>
+								<th width="15%"><strong>科室</strong></th>
+								<th width="15%"><strong>擅长</strong></th>
+								<th width="20%"><strong>介绍</strong></th>
+								<th width="3%"><strong>评分</strong></th>
+								<th width="3%"><strong>粉丝</strong></th>
+								<th width="3%"><strong>总咨询量</strong></th>
+								<th width="3%"><strong>当前咨询人数</strong></th>
+								<th width="3%"><strong>总预约数</strong></th>
+								<th width="10%"><strong>添加时间</strong></th>
+								<th width="5%"><strong>操作</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody id="alluser">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+         <!-- End  Kitchen Sink -->
+    </div>
+</body>
+<script>doctor_action(1);</script>
+</html>

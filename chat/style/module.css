@@ -1,0 +1,178 @@
+@charset "utf-8";
+#tab{
+	width:775px;
+	padding:0px;
+	float: left;
+	margin: 0;
+	height: auto;
+}
+#tab #menuBox_td {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	height: 28px;
+	width: auto;
+}
+
+
+#tab #menuBox_td01 {
+	background-image: url(../image/moudle/Adm_title01-2.gif);
+	background-repeat: repeat-x;
+	background-position: left top;
+	text-align: center;
+	display: block;
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	height: 28px;
+	width: 180px;
+	font-family: "宋体";
+	font-size: 12px;
+	line-height: 28px;
+	font-weight: bold;
+	color: #000000;
+}
+#tab #menuBox_td02 {
+	background-image: url(../image/moudle/Adm_title01-1.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	height: 28px;
+	width: 3px;
+}
+#tab #menuBox_td03 {
+	background-image: url(../image/moudle/Adm_title01-3.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	height: 28px;
+	width: 3px;
+}
+
+
+
+
+
+
+
+
+#tab .contentBox{
+	margin: 0px;
+	width: 775px;
+	height: auto;
+	padding: 0px;
+	float: left;
+}
+#tab .menuBox_bg {
+	background-image: url(../image/moudle/bg_01.gif);
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	height: 71px;
+	width: 775px;
+}
+#tab .menuBox_0 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	text-align: center;
+	margin-bottom: 20px;
+	height: auto;
+	width: auto;
+}
+#menu {
+	WIDTH: auto;
+	HEIGHT: 28px;
+	background-image: url(../image/moudle/Adm_title4_08.gif);
+	background-position: left top;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+}
+#tab #menuBox01_td {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	height: 28px;
+	width: auto;
+}
+#menu   UL {
+	LINE-HEIGHT: 28px;
+	TEXT-ALIGN: center;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	list-style-type: none;
+}
+#menu   UL   LI {
+	FLOAT: left;
+	WIDTH: 152px;
+	HEIGHT: 28px;
+	background-image: url(../image/moudle/Adm_title4_06.gif);
+	background-repeat: no-repeat;
+	background-position: right 3px;
+}
+#menu   UL   LI   A {
+	DISPLAY: block;
+	COLOR: #000000;
+	font-family: "宋体";
+	font-size: 12px;
+	line-height: 28px;
+	text-decoration: none;
+	font-weight: bold;
+}
+#menu    UL    LI  A:hover  {
+	COLOR: #000000;
+	TEXT-DECORATION: none;
+	background-image: url(../image/moudle/Adm_title4_09.gif);
+	font-family: "宋体";
+	font-size: 12px;
+	line-height: 28px;
+	font-weight: bold;
+	float: left;
+	height: 28px;
+	width: 152px;
+}
+
+
+
+
+
+
+.qudao   {
+	height: 36px;
+	font-family: "宋体";
+	font-size: 12px;
+	padding-left: 16px;
+	color: #343539;
+	background-image: url(../image/moudle/Adm_title4_07.gif);
+	background-repeat: repeat-x;
+	width: auto;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 25px;
+	margin-left: 0px;
+}
+.qudao_img {
+	float: left;
+	width: auto;
+	margin-right: 10px;
+	padding: 0px;
+	margin-top: 12px;
+}
+h1 {
+	font-family: "宋体";
+	font-size: 14px;
+	font-weight: bold;
+	color: #000000;
+	padding: 0px;
+	float: left;
+	margin-top: 10px;
+}

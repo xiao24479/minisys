@@ -1,0 +1,253 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script language="JavaScript" src="/_ext/dialog/dialog.js"></script>
+
+<link href="/_ext/dialog/dialog.css" rel="stylesheet" type="text/css">
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+
+<script language="javascript">
+
+function selectUserName(){
+	var userNameid;
+	userNameid = $("#userName").val();
+
+	$.ajax({
+		url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"userRole",a:"selectUserName",userName:userNameid,j:1,tt:Math.random()},
+	    success:function(resp){
+		    $("#alluser").html(resp.content);
+	    }
+		
+	
+	});
+
+}
+
+function hospital_modify(id){
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"admin",a:"hospital_modify",id:id,j:1,tt:Math.random()},
+	    success:function(resp){
+	      dialog('修改医院', resp.content, 700, 600);
+	    }
+	});
+}
+
+function hospital_modify_action(id){
+	var p = $("#alluser span[class='current']").text();
+	var id_group = $('#id_group').val(),
+		top_id = $('#top_id').val(),
+		type = $("#type").val(),
+		name = $("#name").val(),
+		swt_user = $('#swt_user').val(),
+		swt_passwd = $('#swt_passwd').val(),
+		swt_host = $('#swt_host').val(),
+		swt_db = $('#swt_db').val(),
+		province = $('#province').val(),
+		city = $('#city').val(),
+		website = $('#website').val(),
+		department = $('#department').val(),
+		memo = $('#memo').val();
+		
+	if(name=='' || id_group=='' || top_id=='' || memo==''){
+		alert('请输入必填项！');
+		return;
+	}
+
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{
+	    	m:"admin",
+	    	a:"hospital_modify_action",
+	    	id:id,
+	    	id_group:id_group,
+	    	top_id:top_id,
+	    	type:type,
+	    	name:name,
+	    	swt_user:swt_user,
+	    	swt_passwd:swt_passwd,
+	    	swt_host:swt_host,
+	    	swt_db:swt_db,
+	    	province:province,
+	    	city:city,
+	    	website:website,
+	    	department:department,
+	    	memo:memo,
+	    	j:1,
+	    	tt:Math.random()
+	    },
+	    success:function(resp){
+			if(resp.content != ''){
+				alert('修改成功');
+				$("#dialog").hide().html("");
+				$("#page-wrapper").html(resp.content);
+				
+			}else{
+				alert(resp.message);
+			}
+	    }
+	});
+}
+
+
+function hospital_action(page){
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"admin",a:"hospital_action",p:page,j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#alluser").html(resp.content);
+	    }
+	});
+}
+
+function hospital_add(){
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"admin",a:"hospital_add",j:1,tt:Math.random()},
+	    success:function(resp){
+	      dialog('添加医院', resp.content, 700, 600);
+	    }
+	});
+
+}
+
+function hospital_add_action(){
+	var p = $("#alluser span[class='current']").text();
+	var id_group = $('#id_group').val(),
+		top_id = $('#top_id').val(),
+		type = $("#type").val(),
+		name = $("#name").val(),
+		swt_user = $('#swt_user').val(),
+		swt_passwd = $('#swt_passwd').val(),
+		swt_host = $('#swt_host').val(),
+		swt_db = $('#swt_db').val(),
+		province = $('#province').val(),
+		city = $('#city').val(),
+		website = $('#website').val(),
+		department = $('#department').val(),
+		memo = $('#memo').val();
+		
+
+	if(name=='' || id_group=='' || top_id=='' || memo==''){
+		alert('请输入必填项！');
+		return;
+	}
+
+	$.ajax({
+	    url:"/ireport/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{
+	    	m:"admin",
+	    	a:"hospital_add_action",
+	    	id_group:id_group,
+	    	top_id:top_id,
+	    	type:type,
+	    	name:name,
+	    	swt_user:swt_user,
+	    	swt_passwd:swt_passwd,
+	    	swt_host:swt_host,
+	    	swt_db:swt_db,
+	    	province:province,
+	    	city:city,
+	    	website:website,
+	    	department:department,
+	    	memo:memo,
+	    	j:1,
+	    	tt:Math.random()
+	    },
+	    success:function(resp){
+			alert('添加完成');
+			$("#page-wrapper").html(resp.content);
+			$("#dialog").hide().html("");
+	    }
+	});
+}
+
+function hospital_delete(id) {
+	var p = $("#alluser span[class='current']").text();
+	
+	if(confirm('确定删除?')){
+		$.ajax({
+			type:"get",
+			url:"/ireport/main.php",
+			dataType: 'json',
+		    data:{
+		    	m:"admin",
+		    	a:"hospital_delete",
+		    	id:id,
+		    	j:1,
+		    	tt:Math.random()
+		    },
+		    success:function(resp){
+		    	if(resp.content != ''){
+					alert('删除成功');
+					$("#page-wrapper").html(resp.content);
+		    	}else{
+		    		alert(resp.message);
+		    	}
+		    }
+		});		
+	}
+}
+
+
+</script>
+</head>
+<body>
+    <div class="col-md-12">
+      <!--   Kitchen Sink -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+            	医院管理
+            	<a href="javascript:hospital_add();" style="padding-right: 10px;float: right;color: #32C2Cd;">添加医院</a>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+						<thead>
+							  <tr>
+									<th ><strong>ID</strong></th>
+								    <th ><strong>集团(公司)名称</strong></th>
+								    <th ><strong>医院名称</strong></th>	
+									<th width="50%"><strong>第一句回复</strong></th>
+									<th ><strong>操作</strong></th>
+							  </tr>
+                        </thead>
+                        <tbody id="alluser">
+							{foreach from=$data item=p}
+							  <tr>
+							    <td>{$p.id}</td>
+							    <td class="bgr">{$p.group_cn}&nbsp;【{$p.group_name}】</td>
+							    <td class="bgr">{$p.name}&nbsp;【ID:{$p.id}】</td>
+								<td class="bgr">{$p.memo}</td>
+								<td class="bgr">
+									<a href="javascript: hospital_modify({$p.id});">修改</a> 
+									<a href="javascript: hospital_delete({$p.id});">删除</a>
+								</td>
+							  </tr>
+							{/foreach}                                          
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+         <!-- End  Kitchen Sink -->
+    </div>
+</body>
+</html>

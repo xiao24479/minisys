@@ -1,0 +1,462 @@
+<style type="text/css">
+#table{
+ padding:10px;margin:0px; padding:0px;
+ cellspacing:none;
+ cellpadding:none;
+
+}
+#table *{
+font-size:16px; 
+}
+#table th,#table td{ font-size:16px;height:25px; border:1px #999999 solid;}
+  
+table{border-collapse:collapse; }
+ 
+	
+</style>
+<div align="center">
+  <table id="table" width="100%" border="0" >
+  
+  <tr>
+      <th colspan="6" scope="col" style="    background: url(/_ext/img/tit.png);     color: #4D6C2F;"><div align="center">网络预约实况</div></th>
+    </tr>
+  
+    <tr>
+      <th scope="col"><div align="center"><strong>日期</strong></div></th>
+      <!-- <th scope="col"><div align="center">对话</div></th>-->
+      <th scope="col"><div align="center">预约</div></th>
+      <th scope="col"><div align="center">流入公海</div></th>
+       <th scope="col"><div align="center">应到诊</div></th>
+      <th scope="col"><div align="center">到诊</div></th>
+  
+      <th scope="col"><div align="center">总到诊率</div></th>
+    </tr>
+    <tr>
+      <td><div align="center">上个月</div></td>
+     <!--      <td><div align="center">{$data.shang_dh}</div></td>-->
+      <td><div align="center">{$data.shang_yuyue}</div></td>
+      <td><div align="center">{$data.shang_gonghai}</div></td>
+      <td><div align="center">{$data.shang_ydz}</div></td>
+      <td><div align="center">{$data.shang_dz}</div></td>
+      <td><div align="center">{$data.shang_dzl}</div></td>
+    </tr>
+    <tr>
+      <td><div align="center">本月</div></td>
+       <!--   <td><div align="center">{$data.benyue_dh}</div></td>-->
+      <td><div align="center">{$data.benyue_yuyue}</div></td>
+       <td><div align="center">{$data.benyue_gonghai}</div></td>
+       <td><div align="center">{$data.benyue_ydz}</div></td>
+      <td><div align="center">{$data.benyue_dz}</div></td>
+      <td><div align="center">{$data.benyue_dzl}</div></td>
+    </tr>
+    <tr>
+      <td><div align="center">昨天</div></td>
+      <!--   <td><div align="center">{$data.benyue_ztdh}</div></td>-->
+      <td><div align="center">{$data.benyue_zuotian}</div></td>
+            <td><div align="center">{$data.benyue_zuotian_gonghai}</div></td>
+      <td><div align="center">{$data.benyue_zuotian_ydz}</div></td>
+      <td><div align="center">{$data.benyue_zuotian_dz}</div></td>
+            <td><div align="center">{$data.benyue_zuotian_dzl}</div></td>
+    </tr>
+    <tr>
+      <td><div align="center">今天</div></td>
+      <!--    <td><div align="center">0</div></td>-->
+      <td><div align="center">{$data.benyue_jintian}</div></td>
+       <td><div align="center">{$data.benyue_jintian_gonghai}</div></td>
+      <td><div align="center">{$data.benyue_jintian_ydz}</div></td>
+      <td><div align="center">{$data.benyue_jintian_dz}</div></td>
+      <td><div align="center">{$data.benyue_jintian_dzl}</div></td>
+    </tr> 
+    <tr>
+      <td><div align="center">明天</div></td>
+      <!--        <td><div align="center">0</div></td>-->
+      <td><div align="center">{$data.benyue_mingtian}</div></td>
+         <td><div align="center">{$data.benyue_mingtian_gonghai}</div></td>
+      <td><div align="center">{$data.benyue_mingtian_ydz}</div></td>
+      <td><div align="center">{$data.benyue_mingtian_dz}</div></td>
+      <td><div align="center">{$data.benyue_mingtian_dzl}</div></td>
+    </tr>
+    <tr>
+      <td><div align="center">后天</div></td>
+      <!--        <td><div align="center">0</div></td>-->
+      <td><div align="center">{$data.benyue_houtian}</div></td>
+           <td><div align="center">{$data.benyue_houtian_gonghai}</div></td>
+      <td><div align="center">{$data.benyue_houtian_ydz}</div></td>
+      <td><div align="center">{$data.benyue_houtian_dz}</div></td>
+      <td><div align="center">{$data.benyue_houtian_dzl}</div></td>
+    </tr>
+  </table>
+  
+  <br/>
+{if $swt_chaxun==1}
+   {if $data.swt_type_check neq 0}
+ <table id="table" width="100%" border="0">
+  
+  <tr style="    background: url(/_ext/img/tit.png);    color: #4D6C2F;">
+      <th colspan="10" scope="col"><div align="center">商务通业绩实况</div></th>
+    </tr>
+  
+    <tr>
+      <th scope="col"><div align="center"><strong>日期</strong></div></th>
+	    <th scope="col"><div align="center">总投入</div></th>
+      <th scope="col"><div align="center">竞价投入</div></th>
+	   <th scope="col"><div align="center">优化投入</div></th>
+	    <th scope="col"><div align="center">品牌投入</div></th>
+      <!--   <th scope="col"><div align="center">总点击</div></th>-->
+      <th scope="col"><div align="center">总对话</div></th>
+
+    <th scope="col"><div align="center">总预约</div></th>
+	  <th scope="col"><div align="center">总到诊</div></th>
+	     <!--   <th scope="col"><div align="center">转化率</div></th>-->
+	    <th scope="col"><div align="center">单体成本</div></th>
+    </tr>
+    <tr>
+      <td><div align="center">上个月</div></td>
+	  <td><div align="center">{$data.shang_all_xf}</div></td>
+      <td><div align="center">{$data.shang_xf}</div></td>
+	       <td><div align="center">{$data.shang_mtxf}</div></td>
+		     <td><div align="center">{$data.shang_brand_xf}</div></td>
+      <!--  <td><div align="center">{$data.shang_dj}</div></td>-->
+      <td><div align="center">{$data.shang_dh}</div></td>
+ 
+	   <td><div align="center">{$data.swt_shang_yuyue}</div></td>
+      <td><div align="center">{$data.swt_shang_dz}</div></td>
+        <!--  <td><div align="center">{$data.shang_zhl}</div></td>-->
+	      <td><div align="center">{$data.shang_cb}</div></td>
+    </tr>
+    <tr>
+      <td><div align="center">本月</div></td>
+	  <td><div align="center">{$data.benyue_all_xf}</div></td>
+      <td><div align="center">{$data.benyue_xf}</div></td>
+	       <td><div align="center">{$data.benyue_mtxf}</div></td>
+		     <td><div align="center">{$data.benyue_brand_xf}</div></td>
+        <!--  <td><div align="center">{$data.benyue_dj}</div></td> -->
+      <td><div align="center">{$data.benyue_dh}</div></td>
+ 
+	   <td><div align="center">{$data.swt_benyue_yuyue}</div></td>
+      <td><div align="center">{$data.swt_benyue_dz}</div></td>
+     <!--    <td><div align="center">{$data.benyue_zhl}</div></td>-->
+	      <td><div align="center">{$data.benyue_cb}</div></td>
+    </tr>
+    <tr>
+      <td><div align="center">昨天</div></td>
+	  <td><div align="center">{$data.zuotian_all_xf}</div></td>
+      <td><div align="center">{$data.benyue_ztxf}</div></td>
+	       <td><div align="center">{$data.benyue_ztmtxf}</div></td>
+		     <td><div align="center">{$data.zuotian_brand_xf}</div></td>
+         <!--  <td><div align="center">{$data.benyue_ztdj}</div></td> -->
+      <td><div align="center">{$data.benyue_ztdh}</div></td>
+ 
+	   <td><div align="center">{$data.swt_benyue_zuotian}</div></td>
+      <td><div align="center">{$data.swt_benyue_zuotian_dz}</div></td>
+        <!--  <td><div align="center">{$data.benyue_ztzhl}</div></td>-->
+	      <td><div align="center">{$data.benyue_ztcb}</div></td>
+    </tr>
+  </table>   <br/>
+  
+  
+  
+   {/if}
+  {/if}
+  {if $xmt_chaxun==1}
+  {if $data.xmt_type_check neq 0}
+  <table id="table" width="100%" border="0">
+  
+  <tr style="    background: url(/_ext/img/tit.png);    color: #4D6C2F;">
+      <th colspan="9" scope="col"><div align="center">新媒体业绩实况</div></th>
+    </tr>
+  
+    <tr>
+      <th scope="col"><div align="center"><strong>日期</strong></div></th>
+      <th scope="col"><div align="center">加粉</div></th>
+	   <th scope="col"><div align="center">预约</div></th>
+	     <th scope="col"><div align="center">应到诊</div></th>
+       <th scope="col"><div align="center">到诊</div></th>
+           <th scope="col"><div align="center">预约率</div></th> 
+	     <th scope="col"><div align="center">到诊率</div></th>
+  
+    </tr>
+    <tr>
+      <td><div align="center">上个月<!-- sy 上月--></div></td>
+      <td><div align="center">{$data.xmt_sy_jf}</div></td>
+	  <td><div align="center">{$data.xmt_shang_yuyue}</div></td>
+	  <td><div align="center">{$data.xmt_shang_ydz}</div></td>
+      <td><div align="center">{$data.xmt_shang_dz}</div></td>
+	     <td><div align="center">{$data.xmt_sy_yylv}</div></td> 
+	  <td><div align="center">{$data.xmt_shang_dzl}</div></td>
+ 
+    </tr>
+    <tr>
+      <td><div align="center">本月<!-- by 本月--></div></td>
+         <td><div align="center">{$data.xmt_by_jf}</div></td>
+	      <td><div align="center">{$data.xmt_benyue_yuyue}</div></td>
+		  <td><div align="center">{$data.xmt_benyue_ydz}</div></td>
+      <td><div align="center">{$data.xmt_benyue_dz}</div></td>
+	      <td><div align="center">{$data.xmt_by_yylv}</div></td>
+	  <td><div align="center">{$data.xmt_benyue_dzl}</div></td>
+
+    </tr>
+    <tr>
+      <td><div align="center">昨天<!-- zt 昨天--></div></td>
+      <td><div align="center">{$data.xmt_zt_jf}</div></td>
+	  <td><div align="center">{$data.xmt_benyue_zuotian}</div></td>
+	  <td><div align="center">{$data.xmt_benyue_zuotian_ydz}</div></td>
+      <td><div align="center">{$data.xmt_benyue_zuotian_dz}</div></td>
+	      <td><div align="center">{$data.xmt_zt_yylv}</div></td>
+	  <td><div align="center">{$data.xmt_benyue_zuotian_dzl}</div></td>
+
+    </tr>
+  </table>   <br/>
+  {/if}
+ 
+   {/if}
+{if $data.hb_zx_irpot_swt}
+    
+    <table  id="table" style="border-width:0px;border-style:none;"  width="100%"> 
+     <tr style="    background: url(/_ext/img/tit.png);     color: #4D6C2F;">
+    <th colspan="26" scope="col">商务通咨询业绩环比({$data.sy_hb_start_time}~{$data.sy_hb_end_time}和{$data.by_hb_start_time}~{$data.by_hb_end_time})</th>
+    </tr>
+      <tr>
+        <th scope="col"  rowspan="2">咨询</th> 
+        <th scope="col"  colspan="5">上月</th>
+		<th scope="col"  colspan="5">本月</th>
+		<th scope="col"  colspan="5">上周</th>
+		<th scope="col"  colspan="5">本周</th>
+		<th scope="col"  colspan="5">上月本周</th> 
+      </tr> 
+	   <tr>
+	     <th scope="col">对话</th>
+	         <th scope="col">预约</th>
+	               <th scope="col">预到</th>
+	    <th scope="col">回访</th>
+        <th scope="col">到诊</th>
+        
+            <th scope="col">对话</th>
+	         <th scope="col">预约</th>
+	               <th scope="col">预到</th>
+	    <th scope="col">回访</th>
+        <th scope="col">到诊</th>
+        
+             <th scope="col">对话</th>
+	         <th scope="col">预约</th>
+	               <th scope="col">预到</th>
+	    <th scope="col">回访</th>
+        <th scope="col">到诊</th>
+        
+               <th scope="col">对话</th>
+	         <th scope="col">预约</th>
+	               <th scope="col">预到</th>
+	    <th scope="col">回访</th>
+        <th scope="col">到诊</th>
+        
+              <th scope="col">对话</th>
+	         <th scope="col">预约</th>
+	               <th scope="col">预到</th>
+	    <th scope="col">回访</th>
+        <th scope="col">到诊</th>
+      </tr>
+	   {foreach item=d from=$data.hb_zx_irpot_swt}
+	  <tr>
+	     <td style="text-align:center;"><span >{$d.consult_name}</span></td>
+		 
+		   <td style="text-align:center;"><span >{$d.last_dh_count}</span></td>
+		    <td style="text-align:center;"><span >{$d.last_date_count}</span></td> 
+	      <td style="text-align:center;"><span >{$d.last_yudao_count}</span></td>
+	    
+	     	     <td style="text-align:center;"><span>{$d.last_visite_sum}</span></td>
+	     
+		 <td style="text-align:center;"><span >{$d.last_visite_count}</span></td> 
+		 
+		 
+		  <td style="text-align:center;"><span >{if $d.last_dh_count>$d.cur_dh_count}<b style="color:green;">{$d.cur_dh_count}↓</b>{elseif  $d.last_dh_count<$d.cur_dh_count} <b style="color:red;">{$d.cur_dh_count}↑</b>{else}{$d.cur_dh_count}{/if}</span></td>
+		  	 <td style="text-align:center;"><span >{if $d.last_date_count>$d.cur_date_count}<b style="color:green;">{$d.cur_date_count}↓</b>{elseif $d.last_date_count<$d.cur_date_count}<b style="color:red;">{$d.cur_date_count}↑</b>{else}{$d.cur_date_count}{/if}</span></td>
+	
+		  <td style="text-align:center;"><span>{if $d.last_yudao_count>$d.cur_yudao_count}<b style="color:green;">{$d.cur_yudao_count}↓</b>{elseif  $d.last_yudao_count<$d.cur_yudao_count} <b style="color:red;">{$d.cur_yudao_count}↑</b>{else}{$d.cur_yudao_count}{/if}</span></td>
+		 <td style="text-align:center;"><span>{if $d.last_visite_sum>$d.cur_visite_sum}<b style="color:green;">{$d.cur_visite_sum}↓</b>{elseif $d.last_visite_sum<$d.cur_visite_sum} <b style="color:red;">{$d.cur_visite_sum}↑</b>{else}{$d.cur_visite_sum}{/if}</span></td>
+		 <td style="text-align:center;"><span>{if $d.last_visite_count>$d.cur_visite_count}<b style="color:green;">{$d.cur_visite_count}↓</b>{elseif  $d.last_visite_count<$d.cur_visite_count} <b style="color:red;">{$d.cur_visite_count}↑</b>{else}{$d.cur_visite_count}{/if}
+		 </span></td>  
+		 
+		 
+		  <td style="text-align:center;"><span >{$d.cur_14_zhou_dh_count}</span></td>
+		  	 <td style="text-align:center;"><span>{$d.cur_14_zhou_date_count}</span></td>
+
+		  <td style="text-align:center;"><span>{$d.cur_14_zhou_yudao_count}</span></td>
+			 <td style="text-align:center;"><span>{$d.cur_14_zhou_visite_sum}</span></td>
+		 <td style="text-align:center;"><span>{$d.cur_14_zhou_visite_count}</span></td>
+		
+		 
+		  <td style="text-align:center;"><span>
+		  {if $d.cur_14_zhou_dh_count>$d.cur_zhou_dh_count}<b style="color:green;">{$d.cur_zhou_dh_count}↓</b>{elseif  $d.cur_14_zhou_dh_count<$d.cur_zhou_dh_count} <b style="color:red;">{$d.cur_zhou_dh_count}↑</b>{else}{$d.cur_zhou_dh_count}{/if}
+		  </span></td>
+		  	 <td style="text-align:center;"><span >
+		  
+		  	  {if $d.cur_14_zhou_date_count>$d.cur_zhou_date_count}<b style="color:green;">{$d.cur_zhou_date_count}↓</b>{elseif  $d.cur_14_zhou_date_count<$d.cur_zhou_date_count} <b style="color:red;">{$d.cur_zhou_date_count}↑</b>{else}{$d.cur_zhou_date_count}{/if} 
+		  	 </span></td>
+	
+		   <td style="text-align:center;"><span>
+
+		   	  {if $d.cur_14_zhou_yudao_count>$d.cur_zhou_yudao_count}<b style="color:green;">{$d.cur_zhou_yudao_count}↓</b>{elseif  $d.cur_14_zhou_yudao_count<$d.cur_zhou_yudao_count} <b style="color:red;">{$d.cur_zhou_yudao_count}↑</b>{else}{$d.cur_zhou_yudao_count}{/if} 
+		
+		   </span></td>
+		  <td style="text-align:center;"><span>
+		
+		    {if $d.cur_14_zhou_visite_sum>$d.cur_zhou_visite_sum}<b style="color:green;">{$d.cur_zhou_visite_sum}↓</b>{elseif  $d.cur_14_zhou_visite_sum<$d.cur_zhou_visite_sum} <b style="color:red;">{$d.cur_zhou_visite_sum}↑</b>{else}{$d.cur_zhou_visite_sum}{/if} 
+		
+		  </span></td>
+		 <td style="text-align:center;"><span>
+
+		     {if $d.cur_14_zhou_visite_count>$d.cur_zhou_visite_count}<b style="color:green;">{$d.cur_zhou_visite_count}↓</b>{elseif  $d.cur_14_zhou_visite_count<$d.cur_zhou_visite_count} <b style="color:red;">{$d.cur_zhou_visite_count}↑</b>{else}{$d.cur_zhou_visite_count}{/if} 
+		
+		 </span></td> 
+		 
+		 
+		   <td style="text-align:center;"><span >{$d.last_zhou_dh_count}</span></td>
+		   <td style="text-align:center;"><span>{$d.last_zhou_date_count}</span></td>
+	
+		  <td style="text-align:center;"><span >{$d.last_zhou_yudao_count}</span></td>
+			 <td style="text-align:center;"><span>{$d.last_zhou_visite_sum}</span></td>
+		 <td style="text-align:center;"><span>{$d.last_zhou_visite_count}</span></td>
+	  </tr>
+	  {/foreach}
+	  
+	  
+ 
+ 
+</table>
+
+  <br/>
+{/if}
+
+{if $data.hb_zx_irpot_xmt}
+    
+    <table  id="table" style="border-width:0px;border-style:none;"  width="100%"> 
+     <tr style="    background: url(/_ext/img/tit.png);     color: #4D6C2F;">
+    <th colspan="16" scope="col">新媒体咨询业绩环比({$data.sy_hb_start_time}~{$data.sy_hb_end_time}和{$data.by_hb_start_time}~{$data.by_hb_end_time})</th>
+    </tr>
+      <tr>
+        <th scope="col"  rowspan="2">咨询</th> 
+        <th scope="col"  colspan="3">上月</th>
+		<th scope="col"  colspan="3">本月</th>
+		<th scope="col"  colspan="3">上周</th>
+		<th scope="col"  colspan="3">本周</th>
+		<th scope="col"  colspan="3">上月本周</th> 
+      </tr> 
+	   <tr>
+	    <th scope="col">加粉</th>
+        <th scope="col">预约</th>
+        <th scope="col">到诊</th> 
+		<th scope="col">加粉</th>
+		<th scope="col">预约</th>
+        <th scope="col">到诊</th>
+		<th scope="col">加粉</th>
+		<th scope="col">预约</th>
+        <th scope="col">到诊</th> 
+		<th scope="col">加粉</th>
+		<th scope="col">预约</th>
+        <th scope="col">到诊</th> 
+		<th scope="col">加粉</th>
+		<th scope="col">预约</th>
+        <th scope="col">到诊</th>
+      </tr>
+	   {foreach item=d from=$data.hb_zx_irpot_xmt}
+	  <tr>
+	     <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.consult_name}</span></td>
+		 
+	     <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.last_visite_sum}</span></td>
+	     <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.last_date_count}</span></td> 
+		 <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.last_visite_count}</span></td> 
+		 
+		 <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.cur_visite_sum}</span></td>
+		 <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.cur_date_count}</span></td>
+		 <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.cur_visite_count}</span></td>  
+		 
+		  <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.cur_14_zhou_visite_sum}</span></td>
+		 <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.cur_14_zhou_date_count}</span></td>
+		 <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.cur_14_zhou_visite_count}</span></td>
+		 
+		 
+	
+		 
+		  <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.cur_zhou_visite_sum}</span></td>
+		 <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.cur_zhou_date_count}</span></td>
+		 <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.cur_zhou_visite_count}</span></td> 
+		 
+			 <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.last_zhou_visite_sum}</span></td>
+		 <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.last_zhou_date_count}</span></td>
+		 <td style="text-align:center;"><span style="color:{$d.visite_count_color}">{$d.last_zhou_visite_count}</span></td>
+	  </tr>
+	  {/foreach}
+	  
+	  
+ 
+ 
+</table>
+
+  <br/>
+{/if}
+
+
+
+  <table id="table" style="border-width:0px;border-style:none;" width="100%"> 
+  <tr style="    background: url(/_ext/img/tit.png);     color: #4D6C2F;">
+    <th colspan="3" scope="col">咨询业绩总报</th>
+    </tr>
+  <tr>
+    <td  style="vertical-align:top"><table  id="table" width="100%"  style=" border-color:#fff;" border="0">
+      <tr>
+        <th colspan="4" scope="col" align="center" style="border:0px;">上月业绩</th>
+        </tr>
+      <tr>
+        <th scope="col" align="center" style="border:0px;border-top:1px #999999 solid;border-bottom:1px #999999 solid;border-right:1px #999999 solid;">咨询</th>
+        <!--<th scope="col">对话</th>-->
+        <th scope="col" align="center" style="border:0px;border-top:1px #999999 solid;border-bottom:1px #999999 solid;border-right:1px #999999 solid;">预约</th>
+        <th scope="col" align="center" style="border:0px;border-top:1px #999999 solid;border-bottom:1px #999999 solid;border-right:1px #999999 solid;">到诊</th>
+            <th scope="col" align="center" style="border:0px;border-top:1px #999999 solid;border-bottom:1px #999999 solid;">到诊率</th>
+      </tr>
+	  
+	  {foreach item=d from=$data.shangyue_all_zx}
+      <tr>
+        <td align="center" style="border:0px;border:0px;border-bottom:1px #999999 solid;border-right:1px #999999 solid;">{$d.consult_name}</td>
+         <!--<td>{$d.chat}</td>-->
+        <td align="center" style="border:0px;border:0px;border-bottom:1px #999999 solid;border-right:1px #999999 solid;">{$d.date_count}</td>
+        <td align="center" style="border:0px;border:0px;border-bottom:1px #999999 solid;border-right:1px #999999 solid;">{$d.visite_count}</td>
+        <td align="center" style="border:0px;border:0px;border-bottom:1px #999999 solid;">{$d.visite_dzl}</td>
+      </tr>
+{/foreach}
+    </table>      </td>
+
+ <td ><div align="center"><strong>对比</strong></div></td>
+	 <td  style="vertical-align:top"><table   width="100%" border="0">
+	   <tr>
+         <th colspan="4" scope="col" style="border:0px;border-bottom:1px #999999 solid;">本月业绩</th>
+	     </tr>
+	   <tr>
+         <th align="center" scope="col" style="border:0px;border:0px;border-bottom:1px #999999 solid;border-right:1px #999999 solid;">咨询</th>
+	     <!-- <th scope="col">对话</th>-->
+	     <th  align="center" scope="col" style="border:0px;border:0px;border-bottom:1px #999999 solid;border-right:1px #999999 solid;">预约</th>
+	     <th align="center" scope="col" style="border:0px;border:0px;border-bottom:1px #999999 solid;border-right:1px #999999 solid;">到诊</th>
+	        <th align="center" scope="col" style="border:0px;border:0px;border-bottom:1px #999999 solid;">到诊率</th>
+	     </tr>
+    	  {foreach item=d from=$data.benyue_all_zx}
+      <tr>
+        <td align="center" style="border:0px;border:0px;border-bottom:1px #999999 solid;border-right:1px #999999 solid;">{$d.consult_name}</td>
+         <!--<td>{$d.chat}</td>-->
+        <td align="center" style="border:0px;border:0px;border-bottom:1px #999999 solid;border-right:1px #999999 solid;">{$d.date_count}</td>
+        <td align="center" style="border:0px;border:0px;border-bottom:1px #999999 solid;border-right:1px #999999 solid;">{$d.visite_count}</td>
+        <td align="center" style="border:0px;border:0px;border-bottom:1px #999999 solid;">{$d.visite_dzl}</td>
+      </tr>
+{/foreach}
+
+
+     </table>      </td>
+  </tr>
+  
+  
+  
+  
+  
+
+</table>
+
+  
+</div>

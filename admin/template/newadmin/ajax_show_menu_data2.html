@@ -1,0 +1,5 @@
+{foreach from=$all item=p}
+ <li>	
+	<a  href="javascript:request_url('{$p.url}',1);">{$p.name}</a>
+ </li>
+{/foreach}

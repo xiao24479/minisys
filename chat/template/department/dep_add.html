@@ -1,0 +1,51 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="javascript">
+    String.prototype.trim= function(){
+        return this.replace(/(^\s*)|(\s*$)/g, "");  
+    }
+
+</script>
+</head>
+<body>
+	<div class="form-group">
+        <label>科室名字</label>
+        <input class="form-control" type="text" id="name" autocomplete="off">
+    </div>
+    <div class="form-group">
+        <label>预约量</label>
+        <input class="form-control" type="text" id="dep_order" autocomplete="off">
+    </div>
+    <div class="form-group">
+        <label>所属父级</label>
+        <select class="form-control" id="top_id">
+            <option value="0">顶级</option>
+            {foreach from=$top_dep item=i}
+            <option value="{$i.id}">{$i.name}</option>
+            {/foreach}
+        </select>
+    </div>
+    <div>
+   		<input onclick="dep_add_action();" type="submit" class="btn btn-default" value="提交">
+    </div>
+</body>
+<script type="text/javascript">
+    changeTop();
+
+    $('#top_id').change(function(){
+        changeTop();
+    })
+
+    function changeTop() {
+        var v = $("#top_id").val();
+        if(v==0){
+            $("#dep_order").prop('disabled', true).val('顶级无需该项');
+        }else{
+            $("#dep_order").prop('disabled', false).val('');
+        }
+    }
+
+</script>
+</html>

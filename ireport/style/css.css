@@ -1,0 +1,186 @@
+body{
+padding:5px;
+}
+div,dl,dd,strong,input,select,textarea{
+margin:0px; padding:0px;
+}
+a{
+text-decoration:none;
+}
+a:hover{
+color:#FF9933; text-decoration:underline;
+}
+strong{
+color:#333333;
+}
+em, cite {
+font-style: normal;
+}
+div {
+display: block;
+}
+.index{
+border:1px solid  #C2D5E3; 
+}
+.title{
+height:30px; line-height:31px; background:#E9F6FE; border-right: 1px solid white;border-left: 1px solid white;border-top: 1px solid white;border-bottom: 1px solid #C2D5E3; background:url(/ireport/image/titlebg.png);white-space: nowrap;text-indent:20px;
+}
+
+.fun{
+background: #F2F2F2;border-bottom: 1px solid #CDCDCD;border-top: 1px solid white;border-left: 1px solid white;border-right: 1px solid white; height:30px; line-height:30px;  font-size:14px; margin-bottom:1px;
+}
+.fun input,.fun select{
+margin-top:5px;
+}
+.fun strong{
+margin-left:10px;
+}
+.fun strong{
+float:left; margin-left:8px;
+}
+.fun *{
+float:left;
+}
+.input,select,textarea,.input2{
+border:1px solid #CCCCCC; height:20px; line-height:20px; font-size:14px;
+}
+.submit{
+overflow: hidden;
+margin-right: 3px;
+height: 21px;
+border: 1px solid #999;
+background:url(/ireport/image/pn.png);
+cursor: pointer; font-size:14px;
+}
+#contends{
+padding:2px; 
+}
+.table{
+border:1px solid #ddd;
+}
+.table td, .table th{
+height:25px; line-height:25px; text-align:center; font-size:14px;
+}
+.theader{
+background-color:#EBF5F6; 
+}
+.theader th{
+border-top:1px solid white; border-bottom:1px solid #ddd; 
+}
+.thleft,.thright{
+border-left:1px solid #FFFFFF; border-right:1px solid #FFFFFF;
+}
+.thh,.thright{
+border-left:1px solid #ddd;
+}
+.thright strong{
+border-left:1px solid #FFFFFF;display:block;
+}
+.thh strong{
+display:block; border-left:1px solid #FFFFFF;border-right:1px solid #FFFFFF;
+}
+.tbodyer td{
+border-bottom:1px  dashed #ddd; 
+}
+.t-name-top{
+ border:1px dashed #CCCCCC;  background:#FFFFCC;  height:30px; line-height:30px; margin-bottom:5px;
+}
+
+.t-name-top strong,.t-name-top b{
+float:left;
+}
+.t-name-top strong{
+margin-left:10px;
+}
+.t-name-top b{
+color:#006633; margin-left:2px; margin-right:2px;
+}
+.table td p{
+padding:5px; text-align:left; font-size:12px; text-indent:25px;
+}
+.form{
+margin:10px; border:3px double #CCCCCC; padding:10px; padding-top:0px;
+}
+.form .div{
+  padding-left:10px; display:block; margin-top:10px; margin-bottom:10px;
+}
+
+ .div_textarea{
+padding-left:10px; height:110px;
+}
+.div_textarea strong{
+float:left;
+}
+.div_textarea textarea{
+width:400px; height:100px; float:left;
+}
+.form-title{
+border-bottom:1px dashed #CCCCCC; height:30px; line-height:30px;
+}
+.form .div_textarea strong{
+float:left;
+}
+.clear{
+clear:both;
+}
+.div_submit{
+height:50px; line-height:50px; padding-left:2px;
+}
+.div_submit strong{
+color:#FFFFFF; float:left; margin-right:8px;
+}
+.div strong{
+margin-right:5px; margin-left:5px;
+}
+.page a{
+border:1px solid  #CDCDCD; padding:3px; background:#EBF5F6; color:#333333; 
+}
+.page a:hover{
+text-decoration:none; background:#FFFFCC; color:#FF0000;
+}
+.current{
+font-weight:bold; color:#FF0000;
+}
+.tfonter tr td{
+height:40px; line-height:40px;
+}
+.theader2{
+background: #F2F2F2;
+}
+.theader2 th{
+border-top:1px solid white; border-bottom:1px solid #ddd; 
+}
+.theader3{
+background: #F2F2F2;
+}
+.theader3 th{
+border-bottom:1px solid white; border-TOP:1px solid #ddd; 
+}
+
+.form2{
+border:3px double #FCFCFC;
+}
+.form2 input,.form2 select{
+border:1px  solid #D0D0D0; height:20px; line-height:20px;
+}
+.form2  strong{
+padding-left:10px; height:20px; line-height:20px; padding-right:5px;
+}
+.msg{
+ padding:3PX; padding-left:10PX; padding-right:20PX; color:#FF0000;border:1px solid #CCCCCC; height:20px; line-height:20px; font-size:14px;
+}
+.green{
+color:#009933;
+}
+#msg foot{
+float:left; margin-top:5px;
+}
+#msg img{
+ margin-top:3px; float:left;
+}
+.red{
+color:#FF0000;
+}
+.title_h2{
+font-size:16px; text-indent:10px;
+}

@@ -1,0 +1,21 @@
+       {foreach from=$jianyi item=list}
+                     
+                        <li>
+                            <a href="#">
+                                <div>
+                            <i class=" fa fa-bell fa-fw"></i> 
+            {$list.channel}{$list.account}{$list.events}建议{$list.proposal}
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                      
+           	{/foreach}        
+                     
+                        <li>
+       
+                            <a class="text-center" href="javascript:request_url('/bigprice/main.php?m=youhua&a=jianyi_chakan&j=1',1);">
+                                <strong>更多建议</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>

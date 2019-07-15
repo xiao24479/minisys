@@ -1,0 +1,14 @@
+{foreach from=$menuData item=p}
+	{if $p.url==null}
+	 <li id="li2{$p.code}">
+	   <a onclick="showMenuData2({$p.code});">{$p.name}<span class="fa arrow"></span></a>
+		<ul class="nav nav-third-level collapse" id="ul2{$p.code}" >
+		</ul>
+	 </li>
+	{else}
+	<li>
+		<a  href="javascript:request_url('{$p.url}',1);">{$p.name}</a>
+	</li>
+	{/if}
+
+{/foreach}

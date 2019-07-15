@@ -1,0 +1,18 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div style="float:left; width:100%;">
+ {foreach from=$menuArray item=m}
+  <div class="role_lists" id="role_lists_{$m.id}">
+  <img  id="img{$m.id}" src="/_ext/img/jian.png" class="img_showhidden" onclick="showhidden({$m.id})" /> 
+ <strong class="inputss"> <input  type="checkbox" name="father"   onclick="checkall(this.checked,this.form,'{$m.id}')" value="{$m.id}"  id="father_{$m.id}" {if $m.father_flag=="1"} checked="checked"{/if} /></strong><a href="javascript:get_right_info({$m.id});"><strong id="menutext_{$m.id}">{$m.name}</strong></a><img src="/_ext/img/check_error.gif" onclick="javascript:if(confirm('确定要删除吗?')){del_right({$m.id})};" style="cursor:pointer;" class="delete_img" />
+</div>
+
+<div id="div{$m.id}" class="role_lists_ul">
+   {foreach from=$m.node item=n}
+ <span class="role_lists_li">
+  <strong class="inputs"> <input type="checkbox" name="son_{$m.id}" value="{$n.id}" id="son_{$m.id}"  onclick="checkone(this.checked,{$n.id},{$m.id})" {if $n.son_flag=="1"} checked="checked" {/if} /></strong><a href="javascript:get_right_info({$n.id});"><font id="menutext_{$n.id}" >{$n.name}</font></a><img src="/_ext/img/check_error.gif" onclick="javascript:if(confirm('确定要删除吗?')){del_right({$n.id})};" style="cursor:pointer;"  class="delete_img" />
+ </span>
+   {/foreach}
+</div>
+{/foreach}
+
+</div>

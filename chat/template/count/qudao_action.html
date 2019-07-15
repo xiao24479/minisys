@@ -1,0 +1,15 @@
+{foreach from=$all item=list}
+	  <tr>
+	    <td class="bgr">{if $list.mold==1}小程序{/if}{if $list.mold==2}公众号{/if}{if $list.mold==3}WEB{/if}{if $list.mold==4}APP{/if}{if $list.mold==5}移动端{/if}</td>
+	    <td class="bgr">{$list.num}</td>
+					
+ {/foreach}  
+	<tr>
+		<td colspan="2" >
+			{if $all}
+				{$page}
+			{else}
+				没有数据
+			{/if}
+		</td>
+	</tr>

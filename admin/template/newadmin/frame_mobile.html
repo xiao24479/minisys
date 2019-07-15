@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>竞价数据分析系统</title>
+    <!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+   <link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+    <!-- Google Fonts-->
+   <link href="assets/css/sans.css" rel="stylesheet" />
+   <script language="JavaScript" src="/_ext/script/jquery-3.3.1.js"></script>
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="" style="background:#32c2cd;width:100%;text-align:center;"> <strong style="font-size:24px;">竞价智能分析系统</strong></a>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right" id="navbar-right">
+                
+                <li class="dropdown" id="hospital" style="width:65%;">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" >
+						<span id="hpl">{$hpl}</span>
+                        <i class="fa fa-tasks fa-fw"></i><i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-tasks" style="overflow:auto;height:300px;">
+					{foreach from=$hosp item=list}
+                        <li>
+                           
+                                <div>
+                                    <p>
+                                        <strong>{$list.hospital_name}</strong>
+                                    </p>
+									
+                                    <p>
+										{foreach from=$list.chird item=l}
+										<div class="radio">
+                                                <label>
+                                                    <input onclick="javascript:radio({$l.id_hospital});" type="radio" {if $hid==$l.id_hospital}checked{/if} name="optionsRadios" id="optionsRadios1" value="option1" ><font style="vertical-align:inherit;">
+													
+													<font style="vertical-align: inherit;">{$l.hospital_name}
+                                                </font></font></label>
+                                           
+											<span class="pull-right text-muted">{$l.dz_lv}%</span>
+										  </div>
+										<div class="progress progress-striped active">
+											<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{$l.dz_lv}" aria-valuemin="0" aria-valuemax="100" style="width:{$l.dz_lv}%;">
+												<span class="sr-only">{$l.dz_lv}% Complete (success)</span>
+											</div>
+										</div>
+										{/foreach}
+									</p>
+                                </div>
+                        </li>
+						{/foreach}
+                        <li class="divider"></li>
+                    </ul>
+                   
+                </li>
+                <li class="dropdown" id="user" style="width:32%;;">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+						<span>用户</span>
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="javascript:request_url('/admin/main.php?m=rights&a=admin_info&j=1',1);"><i class="fa fa-user fa-fw"></i>用户资料</a>
+                        </li>
+                        <li><a href="javascript:request_url('/admin/main.php?m=rights&a=password_change&j=1',1);"><i class="fa fa-gear fa-fw"></i>密码修改</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="/admin/main.php?m=admin&a=logout"><i class="fa fa-sign-out fa-fw"></i>登出</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+		
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+           
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+   
+	
+	<script>
+	
+	function showMenuData(k,str) { 
+		var list = $("#ul"+k);
+		if(list.find("li").length>0){
+			return;
+		}
+		
+		$.ajax({
+		   url:"main.php",
+		   type:"GET",
+		   dataType:"json",
+		   data:{m:"admin",a:"ajaxShowMenuData",str:str,j:1,tt:Math.random()},
+		   success:function(resp){
+			   if(resp.message == 'LOST') {
+				   alert("请求超时或session失效.");
+				   return false;
+			   } else {
+				   $("#ul"+k).html(resp.content);
+			   }
+		   }
+		});
+	}
+	
+	function showMenuData2(k) {
+		if($("#li2"+k).hasClass('active')){
+			$("#li2"+k).removeClass();
+			$("#ul2"+k).removeClass("in");
+		}else{
+			$("#li2"+k).addClass("active");
+			$("#ul2"+k).addClass("in");
+		}
+		
+		var list = $("#ul2"+k);
+		if(list.find("li").length>0){
+			return;
+		}
+
+		
+		$.ajax({
+		   url:"main.php",
+		   type:"GET",
+		   dataType:"json",
+		   data:{m:"admin",a:"ajaxShowMenuData2",k:k,j:1,tt:Math.random()},
+		   success:function(resp){
+			   if(resp.message == 'LOST') {
+				   alert("请求超时或session失效.");
+				   return false;
+			   } else {
+				   $("#ul2"+k).html(resp.content);
+			   }
+		   }
+		});
+	}
+	
+	function request_url(url,type){
+		if(type==1){
+			url_session(url);
+		}
+		
+		$.ajax({
+
+			url:url,
+
+			type:"get",
+
+			dataType:"json",
+
+			data:{j:1,tt:Math.random()},
+
+			success:function(resp){
+			
+				
+				$('body,html').animate({'scrollTop':0},500);
+				$("#page-wrapper").html(resp.content);
+				
+			}
+		});
+	}
+	function home_index(){
+		request_url("/admin/main.php?m=index&a=home_index&j=1",1);
+	}
+//	home_index();
+
+	function url_session(url){
+		
+		$.ajax({
+		   url:"main.php",
+		   type:"GET",
+		   dataType:"json",
+		   data:{m:"admin",a:"url_session",url:url,j:1,tt:Math.random()},
+		   success:function(resp){
+				if(url==''){
+					location.reload();
+				}
+		   }
+		});
+	}
+	function radio(hid){
+		$.ajax({
+		   url:"main.php",
+		   type:"GET",
+		   dataType:"json",
+		   data:{m:"admin",a:"radio",hid:hid,j:1,tt:Math.random()},
+		   success:function(resp){
+			   request_url(resp.content,2);
+				$("#hpl").html(resp.message);
+		   }
+		});
+	}
+	
+	(function ($) {
+    "use strict";
+	
+	    $(document).ready(function () {
+			$("#sideNav").click(function(){
+				if($(this).hasClass('closed')){
+					$('.navbar-side').animate({left: '0px'});
+					$(this).removeClass('closed');
+					$('#page-wrapper').animate({'margin-left' : '200px'});
+					
+				}
+				else{
+					$(this).addClass('closed');
+					$('.navbar-side').animate({left: '-200px'});
+					$('#page-wrapper').animate({'margin-left' : '0px'}); 
+				}
+			});
+		});
+
+	}(jQuery));
+</script>
+<script src="assets/js/Lightweight-Chart/jquery.chart.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery.metisMenu.js"></script>
+<script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+<script src="assets/js/morris/morris.js"></script>
+<script src="assets/js/easypiechart.js"></script>
+<script src="assets/js/easypiechart-data.js"></script>
+   
+
+</body>
+
+</html>

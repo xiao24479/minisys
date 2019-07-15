@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>sql执行</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/_ext/script/time/jscal2.css">
+<link rel="stylesheet" type="text/css" href="/_ext/script/time/border-radius.css">
+<link rel="stylesheet" type="text/css" href="/_ext/script/time/win2k.css">
+<link rel="stylesheet" type="text/css" href="/_ext/script/time/style.css">
+<script type="text/javascript" src="/_ext/script/time/calendar.js"></script>
+<script type="text/javascript" src="/_ext/script/time/lang/cn.js"></script> 
+<link href="/_ext/script/asyncbox/skins/ZCMS/asyncbox.css" type="text/css" rel="stylesheet" />
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script type="text/javascript" src="/_ext/script/asyncbox/AsyncBox.v1.4.js"></script>
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+String.prototype.trim= function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");  
+}
+</script>
+</head>
+<body>
+<div class="index">
+	<dl>
+		<Dt class="title"><strong>SQL执行</strong></Dt>
+		<Dd>
+			<div class="form" >			
+				<dl>
+					<Dt></Dt>
+					<dD>
+					<p class="title_h2" style="margin-top:10px;">贴入执行的sql,请最好添加数据库名称</p>
+					<form action="main.php?m=rights&a=execute_action" method="post">
+					<textarea name="sqlscript" id="sqlscript" style="width:100%; height:300px;" rows="15"></textarea>
+					<input type="submit"  class="submit" style="margin-top:10px; width:73px;" name="exec" value="执&nbsp;&nbsp;行">
+					<input type="checkbox" name="rus" id="rus"><font class="green" style="margin-left:10px;">需要返回数据集合</font>
+					</form>
+					</dD>
+				</dl>
+			</div>
+		<Dd>
+	</dl>
+</div>
+</body>
+</html>

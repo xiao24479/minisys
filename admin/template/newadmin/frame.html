@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>仁爱产品运营系统</title>
+    <!-- Bootstrap Styles-->
+    <link href="/admin/assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="/admin/assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="/admin/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="/admin/assets/css/custom-styles.css" rel="stylesheet" />
+	<link href="/admin/assets/daterangepicker/daterangepicker.css" rel="stylesheet"media="all">
+    <link href="/admin/assets/css/sans.css" rel="stylesheet" />
+   
+    <script language="JavaScript" src="/_ext/script/jquery-3.3.1.js"></script>
+	<script language="JavaScript" src="/admin/assets/daterangepicker/daterangepicker.js"></script>     
+	<script language="JavaScript" src="/admin/assets/daterangepicker/moment.js"></script>  
+	<script language="JavaScript" src="/_ext/My97DatePicker/WdatePicker.js"></script>
+
+	<style type="text/css">
+	*{ 
+		font-family:"微软雅黑";
+	}
+	
+	</style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation" style="z-index: 999999;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span> 
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand"> <strong style="font-size:21px;">仁爱产品运营系统</strong></a>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right" id="navbar-right">
+
+                <li class="dropdown" id="hospital">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+						<span id="hpl">{$hpl}</span>
+                        <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-tasks">
+                    <li></li>
+					{foreach from=$hosp item=list}
+                        <li class="line"></li>
+                        <li>
+                            <div>
+                                <p>
+                                    <strong>{$list.hospital_name}</strong>
+                                </p>
+								{foreach from=$list.chird item=l}
+								<div class="radio">
+                                    <label>
+                                        <input onclick="javascript:radio({$l.id_hospital});" type="radio" {if $hid==$l.id_hospital}checked{/if} name="optionsRadios" id="optionsRadios1" value="option1" >
+                                        <font style="vertical-align:inherit;">
+											<font style="vertical-align: inherit;">{$l.hospital_name}</font>
+                                        </font>
+                                    </label>
+								  </div>
+								{/foreach}
+                            </div>
+                        </li>
+						{/foreach}
+                        <li class="line"></li>
+                    </ul>
+                    <!-- /.dropdown-tasks -->
+                </li>
+                
+                <!-- /.dropdown -->
+                <li class="dropdown" id="user">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+						<span>用户</span>
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="javascript:request_url('/admin/main.php?m=rights&a=admin_info&j=1',1);"><i class="fa fa-user fa-fw"></i>用户资料</a>
+                        </li>
+                        <li><a href="javascript:request_url('/admin/main.php?m=rights&a=password_change&j=1',1);"><i class="fa fa-gear fa-fw"></i>密码修改</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="/admin/main.php?m=admin&a=logout"><i class="fa fa-sign-out fa-fw"></i>登出</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation" id="navbar-side" style="z-index: 999999;">
+		<div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
+            <div class="sidebar-collapse" style="overflow: auto;">
+                <ul class="nav" id="main-menu">
+
+					<li>
+                        <a class="active-menu" href="javascript:request_url('/admin/main.php?m=index&a=home_index&j=1',1);"><i class="fa fa-home"></i>系统首页</a>
+                    </li>
+					
+                   {foreach from=$projectData item=list key=k}
+
+					<li>
+                        <a href="#" onclick="showMenuData({$k},'{$list.project}')"><i class="fa {$list.class}"></i> {$list.project}<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level" id="ul{$k}" style="background: #096E75;">
+                        </ul>
+                    </li>
+					{/foreach}
+                </ul>
+
+            </div>
+
+        </nav>
+		
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+           
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+   
+	
+	<script>
+		
+	function set_h(name, offset) {
+		var h = $(window).height() - offset;
+		$(name).css('height',  h + 'px');	
+	}
+	
+	$(window).resize(function(){ 
+		set_h('.sidebar-collapse', 60); 
+	});
+	
+	set_h('.sidebar-collapse', 60);	
+			
+	function showMenuData(k,str) { 
+		var list = $("#ul"+k);
+		if(list.find("li").length>0){
+			return;
+		}
+		
+		$.ajax({
+		   url:"main.php",
+		   type:"GET",
+		   dataType:"json",
+		   data:{m:"admin",a:"ajaxShowMenuData",str:str,j:1,tt:Math.random()},
+		   success:function(resp){
+			   if(resp.message == 'LOST') {
+				   alert("请求超时或session失效.");
+				   return false;
+			   } else {
+				   $("#ul"+k).html(resp.content);
+			   }
+		   }
+		});
+	}
+	
+	function showMenuData2(k) {
+		if($("#li2"+k).hasClass('active')){
+			$("#li2"+k).removeClass();
+			$("#ul2"+k).removeClass("in");
+		}else{
+			$("#li2"+k).addClass("active");
+			$("#ul2"+k).addClass("in");
+		}
+		
+		var list = $("#ul2"+k);
+		if(list.find("li").length>0){
+			return;
+		}
+
+		
+		$.ajax({
+		   url:"main.php",
+		   type:"GET",
+		   dataType:"json",
+		   data:{m:"admin",a:"ajaxShowMenuData2",k:k,j:1,tt:Math.random()},
+		   success:function(resp){
+			   if(resp.message == 'LOST') {
+				   alert("请求超时或session失效.");
+				   return false;
+			   } else {
+				   $("#ul2"+k).html(resp.content);
+			   }
+		   }
+		});
+	}
+	
+	function request_url(url,type){
+		if(type==1){
+			url_session(url);
+		}
+		
+		$.ajax({
+
+			url:url,
+
+			type:"get",
+
+			dataType:"json",
+
+			data:{j:1,tt:Math.random()},
+
+			success:function(resp){
+				$('body,html').animate({'scrollTop':0},500);
+				$("#page-wrapper").html(resp.content);
+				
+			}
+		});
+	}
+	
+	
+	function home_index(){
+		request_url("/admin/main.php?m=index&a=home_index&j=1",1);
+	}
+	
+	home_index();
+
+	function url_session(url){
+		
+		$.ajax({
+		   url:"main.php",
+		   type:"GET",
+		   dataType:"json",
+		   data:{m:"admin",a:"url_session",url:url,j:1,tt:Math.random()},
+		   success:function(resp){
+				if(url==''){
+					location.reload();
+				}
+		   }
+		});
+	}
+
+	
+	function radio(hid){
+	
+		$.ajax({
+		   url:"main.php",
+		   type:"GET",
+		   dataType:"json",
+		   data:{m:"admin",a:"radio",hid:hid,j:1,tt:Math.random()},
+		   success:function(resp){
+				$("#hpl").html(resp.message);
+		
+				request_url(resp.content,2);
+				
+			   
+		   }
+		});
+	}
+	
+	(function ($) {
+    "use strict";
+	
+	    $(document).ready(function () {
+			$("#sideNav").click(function(){
+				if($(this).hasClass('closed')){
+					$('.navbar-side').animate({left: '0px'});
+					$(this).removeClass('closed');
+					$('#page-wrapper').animate({'margin-left' : '200px'});
+					
+				}
+				else{
+					$(this).addClass('closed');
+					$('.navbar-side').animate({left: '-200px'});
+					$('#page-wrapper').animate({'margin-left' : '0px'}); 
+				}
+			});
+		});
+					var mainApp = {
+
+						initFunction: function () {
+							/*MENU 
+							------------------------------------*/
+							$('#main-menu').metisMenu();
+							$(window).bind("load resize", function () {
+								if ($(this).width() < 768) {
+									$('div.sidebar-collapse').addClass('collapse')
+								} else {
+									$('div.sidebar-collapse').removeClass('collapse')
+								}
+							});
+
+						   
+						
+							$('.bar-chart').cssCharts({type:"bar"});
+							$('.donut-chart').cssCharts({type:"donut"}).trigger('show-donut-chart');
+							$('.line-chart').cssCharts({type:"line"});
+
+							$('.pie-thychart').cssCharts({type:"pie"});
+					   
+					 
+						},
+
+						initialization: function () {
+							mainApp.initFunction();
+
+						}
+
+					}
+					
+					$(document).ready(function () {
+						mainApp.initFunction(); 
+					});
+
+	}(jQuery));
+	
+</script>
+
+
+
+
+</body>
+<script src="/admin/assets/js/Lightweight-Chart/jquery.chart.js"></script>
+<script src="/admin/assets/js/bootstrap.min.js"></script>
+<script src="/admin/assets/js/jquery.metisMenu.js"></script>
+</html>

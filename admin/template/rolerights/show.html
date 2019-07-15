@@ -1,0 +1,228 @@
+<html>
+<head>
+<title>角色功能配置</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/_ext/script/time/jscal2.css">
+<link rel="stylesheet" type="text/css" href="/_ext/script/time/border-radius.css">
+<link rel="stylesheet" type="text/css" href="/_ext/script/time/win2k.css">
+<link rel="stylesheet" type="text/css" href="/_ext/script/time/style.css">
+<script type="text/javascript" src="/_ext/script/time/calendar.js"></script>
+<script type="text/javascript" src="/_ext/script/time/lang/cn.js"></script> 
+<link href="/_ext/script/asyncbox/skins/ZCMS/asyncbox.css" type="text/css" rel="stylesheet" />
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+<script type="text/javascript" src="/_ext/script/asyncbox/AsyncBox.v1.4.js"></script>
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+
+<script language="javascript" type="text/javascript">
+
+
+
+        //处理伸缩 
+        function showhidden(id)
+		{
+                var div_hidden = "div"+id;
+                var img_show = "#img"+id;
+                if(getid(div_hidden).style.display == "none")
+			    {
+						$("#"+div_hidden).show("show");
+                        $("#role_lists_"+id).css("background","#FFF");                    
+                      	$(img_show).attr("src","/_ext/img/jian.png");
+                }
+				else
+				{		$("#"+div_hidden).hide("show");
+                  		$("#role_lists_"+id).css("background","#d4f0ff"); 
+                       	$(img_show).attr("src","/_ext/img/jia.png");
+                }
+        }
+		// get the id
+        function getid(input_name)
+		{
+                return document.getElementById(input_name);        
+        } 
+		//处理复选框的问题
+		function checkall(flag,form,id)
+		{
+		    var roleid=document.getElementById('select').value;
+			if(roleid==""){
+			    alert("请先选择角色!");
+				document.getElementById('father_'+id).checked=false;
+				return false;
+			}
+			//alert(form.elements);
+			for (var i=0;i<form.elements.length;i++)
+			{
+				var e = form.elements[i];
+				if(e.id=='son_'+id)
+				{
+				  if(flag==true)
+				  {
+				     e.checked=true;
+				  }
+				  else
+				  {
+				     e.checked=false;
+				  }
+				}
+			}
+			// end for
+			if(flag==false)
+			{
+				   document.getElementById('father_'+id).checked=false;
+				   save_role_rights(roleid,id,'cansel'); 
+			}
+			else
+			{
+				   save_role_rights(roleid,id,'checked');
+			}
+			//get_role_rights(roleid);
+			
+		}
+		//单个checkbox		
+		function checkone(flag,id,fid){
+		    var roleid=document.getElementById('select').value;
+			var n =document.all('son_'+fid).length;
+			var p=0;
+			if(roleid==""){
+			    alert("请先选择角色");
+			    return false;
+			}
+			//check 单个子复选框，这个是对单个的操作
+			if(flag==true){
+			   document.getElementById('father_'+fid).checked=true;
+			   save_role_rights(roleid,id,'checked');
+			}else{
+			   save_role_rights(roleid,id,'cansel');
+			}
+			//判断是不是子复选框都取消了，
+			for(var i=0;i<n;i++){
+			    if(document.all['son_'+fid][i].checked==false){
+				    p++;
+				}
+			}
+			if(p==n){//这个地方就是子复选框都取消了，复选框也要取消掉
+			    document.getElementById('father_'+fid).checked=false;
+			}
+		}
+        
+</script>
+<script language="javascript">
+//保存
+function save_role_rights(roleid,id,flag){
+   $.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"roleRights",a:"save_role_rights",roleid:roleid,id:id,j:1,flag:flag,tt:Math.random()},
+	    success:function(resp){
+			if(resp.message=='insertok'){
+				//get_role_rights(roleid);
+			}else if(resp.message=='delok'){
+				//get_role_rights(roleid);
+			}
+	    }
+		});
+}
+//del right
+function del_right(id){
+      //alert(roleid);break;
+	  $.ajax({
+			url:"main.php",
+			type:"get",
+			dataType:"json",
+			data:{m:"roleRights",a:"del_right",id:id,j:1,tt:Math.random()},
+			success:function(resp){
+				if(resp.message=='ok'){
+					alert("删除成功");
+					get_role_rights(document.getElementById('select').value);
+				}else if(resp.message=='has'){
+				    alert("该功能有角色，不能删除");
+				}
+			}
+	  });
+}
+show_rights();
+
+function show_rights(){
+	$.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"roleRights",a:"show_rights",j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#all").html(resp.content);
+	    }
+	});
+}
+function get_right_info(id){
+   $.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"roleRights",a:"get_right_info",id:id,j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#contents").html(resp.content);
+	    }
+	});
+}
+//
+function get_role_rights(roleid){
+   $.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"roleRights",a:"get_role_rights",roleid:roleid,j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#all").html(resp.content);
+	    }
+	});
+
+}
+function rights_add(){
+   $.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"roleRights",a:"rights_add",j:1,tt:Math.random()},
+	    success:function(resp){
+	      $("#contents").html(resp.content);
+	    }
+	});
+
+}
+</script>
+
+</head>
+<body>
+				<div class="col-md-6" style="padding-left:0;padding-right:0;">
+                  <form action="" method="post">
+                    <div class="panel panel-default" style="float:left;">
+                        <div class="panel-heading" >
+                            功能角色配置
+							<a  href="javascript:rights_add();" style="padding-right: 10px;float: right;color: #32C2Cd;">添加功能</a>
+                        </div>
+						 <div class="panel-body" id="all">
+						 
+						 </div>	
+                    </div>
+					<div class="panel panel-default" style="float:left;">
+						<div class="panel-heading">
+							角色
+						</div>
+						<div class="panel-body" >
+							<select name="select" size="10" id="select"  multiple  onclick="get_role_rights(this.value);">
+							{foreach from=$all_role item=r}
+							<option value="{$r.id}">{$r.name}</option>
+							{/foreach}
+						   </select>
+						</div>
+					</div>
+                     </form>
+                </div>
+				<div id="contents" class="col-md-6"></div>
+
+
+
+
+
+</body>
+</html>

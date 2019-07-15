@@ -1,0 +1,311 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="javascript">
+function role_add(formselect,toselect){
+	 var allr = document.getElementById(formselect);
+	 var m=allr.options[allr.selectedIndex].value;
+     var n=allr.options[allr.selectedIndex].text;
+	 role_add_action(m,n,toselect);
+	 allr.removeChild(allr.options[allr.selectedIndex]);
+}
+
+function role_add_action(id,name,toselect){
+	var userr = document.getElementById(toselect);
+	userr.options.add(new Option(name,id));
+}
+function add_select(formselect,toselect) {
+	var allr = document.getElementById(formselect);
+	var m=allr.options[allr.selectedIndex].value;
+	var n=allr.options[allr.selectedIndex].text;
+	add_select_action(m,n,toselect);
+	allr.removeChild(allr.options[allr.selectedIndex]);
+}
+
+function add_select_action(id,name,toselect){
+	var userr = document.getElementById(toselect);
+	userr.options.add(new Option(name,id));
+}
+function save_user_hospital(id)
+{
+	var temp = document.getElementById('user_hospital_id');
+	ids = '';
+	for(i=0;i<temp.options.length;i++ ){
+		ids+=' '+temp.options[i].value;
+	}
+
+	$.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"userright",a:"save_user_hospital_data",id:id,ids:ids,j:1,tt:Math.random()},
+	    success:function(resp){
+			if(resp.result==1){
+				alert('保存成功！');
+				return false;
+			}
+	    }
+	});
+}
+function user_role_save(user_id){
+	//get the roles.
+	var temp = document.getElementById('user_roles');
+	ids = '';
+	for(i=0;i<temp.options.length;i++ ){
+		ids+=' '+temp.options[i].value;
+	}
+	
+	//alert(ids);
+	$.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"userRole",a:"roles_save",user_id:user_id,ids:ids,j:1,tt:Math.random()},
+	    success:function(resp){
+			if(resp.message='ok'){
+				alert('成功保存！');
+			}
+	    }
+	});
+
+}
+function user_detail_save(user_id){
+var user_name = document.getElementById('user_name').value;
+var user_email = document.getElementById('email').value;
+var user_ip = document.getElementById('ip').value;
+	$.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"userRole",a:"user_detail_save",user_id:user_id,user_name:user_name,user_email:user_email,user_ip:user_ip,j:1,tt:Math.random()},
+	    success:function(resp){
+			if(resp.message='ok'){
+				alert('成功保存！');
+				get_user_all(1);
+			}
+	    }
+	});
+
+}
+
+function user_pwd_save(user_id){
+	var pwd1 = document.getElementById('newpwd').value;
+	var pwd2 = document.getElementById('newpwd2').value;
+	if(pwd1=='' || pwd2==''){
+		alert('密码不能为空！');
+	}else if ( pwd1!=pwd2){
+		alert('输入的密码不一样！');
+	}else{
+		$.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"userRole",a:"user_password_save",user_id:user_id,pwd:pwd1,j:1,tt:Math.random()},
+	    success:function(resp){
+			if(resp.message='ok'){
+				alert('成功保存！');
+				
+			}
+	    }
+	});
+	
+	}
+}
+String.prototype.trim= function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");  
+}
+</script>
+</head>
+<body>
+<div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            账户信息修改
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+										<div class="form-group">
+                                            <label>登录名称 <span style="color:#FF0000;">*</span></label>
+                                            <input class="form-control" name="login_name" type="text" id="login_name" value="{$user_info.login_name}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>用户名称 <span style="color:#FF0000;">*</span></label>
+                                            <input class="form-control" name="user_name" type="text" id="user_name" value="{$user_info.name}">
+                                        </div>
+										<div class="form-group">
+                                            <label>email</label>
+                                            <input class="form-control" name="email" type="text" id="email" value="{$user_info.email}">
+                                        </div>
+										<div class="form-group">
+                                            <label>登录ip限制</label>
+                                            <input class="form-control" name="ip" type="text" id="ip" value="{$user_info.ip}">
+                                        </div>
+										<div class="form-group">
+											<label>当前IP：</label>
+											<font color="#FF0000"> {$currentip}</font>
+										</div>
+                                       <div class="form-group"><font color="#FF0000">＊</font>：不受限制；内容为空：帐号无法登录；多个ＩＰ用空格隔开</div>
+                                        <input  onClick="javascript:user_detail_save({$user_info.id});" type="submit" class="btn btn-default" value="修改">
+                                   
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+					 <div class="panel panel-default">
+                        <div class="panel-heading">
+                            密码修改
+                        </div>
+						<div class="panel-body">
+							<div class="row">
+                                <div class="col-lg-12">
+										<div class="form-group">
+                                            <label>登录密码</label>
+                                            <input class="form-control" name="newpwd" type="password" id="newpwd">
+                                        </div>
+										<div class="form-group">
+                                            <label>确认密码</label>
+                                            <input class="form-control" name="newpwd2" type="password" id="newpwd2">
+                                        </div>
+										  <input  onClick="javascript:user_pwd_save({$user_info.id});" type="submit" class="btn btn-default" value="修改">
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					 <div class="panel panel-default">
+                        <div class="panel-heading">
+                            角色分配
+                        </div>
+						<div class="panel-body">
+							<div class="row">
+                                <div class="col-lg-12">
+										<div>
+										<div style="float:left; width:30%;"><strong>该用户角色</strong><br>
+									  <select multiple class="form-control" id="user_roles">
+										{foreach from=$user_role item=r}
+										<option value="{$r.id}">{$r.name}</option>
+										{/foreach}
+									  </select>
+										</div>
+										<div class="col-lg-12" style="width:30%;float:left;">
+										<div class="form-group">
+											<input onClick="javascript:role_add('allroles','user_roles');" type="button" class="form-control" value="添加"  >
+										</div>
+										<div class="form-group">
+										<input onClick="javascript:role_add('user_roles','allroles');" type="button" class="form-control" value="删除"  >
+										</div>
+										<div class="form-group">
+										<input onClick="javascript:user_role_save({$user_info.id});" type="button" value="保存" class="form-control" >
+										</div>
+										</div>
+										<div style="float:left;width:30%;"><strong>所有角色</strong><br>
+										<select multiple class="form-control" id="allroles" >
+										   {foreach from=$roles item=r}
+										<option value="{$r.id}">{$r.name}</option>
+										{/foreach}
+										  </select>
+										</div>
+									  </div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					
+					
+					
+					</div>
+                </div>
+				
+				<div class="col-lg-6">
+					 <div class="panel panel-default">
+                        <div class="panel-heading">
+                            医院分配
+                        </div>
+						<div class="panel-body">
+							<div class="row">
+                                <div class="col-lg-12">
+										<div>
+										<div style=" width:90%;"><strong>该用户医院</strong><br>
+									  <select multiple class="form-control" id="user_hospital_id">
+										 {foreach from=$user_hospital_rs item=r}
+											<option value="{$r.hospital_id}">{$r.name}</option>
+										 {/foreach}
+									  </select>
+										</div>
+										<div style="margin-top:10px;";>
+										
+											<input style="width:29.3%;float:left;margin-right:1%;" onClick="javascript:add_select('hospital_all_id','user_hospital_id');" style="" type="button" class="form-control" value="添加"  >
+											
+											
+											<input style="width:29.3%;float:left;margin-right:1%;" onClick="javascript:add_select('user_hospital_id','hospital_all_id');" type="button" class="form-control" value="删除"  >
+											
+											
+											<input style="width:29.3%;float:left;" onClick="javascript:save_user_hospital({$user_rs.id});" type="button" value="保存" class="form-control" >
+											
+										</div>
+										<div style="width:90%;"><strong>所有医院</strong><br>
+										<select multiple class="form-control" id="hospital_all_id" >
+										 {foreach from=$hospital_all_rs item=r}
+											<option value="{$r.hospital_id}">{$r.name}</option>
+										 {/foreach}
+										  </select>
+										</div>
+									  </div>
+								</div>
+							</div>
+							
+						</div>
+				</div>
+				
+				
+				
+	<!--<div class="form"  style="width:576px; float:left;">
+		
+		<dl>
+				<dt class="form-title"><strong>医院分配</strong></dt>
+				<dd>
+				<div>
+                <div style="float:left; width:250px;margin-bottom:10px; line-height:30px;"><strong>该用户医院</strong><br>
+                  <select size="10" style="width:250px; height:180px;" id="user_hospital_id" multiple>
+                    {foreach from=$user_hospital_rs item=r}
+                    <option value="{$r.hospital_id}">{$r.name}</option>
+                    {/foreach}
+                  </select>
+                    </div>
+
+                    <div style="float:left;width:75px;"><br><br> <br>
+                        <input onClick="add_select('hospital_all_id','user_hospital_id');" type="button" class="submit" value="添加">
+                        <br>
+                      <br>
+                      <input onClick="add_select('user_hospital_id','hospital_all_id');" type="button" class="submit" value="删除">
+                     <br>
+                      <br> <br>
+                        <input onClick="save_user_hospital({$user_rs.id});" type="button" class="submit" value="保存">
+                    </div>
+
+                    <div style="float:left;width:250;line-height:30px;"><strong>所有医院</strong><br>
+                    <select name="select" size="10" id="hospital_all_id" style="width:250px;height:180px;" multiple>
+                    {foreach from=$hospital_all_rs item=r}
+                    <option value="{$r.hospital_id}">{$r.name}</option>
+                    {/foreach}
+                    </select>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+				</dd>
+			</dl>
+	</div>-->
+
+
+</body>
+</html>

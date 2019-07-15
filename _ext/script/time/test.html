@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>例子</title>
+<link rel="stylesheet" type="text/css" href="jscal2.css">
+<link rel="stylesheet" type="text/css" href="border-radius.css">
+<link rel="stylesheet" type="text/css" href="win2k.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<script type="text/javascript" src="calendar.js"></script>
+<script type="text/javascript" src="lang/cn.js"></script> 
+<!--
+这里可以切换中英文
+<script type="text/javascript" src="lang/en.js"></script>
+-->
+
+</head>
+
+<body>
+<form action="" method="get">
+
+    <input type="hidden" name="type" value="user">
+    时间 <input type="text" class="input_date" name="start" id="start" value="" size="10" readonly="readonly"><script type="text/javascript">Calendar.setup({weekNumbers: "true", inputField : "start", trigger : "start", dateFormat: "%Y-%m-%d", showTime: false, onSelect:function() {this.hide();}});</script> 至 <input type="text" class="input_date" name="end" id="end" value="" size="10" readonly="readonly"><script type="text/javascript">Calendar.setup({weekNumbers: "true", inputField : "end", trigger : "end", dateFormat: "%Y-%m-%d", showTime: false, onSelect:function() {this.hide();}});</script>    
+  
+  </form> 
+</body>
+</html>

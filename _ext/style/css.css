@@ -1,0 +1,396 @@
+
+
+/** 清除内外边距 **/
+body, h1, h2, h3, h4, h5, h6, hr, p,blockquote,dl, dt, dd, ul, ol, li, pre,
+form, fieldset, legend, button, input, textarea, th, td,img,select,strong{
+border:medium none;
+margin: 0;
+padding: 0;
+font-size:14px; font-family:”微软雅黑”;
+}
+
+#navbar-right {
+	margin: 0 !important;
+}
+
+.DynarchCalendar-topCont{
+position:fixed;
+z-index:0px;
+}
+
+body{
+ color:#333333; 
+}
+
+a{
+text-decoration:none; cursor:pointer;    color: #32c2cd;
+}
+a:hover{
+color:#FF9933; 
+}
+strong{
+
+}
+em, cite {
+font-style: normal;
+}
+div {
+display: block;
+}
+.index{
+border:1px solid  #a8ad99; 
+}
+.title{
+padding: 0 10px;
+height: 31px;
+border-top: 1px solid white;
+border-left: 1px solid white;
+border-right: 1px solid white;
+border-bottom: 1px solid #a8ad99;
+background: url(/_ext/img/tit.png);
+line-height: 31px;
+white-space: nowrap;
+overflow: hidden;
+}
+.title strong{
+color:#4D6C2F;
+}
+.fun{
+border-bottom: 1px solid #a8ad99;border-left: 1px solid  #a8ad99; margin-left:1px; margin-right:1px;border-right: 1px solid #a8ad99; height:30px; line-height:30px;  font-size:14px; margin-bottom:1px;background:url(/_ext/img/fun.png); 
+}
+.fun .input,.fun select{
+margin-top:5px; border:1px solid  #a8ad99;
+}
+.fun .radio{
+margin-top:10px; margin-left:5PX; 
+}
+.fun strong{
+float:left; margin-left:8px; color:rgb(77, 108, 47);
+}
+.fun *{
+float:left;
+}
+.fun .submit{
+	margin-top:5px;
+}
+.input,select,textarea,.input2{
+border:1px solid #a8ad99; height:20px; line-height:20px; font-size:14px;  z-index:0;
+}
+
+
+
+.submit{ 
+
+BORDER-TOP-WIDTH: 0px;
+BORDER-LEFT-WIDTH: 0px;
+
+BORDER-BOTTOM-WIDTH: 0px;
+MARGIN: 0px 7px 0px 3px;
+WIDTH: 70px;
+
+HEIGHT: 21px;
+    background: url(/_ext/img/header_bg.jpg);
+margin: 0px 7px 0px 3px;
+text-align:center;
+border:1px solid #a8ad99; color:#FFF;
+cursor:pointer;
+}
+#contends{
+padding:2px;
+}
+.contends{
+padding:2px;
+overflow:auto; 
+clear:both;
+}
+.input_date{
+border: 1px solid #a8ad99;
+}
+.table{
+border:1px solid #a8ad99; 
+}
+.table td, .table th{
+height:25px; line-height:25px; text-align:center; font-size:14px;vertical-align: middle !important;padding: 2px !important;
+}
+.theader{
+background:#F0F5F7;
+}
+.theader th{color: #4D6C2F;
+border-top:1px solid white; border-bottom:1px solid #a8ad99; cursor:s-resize;
+}
+.thleft,.thright{
+border-left:1px solid #FFFFFF; border-right:1px solid #FFFFFF;
+}
+.thh,.thright{
+border-left:1px solid #a8ad99;
+}
+.thright strong{
+border-left:1px solid #FFFFFF;display:block;
+}
+.thh strong{
+display:block; border-left:1px solid #FFFFFF;border-right:1px solid #FFFFFF;
+}
+.tbodyer td{
+border-bottom:1px  solid  #a8ad99;color: #4D6C2F;
+}
+.t-name-top{
+ border:1px dashed #CCCCCC;  background:#FFFFCC;  height:30px; line-height:30px; margin-bottom:5px;
+}
+#tbody tr:hover,.tbodyer tr:hover{
+background:#FFFFCC;
+}
+.btf td{
+border-bottom:1px  solid #FFFFFF; color:#FFFFFF
+}
+.t-name-top strong,.t-name-top b{
+float:left;
+}
+.t-name-top strong{
+margin-left:10px;
+}
+.t-name-top b{
+color:#006633; margin-left:2px; margin-right:2px;
+}
+.table td p{
+padding:5px; text-align:left; font-size:12px; text-indent:25px;
+}
+.form{
+margin:10px; border:3px double  #a8ad99; padding:10px; padding-top:0px;
+}
+.form .div{
+  padding-left:10px; display:block; margin-top:10px; margin-bottom:10px;
+}
+
+ .div_textarea{
+padding-left:10px; height:110px;
+}
+.div_textarea strong{
+float:left;
+}
+.div_textarea textarea{
+width:400px; height:100px; float:left;
+}
+.form-title{
+border-bottom:1px dashed #CCCCCC; height:30px; line-height:30px;
+}
+.form .div_textarea strong{
+float:left;
+}
+select{
+border:1px solid #a8ad99;
+}
+.clear{
+clear:both;
+}
+.div_submit{
+height:50px; line-height:50px; padding-left:2px;
+}
+.div_submit strong{
+color:#FFFFFF; float:left; margin-right:8px;
+}
+.div strong{
+margin-right:5px; margin-left:5px;     color: rgb(77, 108, 47);
+}
+.page a{
+border:1px solid #a8ad99; padding:3px; background:#a5c189; color:#FFF; 
+}
+.page a:hover{
+text-decoration:none; background:url(/_ext/img/tit.png); color:#FF0000;
+}
+.current{
+font-weight:bold; color:#FF0000;
+}
+
+.tfonter tr td{
+height:40px; line-height:40px;background:url(/_ext/img/pn.png); border-top:1px solid #999999;
+}
+
+.theader2{
+background: #F2F2F2;
+}
+.theader2 th{
+border-top:1px solid white; border-bottom:1px solid #a8ad99; 
+}
+.theader3{
+background: #F2F2F2;
+}
+.theader3 th{
+border-bottom:1px solid white; border-TOP:1px solid #ddd; 
+}
+
+.form2{
+border:3px double #a8ad99;
+}
+.form2 input,.form2 select{
+border:1px  solid #a8ad99; height:20px; line-height:20px;
+}
+.form2  strong{
+padding-left:10px; height:20px; line-height:20px; padding-right:5px;
+}
+.msg{
+ padding:3PX; padding-left:10PX; padding-right:20PX; color:#FF0000;border:1px solid #CCCCCC; height:20px; line-height:20px; font-size:14px;
+}
+.green{
+color:#009933;
+}
+#msg foot{
+float:left; margin-top:5px;
+}
+#msg img{
+ margin-top:3px; float:left;
+}
+.red{
+color:#FF0000;
+}
+.title_h2{
+font-size:16px; text-indent:10px; border:1px dashed #CCCCCC; padding:10px; background:#FFFFCC; margin-bottom:10px;
+}
+
+.memo textarea{
+width:420px; height:100px;
+}
+.dt{
+background:url(/_ext/img/tit.png); height:30px; line-height:30px;border-left: 1px solid white;
+border-right: 1px solid white; border-top:1px solid white; border-bottom:1px solid #999999
+} 
+
+.dt strong{
+margin-right:10px; 
+}
+
+.role_list{
+float:left; width:200px; scroll-y:auto; margin:3px; border:1px solid #999999
+}
+.role_list .dt{
+text-indent:10px;
+}
+.role_list_div{
+height:25px; padding-top:10px; border-bottom:1px dashed #CCCCCC; cursor:pointer;
+}
+.role_list_div:hover{
+background:#f9f9f9;
+}
+
+.null_text{
+padding:3PX; padding-left:10PX; padding-right:20PX; color:#666; border:0px; border-bottom:1px solid #666666; line-height:25px;
+}
+.radio{
+border:0;
+}
+
+#all{
+padding-left:10px; padding-top:10px; padding-bottom:10px;
+}
+.role_lists{
+height:25px; line-height:25px; border:1px solid #b5cacf; padding-left:10px;  margin-bottom:2px; cursor:pointer;
+}
+.role_lists:hover{
+background:#d4f0ff;
+}
+.role_lists *,.role_lists span{
+color:#333333; float:left;
+}
+
+.role_lists img{
+ margin-top:5px;
+}
+
+.role_lists_ul{
+border:1px dashed #DDD; margin-bottom:2PX; border-bottom:0; overflow:hidden;
+}
+.role_lists_li{
+display:block; height:20px; line-height:20px; border-bottom:1px dashed #ddd; padding-left:40px; 
+}
+.role_lists_li:hover{
+background:#FFFFCC;
+}
+.role_lists_li *{
+float:left; 
+}
+.role_lists_li input{
+margin-top:4px; margin-right:5px;
+}
+.role_lists_li img{
+margin-top:3px;
+}
+
+.allrole2{
+margin:20px;
+}
+.allrole2 select{
+height:500px; width:150px;
+}
+.delete_img{
+margin-left:5px;
+}
+.inputss{
+padding-top:5px; margin-right:5px; margin-left:5px;
+}
+.page2{
+text-align:center; margin:0 auto; background:#F2F2F2; height:25PX; line-height:25PX; border-left:1PX solid #fff; border-right:1PX solid #fff; border-bottom:1px solid #CCCCCC
+}
+.page2 div{
+border-left:1px solid #CCC;border-right:1px solid #CCC;
+}
+.userlist{
+height:20px; padding-top:5px; padding-bottom:5px;border-bottom:1px dashed  #ddd; cursor:pointer;
+}
+.userlist:hover{
+background:#FFFFCC;
+}
+
+.date_bt{
+background:#fff url(/_ext/script/time/img/input_date.png) no-repeat center center; width:20px; height:22px;  margin:5px; cursor:pointer; border:1px solid #666;
+}
+.edit_input{
+cursor:text; display:block;
+}
+
+.form-div{
+	margin:10px; border:1px  solid #999; 
+}
+.form-title2{
+background: url(/_ext/img/tit.png); height: 30px;
+line-height: 30px;
+border-left: 1px solid white;
+border-right: 1px solid white;
+border-top: 1px solid white;
+border-bottom: 1px solid #999;
+text-indent:20px;
+color:#3D87B6;
+}
+.from-modle{
+	padding:10px;
+}
+.from-modle ul{
+}
+.from-modle ul li{
+	list-style:none; width:20%; float:left; line-height:20px;
+}
+.form-title3{
+	height:30px; line-height:30px; font-size:20px; font-weight:bold; text-align:center; 
+}
+.bgr{    
+	border-left: 1px solid rgb(168, 173, 153);
+}
+.bgt{
+border-left: 1px solid #999;
+}
+.p_info{
+text-align:left;  border:2px solid #D7D7D7; background:#9C9;
+}
+.p_info dl{
+	border: 1px solid #069;padding-top:10px; 
+}
+.p_info span{
+
+	height:30px; line-height:30px;
+
+}
+.edit_input2:hover{
+	border:1px dashed #F00;
+}
+.p_info strong{
+	margin-left:10px;
+}
+.right-headimg{width:35px;height:35px; border-radius: 50%;}

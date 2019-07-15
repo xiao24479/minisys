@@ -1,0 +1,734 @@
+@charset "utf-8";
+body {
+	font-family:"宋体", arial;
+	margin:0;
+	padding:0;
+	font-size:12px;
+	color:#595757;
+	background-image: url(../image/back_012.gif);
+	background-repeat: repeat;
+	line-height: 20px;
+}
+
+
+#container {
+	width: 960px;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+}
+#header01 {
+	padding: 0px;
+	height: 143px;
+	width: 960px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+}
+
+#content {
+	padding: 0px;
+	width: 1200px;
+	background-color: #FFF;
+	margin: 0px;
+	float: left;
+}
+#content01 {
+	float: left;
+	width: 160px;
+	margin: 0px;
+	padding: 0px;
+	background-color: #f5f9fe;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #a9b1b7;
+	height: 853px;
+}
+#content02 {
+	float: left;
+	width: 800px;
+	padding: 0px;
+	height: auto;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 200px;
+	margin-left: 0px;
+	padding-left:137px !important;
+	padding-left:135px;
+}
+.content04 {
+	margin: 0px;
+	width: auto;
+	padding-top: 14px;
+	padding-right: 0px;
+	padding-bottom: 6px;
+	padding-left: 15px;
+}
+.content05 {
+	width: auto;
+	padding-right: 6px;
+	padding-left: 15px;
+	color: #000000;
+	height: 25px;
+	background-color: #ffffe1;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #eceddd;
+	border-bottom-color: #eceddd;
+	padding-top: 7px;
+	margin-top: 5px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+}
+.content07 {
+	width: auto;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 8px;
+	margin-left: 0px;
+	height: 25px;
+}
+.content08 {
+	width: 600px;
+	padding-right: 0px;
+	margin: 0px;
+	padding-top: 20px;
+	padding-bottom: 21px;
+	padding-left: 13px;
+	border: 1px solid #b0b5b8;
+}
+.content09 {
+	padding-top: 46px;
+	width: auto;
+	text-align: center;
+}
+.content10 {
+	width: auto;
+	padding: 0px;
+	margin-top: 8px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+}
+.content_11 {
+	margin: 0px;
+	padding: 0px;
+	height: auto;
+	width: 745px;
+}
+
+
+
+
+.bk01 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	background-image: url(../image/Adm_title3_02.gif);
+	background-repeat: repeat-x;
+	height: 20px;
+	width: 34px;
+	font-weight: bold;
+	padding-top: 3px;
+	padding-left: 10px;
+}
+.bk01_1 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	background-image: url(../image/Adm_title3_02.gif);
+	background-repeat: repeat-x;
+	height: 23px;
+	width: 34px;
+	padding-top: 5px;
+	padding-left: 10px;
+	font-weight: bold;
+}
+.bk02 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	background-image: url(../image/Adm_title3_02.gif);
+	background-repeat: repeat-x;
+	height: 20px;
+	width: 117px;
+	padding-top: 3px;
+	font-weight: bold;
+	padding-left: 55px;
+}
+.bk03 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	background-image: url(../image/Adm_title3_02.gif);
+	background-repeat: repeat-x;
+	height: 20px;
+	width: 136px;
+	padding-top: 3px;
+	padding-left: 95px;
+	font-weight: bold;
+}
+.bk04 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	background-image: url(../image/Adm_title3_02.gif);
+	background-repeat: repeat-x;
+	height: 20px;
+	width: 116px;
+	padding-top: 3px;
+	padding-left: 60px;
+	font-weight: bold;
+}
+.bk05 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	background-image: url(../image/Adm_title3_02.gif);
+	background-repeat: repeat-x;
+	height: 20px;
+	width: 69px;
+	padding-top: 3px;
+	padding-left: 50px;
+	font-weight: bold;
+}
+.bk06 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	background-image: url(../image/Adm_title3_02.gif);
+	background-repeat: repeat-x;
+	height: 20px;
+	width: 112px;
+	padding-top: 3px;
+	padding-left: 60px;
+	font-weight: bold;
+}
+.bk07 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	background-image: url(../image/Adm_title3_02.gif);
+	background-repeat: repeat-x;
+	height: 20px;
+	width: 48px;
+	padding-top: 3px;
+	padding-left: 15px;
+	font-weight: bold;
+	margin: 0px;
+}
+.bk08 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	background-image: url(../image/Adm_title3_02.gif);
+	background-repeat: repeat-x;
+	height: 20px;
+	width: 62px;
+	padding-top: 3px;
+	padding-left: 25px;
+	font-weight: bold;
+}
+.bk09 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	background-image: url(../image/Adm_title3_02.gif);
+	background-repeat: repeat-x;
+	height: 20px;
+	width: 103px;
+	padding-top: 3px;
+	padding-left: 50px;
+	font-weight: bold;
+}
+
+.f14px {
+	font-family: "宋体";
+	font-size: 14px;
+	font-weight: bold;
+	color: #000000;
+}
+.input01 {
+	float: left;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	margin: 0px;
+	height: 15px;
+	width: 146px;
+	padding-top: 1px;
+	padding-right: 0px;
+	padding-bottom: 1px;
+	padding-left: 1px;
+}
+.input02 {
+	float: left;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	margin: 0px;
+	height: 15px;
+	width: 179px;
+	padding-top: 1px;
+	padding-right: 0px;
+	padding-bottom: 1px;
+	padding-left: 1px;
+}
+.input03 {
+	float: left;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	margin: 0px;
+	height: 15px;
+	width: 219px;
+	padding-top: 1px;
+	padding-right: 0px;
+	padding-bottom: 1px;
+	padding-left: 1px;
+}
+.input04 {
+	float: left;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	margin: 0px;
+	width: 151px;
+	padding-top: 1px;
+	padding-right: 0px;
+	padding-bottom: 1px;
+	padding-left: 1px;
+	height: auto;
+}
+.input05 {
+	float: left;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	margin: 0px;
+	height: 15px;
+	width: 146px;
+	padding-top: 1px;
+	padding-right: 0px;
+	padding-bottom: 1px;
+	padding-left: 1px;
+}
+.input06 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	margin: 0px;
+	height: 12px;
+	width: 35px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 1px;
+}
+
+
+
+
+
+#pic {
+	height: 80px;
+	background-image: url(../image/Adm_banner01.jpg);
+	background-repeat: no-repeat;
+	padding-top: 33px;
+	padding-left: 113px;
+	margin: 0px;
+	padding-bottom: 0px;
+	width: 847px;
+	padding-right: 0px;
+	float: left;
+}
+#menu01 {
+	height: 30px;
+	padding-right: 15px;
+	padding-left: 33px;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin: 0px;
+	width: 912px;
+	float: left;
+	background-image: url(../image/Adm_menu_bg01.gif);
+	background-repeat: repeat-x;
+	background-position: left top;
+}
+#menu01_font {
+	padding: 0px;
+	font-family: "宋体";
+	font-size: 12px;
+	font-weight: bold;
+	color: #FFFFFF;
+	float: left;
+	margin-top: 5px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	height: 18px;
+	width: auto;
+	display: inline;
+}
+#menu01_img {
+	float: left;
+	width: auto;
+	margin-right: 10px;
+	margin-top: 5px;
+}
+
+
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.c_right {
+	text-align: right;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+}
+
+.FB {
+	font-weight: bold;
+	color: #FFFFFF;
+}
+.title01 dl {
+	margin: 0px;
+	padding: 0px;
+	height: 162px;
+	background-color: #f5f9fe;
+}
+
+.title01 dt {
+	font-family: "宋体";
+	font-size: 12px;
+	font-weight: bold;
+	color: #1d2c32;
+	background-image: url(../image/Adm_title02_1.gif);
+	background-repeat: no-repeat;
+	height: 22px;
+	padding-top: 12px;
+	padding-left: 31px;
+	margin: 0px;
+	width: 153px;
+	float: left;
+	padding-right: 0px;
+	padding-bottom: 0px;
+}
+.title01 dd {
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	padding: 0px;
+	line-height: 22px;
+	float: left;
+	display: block;
+}
+.title01  #div01  {
+	padding: 0px;
+	float: left;
+	height: 24px;
+	width: 184px;
+	margin-bottom: 5px;
+}
+.title01        #div01 ul             {
+	line-height: 24px;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	list-style-type: none;
+}
+.title01     #div01     ul    li      {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	height: 24px;
+	width: 184px;
+	list-style-type: none;
+	display: block;
+}
+.title01     #div01     ul     li    a      {
+	font-family: "宋体";
+	font-size: 12px;
+	line-height: 24px;
+	color: #343539;
+	display: block;
+	text-decoration: none;
+	padding-left: 60px;
+	background-image: url(../image/Adm_title04.gif);
+	background-repeat: no-repeat;
+	margin: 0px;
+	height: 24px;
+	width: 124px;
+}
+.title01     #div01     ul     li    a:hover      {
+	font-family: "宋体";
+	font-size: 12px;
+	line-height: 24px;
+	color: #414f1c;
+	background-image: url(../image/Adm_title03.gif);
+	background-repeat: no-repeat;
+	height: 24px;
+	width: 124px;
+	text-decoration: none;
+	padding-left: 60px;
+}
+
+
+
+.table    {
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #b0b5b8;
+	background-color: #f9f9f9;
+}
+
+
+.tab002 td{
+	height:12px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	text-align: center;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-color: #b0b5b8;
+	border-bottom-color: #b0b5b8;
+	font-family: "宋体";
+	font-size: 12px;
+	color: #343539;
+}
+.td_blue {
+	color: #3a64a7;
+}
+.red {
+	color: #9a1a1b;
+}
+
+h2 {
+	font-family: "黑体";
+	font-size: 35px;
+	color: #FFFFFF;
+}
+
+
+
+.h24 {
+	height: 27px;
+}
+
+.lh28 {
+	line-height: 33px;
+	color: #000000;
+}
+.mt5 {
+	margin-top: 5px;
+}
+
+
+.mt10 {
+	margin-top: 10px;
+}
+
+
+.mt18 {
+	margin-top: 10px;
+}
+.pl6 {
+	padding-left: 6px;
+}
+.pr6 {
+	padding-right: 6px;
+}
+
+
+.mr17 {
+	margin-left: 17px;
+}
+.mt37 {
+	margin-top: 37px;
+}
+.title02 dl {
+	margin: 0px;
+	padding: 0px;
+	height: 193px;
+	background-color: #f5f9fe;
+}
+.title02 dt {
+	font-family: "宋体";
+	font-size: 12px;
+	font-weight: bold;
+	color: #1d2c32;
+	background-image: url(../image/Adm_title02_1.gif);
+	background-repeat: no-repeat;
+	height: 22px;
+	padding-top: 12px;
+	padding-left: 31px;
+	margin: 0px;
+	width: 153px;
+	float: left;
+	padding-right: 0px;
+	padding-bottom: 0px;
+}
+.title02 dd {
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	padding: 0px;
+	line-height: 22px;
+	float: left;
+	display: block;
+}
+
+.title02 #div01 {
+	padding: 0px;
+	float: left;
+	height: 24px;
+	width: 184px;
+	margin-bottom: 5px;
+}
+.title02 #div01 ul {
+	line-height: 24px;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	list-style-type: none;
+}
+.title02 #div01 ul li {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	height: 24px;
+	width: 184px;
+	list-style-type: none;
+	display: block;
+}
+.title02 #div01 ul li a {
+	font-family: "宋体";
+	font-size: 12px;
+	line-height: 24px;
+	color: #343539;
+	display: block;
+	text-decoration: none;
+	padding-left: 60px;
+	background-image: url(../image/Adm_title04.gif);
+	background-repeat: no-repeat;
+	margin: 0px;
+	height: 24px;
+	width: 124px;
+}
+.title02 #div01 ul li a:hover {
+	font-family: "宋体";
+	font-size: 12px;
+	line-height: 24px;
+	color: #414f1c;
+	background-image: url(../image/Adm_title03.gif);
+	background-repeat: no-repeat;
+	height: 24px;
+	width: 124px;
+	text-decoration: none;
+	padding-left: 60px;
+}
+.title03    dl {
+	margin: 0px;
+	padding: 0px;
+	height: 142px;
+	background-color: #f5f9fe;
+}
+.title03 dt {
+	font-family: "宋体";
+	font-size: 12px;
+	font-weight: bold;
+	color: #1d2c32;
+	background-image: url(../image/Adm_title02_1.gif);
+	background-repeat: no-repeat;
+	height: 22px;
+	padding-top: 12px;
+	padding-left: 31px;
+	margin: 0px;
+	width: 153px;
+	float: left;
+	padding-right: 0px;
+	padding-bottom: 0px;
+}
+.title03 dd {
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	padding: 0px;
+	line-height: 22px;
+	float: left;
+	display: block;
+}
+.title03 #div01 {
+	padding: 0px;
+	float: left;
+	height: 24px;
+	width: 184px;
+	margin-bottom: 5px;
+}
+.title03 #div01 ul {
+	line-height: 24px;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	list-style-type: none;
+}
+.title03 #div01 ul li {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	height: 24px;
+	width: 184px;
+	list-style-type: none;
+	display: block;
+}
+.title03 #div01 ul li a {
+	font-family: "宋体";
+	font-size: 12px;
+	line-height: 24px;
+	color: #343539;
+	display: block;
+	text-decoration: none;
+	padding-left: 60px;
+	background-image: url(../image/Adm_title04.gif);
+	background-repeat: no-repeat;
+	margin: 0px;
+	height: 24px;
+	width: 124px;
+}
+.title03 #div01 ul li a:hover {
+	font-family: "宋体";
+	font-size: 12px;
+	line-height: 24px;
+	color: #414f1c;
+	background-image: url(../image/Adm_title03.gif);
+	background-repeat: no-repeat;
+	height: 24px;
+	width: 124px;
+	text-decoration: none;
+	padding-left: 60px;
+}

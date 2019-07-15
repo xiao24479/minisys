@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>消息列表</title>
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="/_ext/script/jquery.js"></script>
+</head>
+<body>
+<div class="form">
+		<dl>
+				<dt>
+				<div class="form-title">
+                <strong>消息栏</strong>
+                </div>
+				</dt>
+				<dd class="contends" style="padding:10px;">
+					<ul>
+						{foreach from=$pagination_rs item=r}
+						<li style="height:30px; border-bottom:1px dashed #999; line-height:30px;">
+                        {if $r.status==0}[<font color="red">未读</font>]
+                        {elseif $r.status==1}[已读]{/if}
+                        <a href="main.php?m=admin&a=myDetailInfo&nid={$r.id}">
+                        <time>{if $r.from_time!=0}{$r.from_time|date:'Y-m-d H.i'}:{/if}</time> 
+						{$r.title}
+                        </a>
+                        </li>
+						{/foreach}
+					</ul>
+				</dd>
+		</dl>		
+        
+        <div class="page">{$pagination}</div>
+</div>
+</body>
+</html>

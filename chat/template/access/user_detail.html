@@ -1,0 +1,132 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="script/rights/index.js"></script>
+<script language="javascript">
+	
+function access_add(formselect,toselect){
+	 var allr = document.getElementById(formselect);
+	 var m=allr.options[allr.selectedIndex].value;
+     var n=allr.options[allr.selectedIndex].text;
+	 access_add_action(m,n,toselect);
+	 allr.removeChild(allr.options[allr.selectedIndex]);
+}
+
+
+function access_add_action(id,name,toselect){
+	var userr = document.getElementById(toselect);
+	userr.options.add(new Option(name,id));
+}
+
+
+function user_access_save(user_id, hid){
+	var temp = document.getElementById('user_access');
+	ids = '';
+	for(i=0;i<temp.options.length;i++ ){
+		ids+=','+temp.options[i].value;
+	}
+	
+	$.ajax({
+	    url:"/chat/main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"access",a:"access_save",user_id:user_id,hid:hid,ids:ids,j:1,tt:Math.random()},
+	    success:function(resp){
+			if(resp.message='ok'){
+				alert('成功保存！');
+			}
+	    }
+	});
+
+}
+
+
+String.prototype.trim= function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");  
+}
+
+</script>
+</head>
+<body>
+<div class="col-lg-6">
+	 <div class="panel panel-default">
+	    <div class="panel-heading">
+	        {$user_name}
+	    </div>
+		<div class="panel-body">
+			<div class="row">
+	            <div class="col-lg-12">
+						<div>
+						<div style="float:left; width:30%;"><strong>已分配机器人</strong><br>
+					  <select multiple class="form-control" id="user_access">
+						{foreach from=$user_access item=r}
+						<option value="{$r.id}">{$r.fame}</option>
+						{/foreach}
+					  </select>
+						</div>
+						<div class="col-lg-12" style="width:30%;float:left;">
+						<div class="form-group">
+							<input onClick="javascript:access_add('allacc','user_access');" type="button" class="form-control" value="添加"  >
+						</div>
+						<div class="form-group">
+						<input onClick="javascript:access_add('user_access','allacc');" type="button" class="form-control" value="删除"  >
+						</div>
+						<div class="form-group">
+						<input onClick="javascript:user_access_save({$user_id}, {$hosp_id});" type="button" value="保存" class="form-control" >
+						</div>
+						</div>
+						<div style="float:left;width:30%;"><strong>未分配机器人</strong><br>
+						<select multiple class="form-control" id="allacc" >
+						   {foreach from=$access item=r}
+						<option value="{$r.id}">{$r.fame}</option>
+						{/foreach}
+						  </select>
+						</div>
+					  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<!--<div class="form"  style="width:576px; float:left;">
+		
+		<dl>
+				<dt class="form-title"><strong>医院分配</strong></dt>
+				<dd>
+				<div>
+                <div style="float:left; width:250px;margin-bottom:10px; line-height:30px;"><strong>该用户医院</strong><br>
+                  <select size="10" style="width:250px; height:180px;" id="user_hospital_id" multiple>
+                    {foreach from=$user_hospital_rs item=r}
+                    <option value="{$r.hospital_id}">{$r.name}</option>
+                    {/foreach}
+                  </select>
+                    </div>
+
+                    <div style="float:left;width:75px;"><br><br> <br>
+                        <input onClick="add_select('hospital_all_id','user_hospital_id');" type="button" class="submit" value="添加">
+                        <br>
+                      <br>
+                      <input onClick="add_select('user_hospital_id','hospital_all_id');" type="button" class="submit" value="删除">
+                     <br>
+                      <br> <br>
+                        <input onClick="save_user_hospital({$user_rs.id});" type="button" class="submit" value="保存">
+                    </div>
+
+                    <div style="float:left;width:250;line-height:30px;"><strong>所有医院</strong><br>
+                    <select name="select" size="10" id="hospital_all_id" style="width:250px;height:180px;" multiple>
+                    {foreach from=$hospital_all_rs item=r}
+                    <option value="{$r.hospital_id}">{$r.name}</option>
+                    {/foreach}
+                    </select>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+				</dd>
+			</dl>
+	</div>-->
+
+</body>
+</html>

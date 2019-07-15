@@ -1,0 +1,153 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/_ext/style/css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+String.prototype.trim= function(){
+    return this.replace(/(^\s*)|(\s*$)/g, "");  
+}
+function add_rights(){
+	var name          = document.getElementById('name').value;//name
+	var url           = document.getElementById('url').value;//url
+	var comment       = document.getElementById('comment').value;//说明
+	var order         = document.getElementById('order').value;//排序
+	var father_id     = document.getElementById('father_id').value;// 上级目录
+	var flag          = document.getElementById('flag').value; //是不是有效
+	var project       = document.getElementById('project').value; //project	
+	var is_show       = document.getElementById('is_show').value; //project	
+	
+	if(name.trim()==''){
+		alert('功能名称不能为空！');
+		document.getElementById('name').focus();
+	}else if(project.trim() ==''){
+        alert('项目名称不能为空！');
+		document.getElementById('project').focus();
+    }else{
+	$.ajax({
+	    url:"main.php",
+	    type:"get",
+	    dataType:"json",
+	    data:{m:"roleRights",a:"rights_add_action",name:name,url:url,comment:comment,order:order,father_id:father_id,flag:flag,project:project,is_show:is_show,j:1,tt:Math.random()},
+	    success:function(resp){
+			if(resp.message=='0'){
+				alert('该功能名称已经存在，不能重复！');
+			}else{
+				alert('成功保存！');
+				get_role_rights(document.getElementById('select').value);			
+			}
+	    }
+		});
+	
+	}
+	
+}
+</script>
+
+<!--<div  class="form" style="width:450px;">
+<dl>
+		<DT class="form-title"><strong>添加功能</strong></DT>
+		<DD>
+<div class="div">
+<strong>功能名称:</strong><input name="name" type="text" id="name" size="15"  value=""  class="input" maxlength="30"><strong class="red">*</strong>
+</div>
+<div class="div">
+<strong>功能路径:</strong><input name="url" type="text" id="url" size="50" value="" maxlength="50" class="input">
+</div>
+<div class="div">
+<strong>功能说明:</strong><input name="comment" type="text" id="comment" size="50" value="" maxlength="50" class="input">
+</div>
+<div class="div">
+<strong>排列顺序:</strong><input name="order" type="text" id="order" size="15" value="" maxlength="15" class="input">
+</div>
+<div class="div">
+<strong>项目名称:</strong><input name="project" type="text" id="project" size="15"  value="" maxlength="15" class="input"><strong class="red">*</strong>
+</div>
+<div class="div">
+<strong>是否有效:</strong><select name="flag" id="flag">
+    <option value="1" selected>有效</option>
+    <option value="0" >无效</option>
+  </select>
+</div>
+<div class="div">
+<strong>上级目录:</strong><select name="father_id"  id="father_id">
+   <option value="0" selected>根目录</option>
+   {foreach from=$father item=function}
+   <option value="{$function.code}">[{$function.project}]{$function.name}</option>
+   {/foreach}
+</select><strong class="red">*</strong>
+</div>
+<div class="div">
+<strong>是否显示:</strong><select name="is_show" id="is_show">
+    <option value="1" selected>显示</option>
+    <option value="0" >不显示</option>
+  </select>
+</div>
+<div class="div_submit" style="padding-left:90px;">
+<input class="submit" type="submit" value="保&nbsp;&nbsp;存" style="width:73px;" onClick="javascript:add_rights();">
+</div>
+</DD>
+</dl>
+</div>-->
+  <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            添加功能
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+										
+										 <div class="form-group">
+                                            <label>功能名称 <span style="color:#FF0000;">*</span></label>
+                                            <input class="form-control" name="name" type="text" id="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>功能路径 </label>
+                                            <input class="form-control" name="url" type="text" id="url">
+                                        </div>
+										<div class="form-group">
+                                            <label>功能说明 </label>
+                                            <input class="form-control" name="comment" type="text" id="comment">
+                                        </div>
+										<div class="form-group">
+                                            <label>排列顺序 </label>
+                                            <input class="form-control" name="order" type="text" id="order">
+                                        </div>
+										<div class="form-group">
+                                            <label>项目名称 <span style="color:#FF0000;">*</span></label>
+                                            <input class="form-control" name="project" type="text" id="project">
+                                        </div>
+										<div class="form-group">
+                                            <label>是否有效</label>
+                                            <select class="form-control" name="flag" id="flag">
+                                                <option value="1">有效</option>
+                                                <option value="0">无效</option>
+                                            </select>
+                                        </div>
+                                       <div class="form-group">
+                                            <label>上级目录</label>
+                                            <select class="form-control" name="father_id" id="father_id">
+												<option value="0" selected>根目录</option>
+                                                 {foreach from=$father item=function}
+												   <option value="{$function.code}">[{$function.project}]{$function.name}</option>
+												 {/foreach}
+                                            </select>
+                                        </div>
+										<div class="form-group">
+                                            <label>是否显示</label>
+                                            <select class="form-control" name="is_show" id="is_show">
+                                                <option value="1">显示</option>
+                                                <option value="0">不显示</option>
+                                            </select>
+                                        </div>
+										 <input  onClick="javascript:add_rights();" type="submit" class="btn btn-default" value="提交">
+                                   
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>

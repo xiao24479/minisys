@@ -1,0 +1,15 @@
+
+
+{foreach from=$data item=list}
+	<tr>
+		<td>{$list.name}</td> 
+		<td>{$list.login_name}</td> 
+		<td>
+			<a onclick="get_user_detail({$list.id}, '{$list.name}', this);">分配</a>
+		</td> 
+	</tr>
+{/foreach}
+	<tr>
+		<td colspan="3">{$page}</td>
+	</tr>
+

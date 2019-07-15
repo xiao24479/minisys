@@ -1,0 +1,38 @@
+<div class="form-group">
+    <label>机器人名称:</label>
+    <input class="form-control" type="text" id="add_fame" name="add_fame" >
+</div>
+<div class="form-group">
+    <label>机器人类别:</label>
+	<select id="add_style" name="add_style"  class="form-control" onChange="javascript:setRobot(this.value);">
+          <option value="1" {if $data.style eq '1'} selected{/if}>字典</option>	
+          <option value="2" {if $data.style eq '2'} selected{/if}>问诊</option>	
+	</select>
+</div>
+<div class="form-group">
+    <label>机器人性别:</label>
+	<select id="add_sex" class="form-control"  name="add_sex">
+          <option value="1" {if $data.sex eq '1'} selected{/if}>男性</option>	
+          <option value="2" {if $data.sex eq '2'} selected{/if}>女性</option>	
+	</select>
+</div>
+<div class="form-group">
+    <label>机器人年龄:</label>
+	<select id="add_agetype" class="form-control"  name="add_agetype">
+	      <option value="1" {if $data.agetype eq '1'} selected{/if}>青年</option>	
+	      <option value="2" {if $data.agetype eq '2'} selected{/if}>中年</option>
+	      <option value="3" {if $data.agetype eq '3'} selected{/if}>老年</option>
+	</select>
+</div>
+<div class="form-group">
+    <label>导入机器人:</label>
+	<select id="robot" class="form-control"  name="robot">
+	     <option value="">请选择</option>	
+	     {foreach from=$robot_list item=list}
+              <option value="{$list.id}" {if $data.robot eq $list.id} selected{/if}>{$list.fame}</option>	
+		 {/foreach}
+	</select>
+</div>
+<div>
+	<input onclick="javascript:add_action();" type="submit" class="btn btn-default" value="提交"><b id="modify-msg"></b>
+</div>

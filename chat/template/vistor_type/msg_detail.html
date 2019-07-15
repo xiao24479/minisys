@@ -1,0 +1,54 @@
+<style type="text/css">
+	.admin-msg {
+		margin-top:20px;
+		margin-left:10px;
+	}
+	.msg-time {
+		font-size: 11px;
+	}
+</style>
+
+{foreach from=$data item=list}
+	{if $list.type eq '1'}
+		<div style="margin-top:10px;margin-left:10px;">
+			<p>
+				<strong>
+					<font color="green">
+						<span class="msg-time">{$list.createTime}</span>
+						&nbsp;
+						{if $list.vistor_name}
+							{$list.vistor_name}
+						{else}
+							访客{$list.vistor_id}
+						{/if}
+					</font>
+				</strong>
+			</p>
+			<p style="text-indent:1rem;">{$list.content}</p>
+		</div>
+	{elseif $list.type eq '2'} 
+		<div class="admin-msg">
+			<p>
+				<strong>
+					<font color="#FF6633">
+						<span class="msg-time">{$list.createTime}</span>&nbsp;
+						在线机器人
+					</font>
+				</strong>
+			</p>
+			<p style="text-indent:1rem;">{$list.content}</p>
+		</div>
+	{elseif $list.type eq '3'} 
+		<div class="admin-msg">
+			<p>
+				<strong>
+					<font color="#FF6633">
+						<span class="msg-time">{$list.createTime}</span>&nbsp;
+						{$list.admin_name}
+					</font>
+				</strong>
+			</p>
+			<p style="text-indent:1rem;">{$list.content}</p>
+		</div>
+	{/if}
+{/foreach} 
